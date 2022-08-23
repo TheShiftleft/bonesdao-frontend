@@ -31,6 +31,9 @@ export class TombFinance {
   TOMB: ERC20;
   TSHARE: ERC20;
   TBOND: ERC20;
+  DIGITAL: ERC20;
+  DIGSHARE: ERC20;
+  DIGBOND: ERC20;
   FTM: ERC20;
 
   constructor(cfg: Configuration) {
@@ -49,6 +52,9 @@ export class TombFinance {
     this.TOMB = new ERC20(deployments.tomb.address, provider, 'TOMB');
     this.TSHARE = new ERC20(deployments.tShare.address, provider, 'TSHARE');
     this.TBOND = new ERC20(deployments.tBond.address, provider, 'TBOND');
+    this.DIGITAL = new ERC20(deployments.digital.address, provider, 'DIGITAL');
+    this.DIGSHARE = new ERC20(deployments.digshares.address, provider, 'DIGSHARES');
+    this.DIGBOND = new ERC20(deployments.digbond.address, provider, 'DIGBOND');
     this.FTM = this.externalTokens['WFTM'];
 
     // Uniswap V2 Pair
@@ -106,13 +112,36 @@ export class TombFinance {
     const priceInFTM = await this.getTokenPriceFromPancakeswap(this.TOMB);
     const priceOfOneFTM = await this.getWFTMPriceFromPancakeswap();
     const priceOfTombInDollars = (Number(priceInFTM) * Number(priceOfOneFTM)).toFixed(2);
-
     return {
       tokenInFtm: priceInFTM,
       priceInDollars: priceOfTombInDollars,
       totalSupply: getDisplayBalance(supply, this.TOMB.decimal, 0),
       circulatingSupply: getDisplayBalance(tombCirculatingSupply, this.TOMB.decimal, 0),
     };
+  }
+
+  /**
+   * Use this method to get price for Tomb
+   * @returns TokenStat for DIGITAL
+   * priceInFTM
+   * priceInDollars
+   * TotalSupply
+   * CirculatingSupply (always equal to total supply for bonds)
+   */
+  async getDigitalStat(): Promise<TokenStat> {
+    const { genesis_pool } = this.contracts
+    const supply = await this.DIGITAL.totalSupply(); // Check
+    const priceInFTM = await this.getTokenPriceFromPancakeswapBased(this.DIGITAL);
+    const rewardsPoolSupply = await this.DIGITAL.balanceOf(genesis_pool.address);
+    const priceOfOneFTM = await this.getWFTMPriceFromPancakeswap();
+    const totalCirculatingSupply = supply.sub(rewardsPoolSupply);
+    const priceOfDigitalInDollars = (Number(priceInFTM) * Number(priceOfOneFTM)).toFixed(2);
+    return {
+      tokenInFtm: priceInFTM,
+      priceInDollars: priceOfDigitalInDollars,
+      totalSupply: getDisplayBalance(supply, this.DIGITAL.decimal, 0),
+      circulatingSupply: getDisplayBalance(totalCirculatingSupply, this.DIGITAL.decimal, 0),
+    }
   }
 
   /**
@@ -170,6 +199,31 @@ export class TombFinance {
   }
 
   /**
+   * Use this method to get price for Tomb
+   * @returns TokenStat for DIGBOND
+   * priceInFTM
+   * priceInDollars
+   * TotalSupply
+   * CirculatingSupply (always equal to total supply for bonds)
+   */
+  async getDigbondStat(): Promise<TokenStat> {
+    const { treasury } = this.contracts;
+
+    const digitalStat = await this.getDigitalStat();
+    const bondDigitalRatioBN = await treasury.getBondPremiumRate();
+    const modifier = bondDigitalRatioBN / 1e18 > 1 ? bondDigitalRatioBN / 1e18 : 1;
+    const bondPriceInFTM = (Number(digitalStat.tokenInFtm) * modifier).toFixed(4);
+    const priceOfDigBondInDollars = (Number(digitalStat.priceInDollars) * modifier).toFixed(4);
+    const supply = await this.DIGBOND.displayedTotalSupply();
+    return {
+      tokenInFtm: bondPriceInFTM,
+      priceInDollars: priceOfDigBondInDollars,
+      totalSupply: supply,
+      circulatingSupply: supply,
+    };
+  }
+
+  /**
    * @returns TokenStat for TSHARE
    * priceInFTM
    * priceInDollars
@@ -192,6 +246,32 @@ export class TombFinance {
       priceInDollars: priceOfSharesInDollars,
       totalSupply: getDisplayBalance(supply, this.TSHARE.decimal, 0),
       circulatingSupply: getDisplayBalance(tShareCirculatingSupply, this.TSHARE.decimal, 0),
+    };
+  }
+
+  /**
+   * @returns TokenStat for DIGSHARE
+   * priceInFTM
+   * priceInDollars
+   * TotalSupply
+   * CirculatingSupply (always equal to total supply for bonds)
+   */
+   async getDigshareStat(): Promise<TokenStat> {
+    const { digital_share_pool } = this.contracts;
+
+    const supply = await this.DIGSHARE.totalSupply();
+
+    const priceInFTM = await this.getTokenPriceFromPancakeswap(this.DIGSHARE);
+    const digitalRewardPoolSupply = await this.DIGSHARE.balanceOf(digital_share_pool.address);
+    const digshareCirculatingSupply = supply.sub(digitalRewardPoolSupply);
+    const priceOfOneFTM = await this.getWFTMPriceFromPancakeswap();
+    const priceOfSharesInDollars = (Number(priceInFTM) * Number(priceOfOneFTM)).toFixed(2);
+
+    return {
+      tokenInFtm: priceInFTM,
+      priceInDollars: priceOfSharesInDollars,
+      totalSupply: getDisplayBalance(supply, this.DIGSHARE.decimal, 0),
+      circulatingSupply: getDisplayBalance(digshareCirculatingSupply, this.DIGSHARE.decimal, 0),
     };
   }
 
@@ -414,7 +494,7 @@ export class TombFinance {
         return await pool.pendingShare(poolId, account);
       }
     } catch (err) {
-      console.error(`Failed to call earned() on pool ${pool.address}: ${err.stack}`);
+      console.error(`Failed to call earned() on pool ${pool.address}: ${err}`);
       return BigNumber.from(0);
     }
   }
@@ -425,7 +505,7 @@ export class TombFinance {
       let userInfo = await pool.userInfo(poolId, account);
       return await userInfo.amount;
     } catch (err) {
-      console.error(`Failed to call balanceOf() on pool ${pool.address}: ${err.stack}`);
+      console.error(`Failed to call balanceOf() on pool ${pool.address}: ${err}`);
       return BigNumber.from(0);
     }
   }
@@ -483,6 +563,28 @@ export class TombFinance {
 
   isOldMasonryMember(): boolean {
     return this.masonryVersionOfUser !== 'latest';
+  }
+
+  async getTokenPriceFromPancakeswapBased(tokenContract: ERC20): Promise<string> {
+    const ready = await this.provider.ready;
+    if (!ready) return;
+    const { chainId } = this.config;
+    const { BASED } = this.config.externalTokens;
+    console.log('this.config', this.config)
+    console.log('tokenContract', tokenContract)
+
+    const based = new Token(chainId, BASED[0], BASED[1]);
+    const token = new Token(chainId, tokenContract.address, tokenContract.decimal, tokenContract.symbol);
+    console.log('token 0', based)
+    console.log('token 1', token)
+    try {
+      const basedToToken = await Fetcher.fetchPairData(based, token, this.provider);
+      const priceInBUSD = new Route([basedToToken], token);
+
+      return priceInBUSD.midPrice.toFixed(4);
+    } catch (err) {
+      console.error(`Failed to fetch token price of ${tokenContract.symbol}: ${err}`);
+    }
   }
 
   async getTokenPriceFromPancakeswap(tokenContract: ERC20): Promise<string> {

@@ -9,12 +9,12 @@ import { createGlobalStyle } from 'styled-components';
 import CountUp from 'react-countup';
 import CardIcon from '../../components/CardIcon';
 import TokenSymbol from '../../components/TokenSymbol';
-import useTombStats from '../../hooks/useTombStats';
+// import useTombStats from '../../hooks/useTombStats';
 import useLpStats from '../../hooks/useLpStats';
 import useModal from '../../hooks/useModal';
 import useZap from '../../hooks/useZap';
-import useBondStats from '../../hooks/useBondStats';
-import usetShareStats from '../../hooks/usetShareStats';
+// import useBondStats from '../../hooks/useBondStats';
+// import usetShareStats from '../../hooks/usetShareStats';
 import useTotalValueLocked from '../../hooks/useTotalValueLocked';
 import { tomb as tombTesting, tShare as tShareTesting } from '../../tomb-finance/deployments/deployments.testing.json';
 import { tomb as tombProd, tShare as tShareProd } from '../../tomb-finance/deployments/deployments.mainnet.json';
@@ -25,7 +25,10 @@ import { Box, Button, Card, CardContent, Grid, Paper } from '@material-ui/core';
 import ZapModal from '../Bank/components/ZapModal';
 
 import { makeStyles } from '@material-ui/core/styles';
-import useTombFinance from '../../hooks/useTombFinance';
+// import useTombFinance from '../../hooks/useTombFinance';
+import useDigitalStats from '../../hooks/useDigitalStats';
+import useDigshareStats from '../../hooks/useDigshareStats';
+import useDigbondStats from '../../hooks/useDigbondStats';
 
 const BackgroundImage = createGlobalStyle`
   body {
@@ -47,10 +50,13 @@ const Home = () => {
   const TVL = useTotalValueLocked();
   const tombFtmLpStats = useLpStats('TOMB-FTM-LP');
   const tShareFtmLpStats = useLpStats('TSHARE-FTM-LP');
-  const tombStats = useTombStats();
-  const tShareStats = usetShareStats();
-  const tBondStats = useBondStats();
-  const tombFinance = useTombFinance();
+  // const tombStats = useTombStats();
+  // const tShareStats = usetShareStats();
+  const digitalStats = useDigitalStats();
+  const digshareStats = useDigshareStats();
+  const digbondStats = useDigbondStats();
+  // const tBondStats = useBondStats();
+  // const tombFinance = useTombFinance();
 
   let tomb;
   let tShare;
@@ -67,38 +73,56 @@ const Home = () => {
 
   const tombLPStats = useMemo(() => (tombFtmLpStats ? tombFtmLpStats : null), [tombFtmLpStats]);
   const tshareLPStats = useMemo(() => (tShareFtmLpStats ? tShareFtmLpStats : null), [tShareFtmLpStats]);
-  const tombPriceInDollars = useMemo(
-    () => (tombStats ? Number(tombStats.priceInDollars).toFixed(2) : null),
-    [tombStats],
-  );
-  const tombPriceInFTM = useMemo(() => (tombStats ? Number(tombStats.tokenInFtm).toFixed(4) : null), [tombStats]);
-  const tombCirculatingSupply = useMemo(() => (tombStats ? String(tombStats.circulatingSupply) : null), [tombStats]);
-  const tombTotalSupply = useMemo(() => (tombStats ? String(tombStats.totalSupply) : null), [tombStats]);
+  // const tombPriceInDollars = useMemo(
+  //   () => (tombStats ? Number(tombStats.priceInDollars).toFixed(2) : null),
+  //   [tombStats],
+  // );
+  // const tombPriceInFTM = useMemo(() => (tombStats ? Number(tombStats.tokenInFtm).toFixed(4) : null), [tombStats]);
+  // const tombCirculatingSupply = useMemo(() => (tombStats ? String(tombStats.circulatingSupply) : null), [tombStats]);
+  // const tombTotalSupply = useMemo(() => (tombStats ? String(tombStats.totalSupply) : null), [tombStats]);
 
-  const tSharePriceInDollars = useMemo(
-    () => (tShareStats ? Number(tShareStats.priceInDollars).toFixed(2) : null),
-    [tShareStats],
-  );
-  const tSharePriceInFTM = useMemo(
-    () => (tShareStats ? Number(tShareStats.tokenInFtm).toFixed(4) : null),
-    [tShareStats],
-  );
-  const tShareCirculatingSupply = useMemo(
-    () => (tShareStats ? String(tShareStats.circulatingSupply) : null),
-    [tShareStats],
-  );
-  const tShareTotalSupply = useMemo(() => (tShareStats ? String(tShareStats.totalSupply) : null), [tShareStats]);
+  // DIGITAL
+  const digitalPriceInDollars = useMemo(() => (digitalStats ? Number(digitalStats.priceInDollars).toFixed(2) : null),[digitalStats]);
+  const digitalPriceInFTM = useMemo(() => (digitalStats ? Number(digitalStats.tokenInFtm).toFixed(4): null), [digitalStats]);
+  const digitalCirculatingSupply = useMemo(() => (digitalStats ? String(digitalStats.circulatingSupply) : null), [digitalStats]);
+  const digitalTotalSupply = useMemo(() => (digitalStats ? String(digitalStats.totalSupply) : null), [digitalStats]);
 
-  const tBondPriceInDollars = useMemo(
-    () => (tBondStats ? Number(tBondStats.priceInDollars).toFixed(2) : null),
-    [tBondStats],
-  );
-  const tBondPriceInFTM = useMemo(() => (tBondStats ? Number(tBondStats.tokenInFtm).toFixed(4) : null), [tBondStats]);
-  const tBondCirculatingSupply = useMemo(
-    () => (tBondStats ? String(tBondStats.circulatingSupply) : null),
-    [tBondStats],
-  );
-  const tBondTotalSupply = useMemo(() => (tBondStats ? String(tBondStats.totalSupply) : null), [tBondStats]);
+  // DIGSHARE
+  const digsharePriceInDollars = useMemo(() => (digshareStats ? Number(digshareStats.priceInDollars).toFixed(2) : null), [digshareStats]);
+  const digsharePriceInFTM = useMemo(() => (digshareStats ? Number(digshareStats.tokenInFtm).toFixed(4) : null), [digshareStats]);
+  const digshareCirculatingSupply = useMemo(() => (digshareStats ? String(digshareStats.circulatingSupply) : null), [digshareStats]);
+  const digshareTotalSupply = useMemo(() => (digshareStats ? String(digshareStats.totalSupply) : null), [digshareStats]);
+
+  // DIGBOND
+  const digbondPriceInDollars = useMemo(() => (digbondStats ? Number(digbondStats.priceInDollars).toFixed(2) : null), [digbondStats]);
+  const digbondPriceInFTM = useMemo(() => (digbondStats ? Number(digbondStats.tokenInFtm).toFixed(4) : null), [digbondStats]);
+  const digbondCirculatingSupply = useMemo(() => (digbondStats ? String(digbondStats.circulatingSupply) : null), [digbondStats]);
+  const digbondTotalSupply = useMemo(() => (digbondStats ? String(digbondStats.totalSupply) : null), [digbondStats]);
+
+  // const tSharePriceInDollars = useMemo(
+  //   () => (tShareStats ? Number(tShareStats.priceInDollars).toFixed(2) : null),
+  //   [tShareStats],
+  // );
+  // const tSharePriceInFTM = useMemo(
+  //   () => (tShareStats ? Number(tShareStats.tokenInFtm).toFixed(4) : null),
+  //   [tShareStats],
+  // );
+  // const tShareCirculatingSupply = useMemo(
+  //   () => (tShareStats ? String(tShareStats.circulatingSupply) : null),
+  //   [tShareStats],
+  // );
+  // const tShareTotalSupply = useMemo(() => (tShareStats ? String(tShareStats.totalSupply) : null), [tShareStats]);
+
+  // const tBondPriceInDollars = useMemo(
+  //   () => (tBondStats ? Number(tBondStats.priceInDollars).toFixed(2) : null),
+  //   [tBondStats],
+  // );
+  // const tBondPriceInFTM = useMemo(() => (tBondStats ? Number(tBondStats.tokenInFtm).toFixed(4) : null), [tBondStats]);
+  // const tBondCirculatingSupply = useMemo(
+  //   () => (tBondStats ? String(tBondStats.circulatingSupply) : null),
+  //   [tBondStats],
+  // );
+  // const tBondTotalSupply = useMemo(() => (tBondStats ? String(tBondStats.totalSupply) : null), [tBondStats]);
 
   const tombLpZap = useZap({ depositTokenName: 'TOMB-FTM-LP' });
   const tshareLpZap = useZap({ depositTokenName: 'TSHARE-FTM-LP' });
@@ -205,14 +229,14 @@ const Home = () => {
           </Card>
         </Grid>
 
-        {/* TOMB */}
+        {/* DIGITAL */}
         <Grid item xs={12} sm={4}>
           <Card>
             <CardContent align="center" style={{ position: 'relative' }}>
-              <h2>TOMB</h2>
+              <h2>DIGITAL</h2>
               <Button
                 onClick={() => {
-                  tombFinance.watchAssetInMetamask('TOMB');
+                  // tombFinance.watchAssetInMetamask('TOMB');
                 }}
                 color="primary"
                 variant="outlined"
@@ -228,30 +252,30 @@ const Home = () => {
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>{tombPriceInFTM ? tombPriceInFTM : '-.----'} FTM</span>
+                <span style={{ fontSize: '30px' }}>{digitalPriceInFTM ? digitalPriceInFTM : '-.----'} FTM</span>
               </Box>
               <Box>
                 <span style={{ fontSize: '16px', alignContent: 'flex-start' }}>
-                  ${tombPriceInDollars ? tombPriceInDollars : '-.--'}
+                  ${digitalPriceInDollars ? digitalPriceInDollars : '-.--'}
                 </span>
               </Box>
               <span style={{ fontSize: '12px' }}>
-                Market Cap: ${(tombCirculatingSupply * tombPriceInDollars).toFixed(2)} <br />
-                Circulating Supply: {tombCirculatingSupply} <br />
-                Total Supply: {tombTotalSupply}
+                Market Cap: ${(digitalCirculatingSupply * digitalPriceInDollars).toFixed(2)} <br />
+                Circulating Supply: {digitalCirculatingSupply} <br />
+                Total Supply: {digitalTotalSupply}
               </span>
             </CardContent>
           </Card>
         </Grid>
 
-        {/* TSHARE */}
+        {/* DIGSHARE */}
         <Grid item xs={12} sm={4}>
           <Card>
             <CardContent align="center" style={{ position: 'relative' }}>
-              <h2>TSHARE</h2>
+              <h2>DIGSHARE</h2>
               <Button
                 onClick={() => {
-                  tombFinance.watchAssetInMetamask('TSHARE');
+                  // tombFinance.watchAssetInMetamask('TSHARE');
                 }}
                 color="primary"
                 variant="outlined"
@@ -267,28 +291,28 @@ const Home = () => {
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>{tSharePriceInFTM ? tSharePriceInFTM : '-.----'} FTM</span>
+                <span style={{ fontSize: '30px' }}>{digsharePriceInFTM ? digsharePriceInFTM : '-.----'} FTM</span>
               </Box>
               <Box>
-                <span style={{ fontSize: '16px' }}>${tSharePriceInDollars ? tSharePriceInDollars : '-.--'}</span>
+                <span style={{ fontSize: '16px' }}>${digsharePriceInDollars ? digsharePriceInDollars : '-.--'}</span>
               </Box>
               <span style={{ fontSize: '12px' }}>
-                Market Cap: ${(tShareCirculatingSupply * tSharePriceInDollars).toFixed(2)} <br />
-                Circulating Supply: {tShareCirculatingSupply} <br />
-                Total Supply: {tShareTotalSupply}
+                Market Cap: ${(digshareCirculatingSupply * digsharePriceInDollars).toFixed(2)} <br />
+                Circulating Supply: {digshareCirculatingSupply} <br />
+                Total Supply: {digshareTotalSupply}
               </span>
             </CardContent>
           </Card>
         </Grid>
 
-        {/* TBOND */}
+        {/* DIGBOND */}
         <Grid item xs={12} sm={4}>
           <Card>
             <CardContent align="center" style={{ position: 'relative' }}>
-              <h2>TBOND</h2>
+              <h2>DIGBOND</h2>
               <Button
                 onClick={() => {
-                  tombFinance.watchAssetInMetamask('TBOND');
+                  // tombFinance.watchAssetInMetamask('TBOND');
                 }}
                 color="primary"
                 variant="outlined"
@@ -304,15 +328,15 @@ const Home = () => {
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>{tBondPriceInFTM ? tBondPriceInFTM : '-.----'} FTM</span>
+                <span style={{ fontSize: '30px' }}>{digbondPriceInFTM ? digbondPriceInFTM : '-.----'} FTM</span>
               </Box>
               <Box>
-                <span style={{ fontSize: '16px' }}>${tBondPriceInDollars ? tBondPriceInDollars : '-.--'}</span>
+                <span style={{ fontSize: '16px' }}>${digbondPriceInDollars ? digbondPriceInDollars : '-.--'}</span>
               </Box>
               <span style={{ fontSize: '12px' }}>
-                Market Cap: ${(tBondCirculatingSupply * tBondPriceInDollars).toFixed(2)} <br />
-                Circulating Supply: {tBondCirculatingSupply} <br />
-                Total Supply: {tBondTotalSupply}
+                Market Cap: ${(digbondCirculatingSupply * digbondPriceInDollars).toFixed(2)} <br />
+                Circulating Supply: {digbondCirculatingSupply} <br />
+                Total Supply: {digbondTotalSupply}
               </span>
             </CardContent>
           </Card>
