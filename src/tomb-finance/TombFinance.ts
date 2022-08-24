@@ -10,7 +10,7 @@ import ERC20 from './ERC20';
 import { getFullDisplayBalance, getDisplayBalance } from '../utils/formatBalance';
 import { getDefaultProvider } from '../utils/provider';
 import IUniswapV2PairABI from './IUniswapV2Pair.abi.json';
-import config, { bankDefinitions } from '../config';
+import config, { bankDefinitions, digitBankDefinitions } from '../config';
 import moment from 'moment';
 import { parseUnits } from 'ethers/lib/utils';
 import { FTM_TICKER, SPOOKY_ROUTER_ADDR, TOMB_TICKER } from '../utils/constants';
@@ -398,6 +398,8 @@ export class TombFinance {
         tokenPrice = await this.getLPTokenPrice(token, this.TSHARE, false);
       } else if (tokenName === 'SHIBA') {
         tokenPrice = await this.getTokenPriceFromSpiritswap(token);
+      } else if (tokenName === 'DIGITAL-BASED-LP'){
+        tokenPrice = await this.getLPTokenPrice(token, this.DIGITAL, false);
       } else {
         tokenPrice = await this.getTokenPriceFromPancakeswap(token);
         tokenPrice = (Number(tokenPrice) * Number(priceOfOneFtmInDollars)).toString();
@@ -456,6 +458,25 @@ export class TombFinance {
     const TSHAREPrice = (await this.getShareStat()).priceInDollars;
     const masonrytShareBalanceOf = await this.TSHARE.balanceOf(this.currentMasonry().address);
     const masonryTVL = Number(getDisplayBalance(masonrytShareBalanceOf, this.TSHARE.decimal)) * Number(TSHAREPrice);
+
+    return totalValue + masonryTVL;
+  }
+
+  async getDigitalTotalValueLocked(): Promise<Number> {
+    let totalValue = 0;
+    for (const bankInfo of Object.values(digitBankDefinitions)) {
+      const pool = this.contracts[bankInfo.contract];
+      const token = this.externalTokens[bankInfo.depositTokenName];
+      const tokenPrice = await this.getDepositTokenPriceInDollars(bankInfo.depositTokenName, token);
+      const tokenAmountInPool = await token.balanceOf(pool.address);
+      const value = Number(getDisplayBalance(tokenAmountInPool, token.decimal)) * Number(tokenPrice);
+      const poolValue = Number.isNaN(value) ? 0 : value;
+      totalValue += poolValue;
+    }
+
+    const DigsharePrice = (await this.getDigshareStat()).priceInDollars;
+    const masonryDigshareBalanceOf = await this.DIGSHARE.balanceOf(this.currentDigMasonry().address);
+    const masonryTVL = Number(getDisplayBalance(masonryDigshareBalanceOf, this.DIGSHARE.decimal)) * Number(DigsharePrice);
 
     return totalValue + masonryTVL;
   }
@@ -561,6 +582,13 @@ export class TombFinance {
     return this.contracts.Masonry;
   }
 
+  currentDigMasonry(): Contract {
+    if (!this.masonryVersionOfUser) {
+      //throw new Error('you must unlock the wallet to continue.');
+    }
+    return this.contracts.masonry;
+  }
+
   isOldMasonryMember(): boolean {
     return this.masonryVersionOfUser !== 'latest';
   }
@@ -570,13 +598,9 @@ export class TombFinance {
     if (!ready) return;
     const { chainId } = this.config;
     const { BASED } = this.config.externalTokens;
-    console.log('this.config', this.config)
-    console.log('tokenContract', tokenContract)
 
     const based = new Token(chainId, BASED[0], BASED[1]);
     const token = new Token(chainId, tokenContract.address, tokenContract.decimal, tokenContract.symbol);
-    console.log('token 0', based)
-    console.log('token 1', token)
     try {
       const basedToToken = await Fetcher.fetchPairData(based, token, this.provider);
       const priceInBUSD = new Route([basedToToken], token);

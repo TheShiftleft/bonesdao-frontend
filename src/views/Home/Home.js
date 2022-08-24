@@ -29,6 +29,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import useDigitalStats from '../../hooks/useDigitalStats';
 import useDigshareStats from '../../hooks/useDigshareStats';
 import useDigbondStats from '../../hooks/useDigbondStats';
+import useDigitalTotalValueLocked from '../../hooks/useDigitalTotalValueLocked';
 
 const BackgroundImage = createGlobalStyle`
   body {
@@ -47,7 +48,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Home = () => {
   const classes = useStyles();
-  const TVL = useTotalValueLocked();
+  // const TVL = useTotalValueLocked();
+  const digitalTVL = useDigitalTotalValueLocked();
   const tombFtmLpStats = useLpStats('TOMB-FTM-LP');
   const tShareFtmLpStats = useLpStats('TSHARE-FTM-LP');
   // const tombStats = useTombStats();
@@ -191,12 +193,12 @@ const Home = () => {
         </Grid>
         </Grid>
 
-        {/* TVL */}
+        {/* DIGITAL TVL */}
         <Grid item xs={12} sm={4}>
           <Card>
             <CardContent align="center">
               <h2>Total Value Locked</h2>
-              <CountUp style={{ fontSize: '25px' }} end={TVL} separator="," prefix="$" />
+              <CountUp style={{ fontSize: '25px' }} end={digitalTVL} separator="," prefix="$" />
             </CardContent>
           </Card>
         </Grid>
