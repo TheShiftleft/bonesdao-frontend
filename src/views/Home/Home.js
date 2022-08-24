@@ -2,6 +2,10 @@ import React, { useMemo } from 'react';
 import Page from '../../components/Page';
 import HomeImage from '../../assets/img/home.png';
 import CashImage from '../../assets/img/crypto_tomb_cash.svg';
+import MascotBones from '../../assets/img/mascot-bones.png';
+import Bones from '../../assets/img/bones.png';
+import Boneds from '../../assets/img/boneds.png';
+import Bshares from '../../assets/img/bshares.png';
 import Image from 'material-ui-image';
 import styled from 'styled-components';
 import { Alert } from '@material-ui/lab';
@@ -21,7 +25,7 @@ import { tomb as tombProd, tShare as tShareProd } from '../../tomb-finance/deplo
 
 import MetamaskFox from '../../assets/img/metamask-fox.svg';
 
-import { Box, Button, Card, CardContent, Grid, Paper } from '@material-ui/core';
+import { Box, Button, Card, CardContent, Grid, Paper, Typography } from '@material-ui/core';
 import ZapModal from '../Bank/components/ZapModal';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -45,6 +49,24 @@ const useStyles = makeStyles((theme) => ({
       marginTop: '10px',
     },
   },
+  tvlCard: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    padding: '25px !important',
+    borderRadius: '3rem',
+    border: '3px solid #db1d2f',
+  },
+  tvlText: {
+    color: '#fff',
+    padding: '0px',
+    fontSize: '32px',
+    fontWeight: 'bold',
+  },
+  tokenContainer: {
+    padding: '10px 5px 10px 5px',
+    color: '#fff',
+    padding: '0px',
+    fontSize: '16px',
+  }
 }));
 
 const Home = () => {
@@ -167,53 +189,62 @@ const Home = () => {
   return (
     <Page>
       <BackgroundImage />
-      <Grid container spacing={3}>
+      <Grid container spacing={3} justify='center'>
+        {/* Tokens */}
+        <Grid container item xs={12} md={6} justify='center' spacing={3}>
+          <Grid className={classes.tokenContainer} container item xs={4} sm={3} md={4} justify='center' alignItems='center'>
+            <Box mr={2} component='img' alt='Bones' height='32px' src={Bones} />
+            <Typography variant='p'>
+              <span>{digitalPriceInFTM ? digitalPriceInFTM : '-.----'} FTM</span>
+            </Typography>
+          </Grid>
+          <Grid className={classes.tokenContainer} container item xs={4} sm={3} md={4} justify='center' alignItems='center'>
+            <Box mr={2} component='img' alt='Bones' height='32px' src={Bshares} />
+            <Typography variant='p'>
+              <span>{digsharePriceInFTM ? digsharePriceInFTM : '-.----'} FTM</span>
+            </Typography>
+          </Grid>
+          <Grid className={classes.tokenContainer} container item xs={4} sm={3} md={4} justify='center' alignItems='center'>
+            <Box mr={2} component='img' alt='Bones' height='32px' src={Boneds} />
+            <Typography variant='p'>
+              <span>{digbondPriceInFTM ? digbondPriceInFTM : '-.----'} FTM</span>
+            </Typography>
+          </Grid>
+        </Grid>
         {/* Logo */}
-        <Grid container item xs={12} sm={4} justify="center">
-          {/* <Paper>xs=6 sm=3</Paper> */}
-          <Image color="none" style={{ width: '300px', paddingTop: '0px' }} src={CashImage} />
-        </Grid>
-        {/* Explanation text */}
-        <Grid item xs={12} sm={8}>
-          <Paper>
-            <Box p={4}>
-              <h2>Welcome to Tomb Finance</h2>
-              <p>The first algorithmic stablecoin on Fantom Opera, pegged to the price of 1 FTM via seigniorage.</p>
-              <p>
-                Stake your TOMB-FTM LP in the Cemetery to earn TSHARE rewards.
-                Then stake your earned TSHARE in the Masonry to earn more TOMB!
-              </p>
-            </Box>
-          </Paper>
-
-
-
-        </Grid>
-
-        <Grid container spacing={3}>
-    <Grid item  xs={12} sm={12} justify="center"  style={{ margin: '12px', display: 'flex' }}>
-            <Alert variant="filled" severity="warning">
-              <b>
-      Please visit our <StyledLink target="_blank" href="https://docs.tomb.finance">documentation</StyledLink> before purchasing TOMB or TSHARE!</b>
-            </Alert>
-        </Grid>
+        <Grid container item xs={12} justify='center' alignItems='center' spacing={3}>
+          <Grid item>
+            <Box component='img' alt='bones mascot' height='120px' src={MascotBones} />
+          </Grid>
+          {/* Explanation text */}
+          <Grid className={classes.tvlCard} container alignItems='center' sm={6} md={4} item spacing={2}>
+            <Grid className={classes.tvlText} container item xs={3} sm={4} md={3}>
+              <Typography variant='p'>
+                TVL
+              </Typography>
+            </Grid>
+            <Grid className={classes.tvlText} container item xs={9} sm={8} md={9} >
+              <Typography variant='p'>
+                <CountUp end={digitalTVL} separator="," prefix="$" />
+              </Typography>
+            </Grid>
+          </Grid>
         </Grid>
 
         {/* DIGITAL TVL */}
-        <Grid item xs={12} sm={4}>
+        {/* <Grid item xs={12} sm={4}>
           <Card>
             <CardContent align="center">
               <h2>Total Value Locked</h2>
               <CountUp style={{ fontSize: '25px' }} end={digitalTVL} separator="," prefix="$" />
             </CardContent>
           </Card>
-        </Grid>
+        </Grid> */}
 
         {/* Wallet */}
-        <Grid item xs={12} sm={8}>
+        {/* <Grid item xs={12} sm={8}>
           <Card style={{ height: '100%' }}>
             <CardContent align="center" style={{ marginTop: '2.5%' }}>
-              {/* <h2 style={{ marginBottom: '20px' }}>Wallet Balance</h2> */}
               <Button color="primary" href="/masonry" variant="contained" style={{ marginRight: '10px' }}>
                 Stake Now
               </Button>
@@ -235,7 +266,7 @@ const Home = () => {
               </Button>
             </CardContent>
           </Card>
-        </Grid>
+        </Grid> */}
 
         {/* DIGITAL */}
         <Grid item xs={12} sm={4}>
