@@ -15,7 +15,7 @@ import useModal from '../../hooks/useModal';
 import useZap from '../../hooks/useZap';
 // import useBondStats from '../../hooks/useBondStats';
 // import usetShareStats from '../../hooks/usetShareStats';
-import useTotalValueLocked from '../../hooks/useTotalValueLocked';
+// import useTotalValueLocked from '../../hooks/useTotalValueLocked';
 import { tomb as tombTesting, tShare as tShareTesting } from '../../tomb-finance/deployments/deployments.testing.json';
 import { tomb as tombProd, tShare as tShareProd } from '../../tomb-finance/deployments/deployments.mainnet.json';
 
@@ -30,6 +30,7 @@ import useDigitalStats from '../../hooks/useDigitalStats';
 import useDigshareStats from '../../hooks/useDigshareStats';
 import useDigbondStats from '../../hooks/useDigbondStats';
 import useDigitalTotalValueLocked from '../../hooks/useDigitalTotalValueLocked';
+import useDigitalLpStats from '../../hooks/useDigitalLpStats';
 
 const BackgroundImage = createGlobalStyle`
   body {
@@ -50,6 +51,8 @@ const Home = () => {
   const classes = useStyles();
   // const TVL = useTotalValueLocked();
   const digitalTVL = useDigitalTotalValueLocked();
+  const digitalBasedStats = useDigitalLpStats('DIGITAL-BASED-LP')
+  const digShareFtmStats = useDigitalLpStats('DIGSHARES-FTM-LP')
   const tombFtmLpStats = useLpStats('TOMB-FTM-LP');
   const tShareFtmLpStats = useLpStats('TSHARE-FTM-LP');
   // const tombStats = useTombStats();
@@ -72,6 +75,9 @@ const Home = () => {
 
   const buyTombAddress = 'https://spookyswap.finance/swap?outputCurrency=' + tomb.address;
   const buyTShareAddress = 'https://spookyswap.finance/swap?outputCurrency=' + tShare.address;
+
+  const digitalBasedLP = useMemo(() => (digitalBasedStats ? digitalBasedStats : null), [digitalBasedStats]);
+  const digShareFtmLP = useMemo(() => (digShareFtmStats ? digShareFtmStats : null), [digShareFtmStats]);
 
   const tombLPStats = useMemo(() => (tombFtmLpStats ? tombFtmLpStats : null), [tombFtmLpStats]);
   const tshareLPStats = useMemo(() => (tShareFtmLpStats ? tShareFtmLpStats : null), [tShareFtmLpStats]);
@@ -346,7 +352,7 @@ const Home = () => {
         <Grid item xs={12} sm={6}>
           <Card>
             <CardContent align="center">
-              <h2>TOMB-FTM Spooky LP</h2>
+              <h2>DIGITAL-BASED LP</h2>
               <Box mt={2}>
                 <CardIcon>
                   <TokenSymbol symbol="TOMB-FTM-LP" />
@@ -359,14 +365,14 @@ const Home = () => {
               </Box>
               <Box mt={2}>
                 <span style={{ fontSize: '26px' }}>
-                  {tombLPStats?.tokenAmount ? tombLPStats?.tokenAmount : '-.--'} TOMB /{' '}
-                  {tombLPStats?.ftmAmount ? tombLPStats?.ftmAmount : '-.--'} FTM
+                  {digitalBasedLP?.tokenAmount ? digitalBasedLP?.tokenAmount : '-.--'} DIGITAL /{' '}
+                  {digitalBasedLP?.ftmAmount ? digitalBasedLP?.ftmAmount : '-.--'} BASED
                 </span>
               </Box>
-              <Box>${tombLPStats?.priceOfOne ? tombLPStats.priceOfOne : '-.--'}</Box>
+              <Box>${digitalBasedLP?.priceOfOne ? digitalBasedLP.priceOfOne : '-.--'}</Box>
               <span style={{ fontSize: '12px' }}>
-                Liquidity: ${tombLPStats?.totalLiquidity ? tombLPStats.totalLiquidity : '-.--'} <br />
-                Total supply: {tombLPStats?.totalSupply ? tombLPStats.totalSupply : '-.--'}
+                Liquidity: ${digitalBasedLP?.totalLiquidity ? digitalBasedLP.totalLiquidity : '-.--'} <br />
+                Total supply: {digitalBasedLP?.totalSupply ? digitalBasedLP.totalSupply : '-.--'}
               </span>
             </CardContent>
           </Card>
@@ -374,7 +380,7 @@ const Home = () => {
         <Grid item xs={12} sm={6}>
           <Card>
             <CardContent align="center">
-              <h2>TSHARE-FTM Spooky LP</h2>
+              <h2>DIGSHARE-FTM LP</h2>
               <Box mt={2}>
                 <CardIcon>
                   <TokenSymbol symbol="TSHARE-FTM-LP" />
@@ -387,15 +393,15 @@ const Home = () => {
               </Box>
               <Box mt={2}>
                 <span style={{ fontSize: '26px' }}>
-                  {tshareLPStats?.tokenAmount ? tshareLPStats?.tokenAmount : '-.--'} TSHARE /{' '}
-                  {tshareLPStats?.ftmAmount ? tshareLPStats?.ftmAmount : '-.--'} FTM
+                  {digShareFtmLP?.tokenAmount ? digShareFtmLP?.tokenAmount : '-.--'} DIGSHARE /{' '}
+                  {digShareFtmLP?.ftmAmount ? digShareFtmLP?.ftmAmount : '-.--'} FTM
                 </span>
               </Box>
-              <Box>${tshareLPStats?.priceOfOne ? tshareLPStats.priceOfOne : '-.--'}</Box>
+              <Box>${digShareFtmLP?.priceOfOne ? digShareFtmLP.priceOfOne : '-.--'}</Box>
               <span style={{ fontSize: '12px' }}>
-                Liquidity: ${tshareLPStats?.totalLiquidity ? tshareLPStats.totalLiquidity : '-.--'}
+                Liquidity: ${digShareFtmLP?.totalLiquidity ? digShareFtmLP.totalLiquidity : '-.--'}
                 <br />
-                Total supply: {tshareLPStats?.totalSupply ? tshareLPStats.totalSupply : '-.--'}
+                Total supply: {digShareFtmLP?.totalSupply ? digShareFtmLP.totalSupply : '-.--'}
               </span>
             </CardContent>
           </Card>

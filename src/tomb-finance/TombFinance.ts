@@ -34,6 +34,7 @@ export class TombFinance {
   DIGITAL: ERC20;
   DIGSHARE: ERC20;
   DIGBOND: ERC20;
+  BASED: ERC20;
   FTM: ERC20;
 
   constructor(cfg: Configuration) {
@@ -55,6 +56,7 @@ export class TombFinance {
     this.DIGITAL = new ERC20(deployments.digital.address, provider, 'DIGITAL');
     this.DIGSHARE = new ERC20(deployments.digshares.address, provider, 'DIGSHARES');
     this.DIGBOND = new ERC20(deployments.digbond.address, provider, 'DIGBOND');
+    this.BASED = this.externalTokens['BASED']
     this.FTM = this.externalTokens['WFTM'];
 
     // Uniswap V2 Pair
@@ -165,6 +167,37 @@ export class TombFinance {
     const lpTokenPrice = await this.getLPTokenPrice(lpToken, token0, isTomb);
     const lpTokenPriceFixed = Number(lpTokenPrice).toFixed(2).toString();
     const liquidity = (Number(lpTokenSupply) * Number(lpTokenPrice)).toFixed(2).toString();
+    return {
+      tokenAmount: tokenAmountInOneLP.toFixed(2).toString(),
+      ftmAmount: ftmAmountInOneLP.toFixed(2).toString(),
+      priceOfOne: lpTokenPriceFixed,
+      totalLiquidity: liquidity,
+      totalSupply: Number(lpTokenSupply).toFixed(2).toString(),
+    };
+  }
+
+  /**
+   * Calculates various stats for the requested LP
+   * @param name of the LP token to load stats for
+   * @returns
+   */
+  async getDigitalLpStat(name: string): Promise<LPStat> {
+    const lpToken = this.externalTokens[name];
+    const lpTokenSupplyBN = await lpToken.totalSupply();
+    const lpTokenSupply = getDisplayBalance(lpTokenSupplyBN, 18);
+    const token0 = name.startsWith('DIGITAL') ? this.DIGITAL : this.DIGSHARE;
+    const isDigital = name.startsWith('DIGITAL');
+    const tokenAmountBN = await token0.balanceOf(lpToken.address);
+    const tokenAmount = getDisplayBalance(tokenAmountBN, 18);
+
+    const ftmAmountBN = isDigital ? await this.BASED.balanceOf(lpToken.address) : await this.FTM.balanceOf(lpToken.address);
+    const ftmAmount = getDisplayBalance(ftmAmountBN, 18);
+    const tokenAmountInOneLP = Number(tokenAmount) / Number(lpTokenSupply);
+    const ftmAmountInOneLP = Number(ftmAmount) / Number(lpTokenSupply);
+    const lpTokenPrice = await this.getDigitalLPTokenPrice(lpToken, token0, isDigital);
+    const lpTokenPriceFixed = Number(lpTokenPrice).toFixed(2).toString();
+    const liquidity = (Number(lpTokenSupply) * Number(lpTokenPrice)).toFixed(2).toString();
+
     return {
       tokenAmount: tokenAmountInOneLP.toFixed(2).toString(),
       ftmAmount: ftmAmountInOneLP.toFixed(2).toString(),
@@ -494,6 +527,26 @@ export class TombFinance {
     //Get amount of tokenA
     const tokenSupply = getFullDisplayBalance(await token.balanceOf(lpToken.address), token.decimal);
     const stat = isTomb === true ? await this.getTombStat() : await this.getShareStat();
+    const priceOfToken = stat.priceInDollars;
+    const tokenInLP = Number(tokenSupply) / Number(totalSupply);
+    const tokenPrice = (Number(priceOfToken) * tokenInLP * 2) //We multiply by 2 since half the price of the lp token is the price of each piece of the pair. So twice gives the total
+      .toString();
+    return tokenPrice;
+  }
+
+  /**
+   * Calculates the price of an LP token
+   * Reference https://github.com/DefiDebauchery/discordpricebot/blob/4da3cdb57016df108ad2d0bb0c91cd8dd5f9d834/pricebot/pricebot.py#L150
+   * @param lpToken the token under calculation
+   * @param token the token pair used as reference (the other one would be FTM in most cases)
+   * @param isTomb sanity check for usage of tomb token or tShare
+   * @returns price of the LP token
+   */
+  async getDigitalLPTokenPrice(lpToken: ERC20, token: ERC20, isDigital: boolean): Promise<string> {
+    const totalSupply = getFullDisplayBalance(await lpToken.totalSupply(), lpToken.decimal);
+    //Get amount of tokenA
+    const tokenSupply = getFullDisplayBalance(await token.balanceOf(lpToken.address), token.decimal);
+    const stat = isDigital === true ? await this.getDigitalStat() : await this.getDigshareStat();
     const priceOfToken = stat.priceInDollars;
     const tokenInLP = Number(tokenSupply) / Number(totalSupply);
     const tokenPrice = (Number(priceOfToken) * tokenInLP * 2) //We multiply by 2 since half the price of the lp token is the price of each piece of the pair. So twice gives the total
