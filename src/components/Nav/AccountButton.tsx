@@ -4,13 +4,23 @@ import { useWallet } from 'use-wallet';
 import useModal from '../../hooks/useModal';
 import WalletProviderModal from '../WalletProviderModal';
 import AccountModal from './AccountModal';
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
+import { makeStyles } from '@material-ui/core/styles';
 
 interface AccountButtonProps {
   text?: string;
 }
 
+const useStyles = makeStyles((theme) => ({
+  accountButton: {
+    borderRadius: '15px',
+    backgroundColor: '#845EC2'
+  }
+}));
+
 const AccountButton: React.FC<AccountButtonProps> = ({ text }) => {
   const { account } = useWallet();
+  const classes = useStyles();
   const [onPresentAccountModal] = useModal(<AccountModal />);
 
   const [isWalletProviderOpen, setWalletProviderOpen] = useState(false);
@@ -28,11 +38,11 @@ const AccountButton: React.FC<AccountButtonProps> = ({ text }) => {
   return (
     <div>
       {!account ? (
-        <Button onClick={handleWalletProviderOpen} color="primary" variant="contained">
+        <Button className={classes.accountButton} onClick={handleWalletProviderOpen} color="primary" variant="contained" startIcon={<AccountBalanceWalletIcon />}>
           {buttonText}
         </Button>
       ) : (
-        <Button variant="contained" onClick={onPresentAccountModal}>
+        <Button className={classes.accountButton} variant="contained"  color="primary" onClick={onPresentAccountModal} startIcon={<AccountBalanceWalletIcon />}>
           My Wallet
         </Button>
       )}

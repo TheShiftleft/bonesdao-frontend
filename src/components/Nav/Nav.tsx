@@ -22,6 +22,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AccountButton from './AccountButton';
+import BonesLogo from '../../assets/img/logo-bones_red.png';
 
 const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     color: '#e0e3bd',
-    'background-color': '#121212',
+    'background-color': '#fff',
     // borderBottom: `1px solid ${theme.palette.divider}`,
     padding: '10px',
     marginBottom: '3rem',
@@ -52,14 +53,15 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
   },
   toolbarTitle: {
-    fontFamily: '"Amarante", cursive',
-    fontSize: '30px',
     flexGrow: 1,
+    display: 'flex',
+    alignItems: 'center'
   },
   link: {
     textTransform: 'uppercase',
-    color: '#e0e3bd',
+    color: '#121212',
     fontSize: '14px',
+    fontWeight: 'bold',
     margin: theme.spacing(1, 2),
     textDecoration: 'none',
     '&:hover': {
@@ -94,17 +96,25 @@ const Nav = () => {
       <Toolbar className={classes.toolbar}>
         {matches ? (
           <>
-            <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-              {/* <a className={ classes.brandLink } href="/">Tomb Finance</a> */}
+            <Box className={classes.toolbarTitle}>
               <Link to="/" color="inherit" className={classes.brandLink}>
-                Tomb Finance
+                <img src={BonesLogo} height='50px' alt='Bones logo' />
               </Link>
-            </Typography>
+            </Box>
             <Box mr={5}>
               <Link color="textPrimary" to="/" className={classes.link}>
                 Home
               </Link>
-              <Link color="textPrimary" to="/cemetery" className={classes.link}>
+              <Link color="textPrimary" to="/" className={classes.link}>
+                Tokens
+              </Link>
+              <Link color="textPrimary" to="/" className={classes.link}>
+                Swap
+              </Link>
+              <Link color="textPrimary" to="/" className={classes.link}>
+                More
+              </Link>
+              {/* <Link color="textPrimary" to="/cemetery" className={classes.link}>
                 Cemetery
               </Link>
               <Link color="textPrimary" to="/masonry" className={classes.link}>
@@ -124,14 +134,13 @@ const Nav = () => {
               </Link>
               <a href="https://docs.tomb.finance" className={classes.link}>
                 Docs
-              </a>
+              </a> */}
             </Box>
-            <AccountButton text="Connect" />
+            <AccountButton text="Connect Wallet" />
           </>
         ) : (
           <>
             <IconButton
-              color="inherit"
               aria-label="open drawer"
               onClick={handleDrawerOpen}
               edge="start"
@@ -139,9 +148,11 @@ const Nav = () => {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap>
-              Tomb Finance
-            </Typography>
+            <Box>
+              <Link to="/" color="inherit" className={classes.brandLink}>
+                <img src={BonesLogo} height='50px' alt='Bones logo' />
+              </Link>
+            </Box>
 
             <Drawer
               className={classes.drawer}
@@ -162,7 +173,10 @@ const Nav = () => {
               <Divider />
               <List>
                 <ListItemLink primary="Home" to="/" />
-                <ListItemLink primary="Cemetery" to="/cemetery" />
+                <ListItemLink primary="Tokens" to="/" />
+                <ListItemLink primary="Swap" to="/" />
+                <ListItemLink primary="More" to="/" />
+                {/* <ListItemLink primary="Cemetery" to="/cemetery" />
                 <ListItemLink primary="Masonry" to="/masonry" />
                 <ListItemLink primary="Pit" to="/pit" />
                 <ListItemLink primary="SBS" to="/sbs" />
@@ -170,7 +184,7 @@ const Nav = () => {
                 <ListItemLink primary="Regulations" to="/regulations" />
                 <ListItem button component="a" href="https://docs.tomb.finance">
                   <ListItemText>Docs</ListItemText>
-                </ListItem>
+                </ListItem> */}
                 <ListItem style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <AccountButton text="Connect" />
                 </ListItem>
