@@ -1,23 +1,27 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Grid, Typography, Link } from '@material-ui/core';
+import { Container, Grid, Typography, Link, Box } from '@material-ui/core';
+import MascotHead from '../../assets/img/mascot-bones_head.png';
 import TwitterImage from '../../assets/img/twitter.svg';
 import GithubImage from '../../assets/img/github.svg';
 import TelegramImage from '../../assets/img/telegram.svg';
 import DiscordImage from '../../assets/img/discord.svg';
 import YoutubeImage from '../../assets/img/youtube.svg';
+import FacebookIcon from '../icons/FacebookIcon';
+import TwitterIcon from '../icons/TwitterIcon';
+import InstagramIcon from '../icons/InstagramIcon';
+import DiscordIcon from '../icons/DiscordIcon';
+import YoutubeIcon from '../icons/YoutubeIcon';
 
 const useStyles = makeStyles((theme) => ({
   footer: {
-    position: 'absolute',
+    position: 'relative',
     bottom: '0',
-    paddingTop: '15px',
-    paddingBottom: '15px',
+    padding: '30px 0px',
     width: '100%',
     color: 'white',
-    backgroundColor: '#121212',
+    backgroundColor: '#db1d2f',
     textAlign: 'center',
-    height: '1.3rem',
     [theme.breakpoints.down('xs')]: {
       display: 'none',
     },
@@ -26,13 +30,22 @@ const useStyles = makeStyles((theme) => ({
     width: '24px',
     height: '24px',
     display: 'inline',
-    marginLeft: '20px',
+    fontWeight: 'bold',
+    margin: '0px 10px',
+    '&:hover': {
+      textDecoration: 'none',
+    }
   },
-
   img: {
     width: '24px',
     height: '24px',
+    color: '#fff'
   },
+  bonesText: {
+    color: '#fff',
+    fontSize: '32px',
+    fontWeight: 'bold'
+  }
 }));
 
 const Footer = () => {
@@ -40,7 +53,77 @@ const Footer = () => {
   return (
     <footer className={classes.footer}>
       <Container maxWidth="lg">
-        <Grid container>
+        <Grid container justify='center' spacing={3}>
+          <Grid item xs={12}>
+            <Typography variant="body2" color="textSecondary" align="center" display='inline'>
+              <Link className={classes.link}  color="inherit" href="/">
+                SITEMAP
+              </Link>
+            </Typography>
+            <Typography variant="body2" color="textSecondary" align="center" display='inline'>
+              <Link className={classes.link}  color="inherit" href="/">
+                TOKENS
+              </Link>
+            </Typography>
+            <Typography variant="body2" color="textSecondary" align="center" display='inline'>
+              <Link className={classes.link}  color="inherit" href="/">
+                SWAP
+              </Link>
+            </Typography>
+            <Typography variant="body2" color="textSecondary" align="center" display='inline'>
+              <Link className={classes.link}  color="inherit" href="/">
+                NEWS
+              </Link>
+            </Typography>
+            <Typography variant="body2" color="textSecondary" align="center" display='inline'>
+              <Link className={classes.link}  color="inherit" href="/">
+                SUPPORT
+              </Link>
+            </Typography>
+            <Typography variant="body2" color="textSecondary" align="center" display='inline'>
+              <Link className={classes.link}  color="inherit" href="/">
+                CONTACT
+              </Link>
+            </Typography>
+          </Grid>
+          <Grid container item xs={12} alignItems='center' justify='center'>
+            <Box component='img' alt='bones mascot' src={MascotHead} height='70px' />
+            <Typography variant='p' className={classes.bonesText}>
+              BONES
+            </Typography>
+          </Grid>
+          <Grid container item xs={12} alignItems='center' justify='center'>
+            <a href="https://facebook.com/" rel="noopener noreferrer" target="_blank" className={classes.link}>
+              <FacebookIcon color='#fff'/>
+            </a>
+            <a href="https://twitter.com/" rel="noopener noreferrer" target="_blank" className={classes.link}>
+              <TwitterIcon color='#fff'/>
+            </a>
+            <a href="https://instagram.com/" rel="noopener noreferrer" target="_blank" className={classes.link}>
+              <InstagramIcon color='#fff'/>
+            </a>
+            <a href="https://discord.com/" rel="noopener noreferrer" target="_blank" className={classes.link}>
+              <DiscordIcon color='#fff'/>
+            </a>
+            <a href="https://www.youtube.com/" rel="noopener noreferrer" target="_blank" className={classes.link}>
+              <YoutubeIcon color='#fff'/>
+            </a>
+          </Grid>
+          <Grid item>
+            <Typography variant="body2" color="textSecondary" align="left">
+              {'Copyright © '}
+              <Link color="inherit" href="/">
+                BONES
+              </Link>{' '}
+              {new Date().getFullYear()}
+              <span style={{ margin: '0px 5px' }}>|</span>
+              <Link color="inherit" href="/">
+                PRIVACY POLICY
+              </Link>{' '}
+            </Typography>
+          </Grid>
+        </Grid>
+        {/* <Grid container>
           <Grid item xs={6}>
             <Typography variant="body2" color="textSecondary" align="left">
               {'Copyright © '}
@@ -82,7 +165,7 @@ const Footer = () => {
               <img alt="discord" src={DiscordImage} className={classes.img} />
             </a>
           </Grid>
-        </Grid>
+        </Grid> */}
       </Container>
     </footer>
   );

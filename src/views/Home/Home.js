@@ -110,13 +110,13 @@ const Home = () => {
     tShare = tShareProd;
   }
 
-  const buyTombAddress = 'https://spookyswap.finance/swap?outputCurrency=' + tomb.address;
-  const buyTShareAddress = 'https://spookyswap.finance/swap?outputCurrency=' + tShare.address;
+  // const buyTombAddress = 'https://spookyswap.finance/swap?outputCurrency=' + tomb.address;
+  // const buyTShareAddress = 'https://spookyswap.finance/swap?outputCurrency=' + tShare.address;
 
   // DIGITAL-BASED LP STATS
-  const digitalBasedLP = useMemo(() => (digitalBasedStats ? digitalBasedStats : null), [digitalBasedStats]);
+  // const digitalBasedLP = useMemo(() => (digitalBasedStats ? digitalBasedStats : null), [digitalBasedStats]);
   // DIGSHARE-FTM LP STATS
-  const digShareFtmLP = useMemo(() => (digShareFtmStats ? digShareFtmStats : null), [digShareFtmStats]);
+  // const digShareFtmLP = useMemo(() => (digShareFtmStats ? digShareFtmStats : null), [digShareFtmStats]);
 
   // DIGITAL
   const digitalPriceInDollars = useMemo(() => (digitalStats ? Number(digitalStats.priceInDollars).toFixed(2) : null),[digitalStats]);
