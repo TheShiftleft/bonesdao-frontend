@@ -3,6 +3,7 @@ import Page from '../../components/Page';
 import HomeImage from '../../assets/img/home.png';
 import CashImage from '../../assets/img/crypto_tomb_cash.svg';
 import MascotBones from '../../assets/img/mascot-bones.png';
+import LogoBones from '../../assets/img/logo-bones_red.png';
 import Bones from '../../assets/img/bones.png';
 import Boneds from '../../assets/img/boneds.png';
 import Bshares from '../../assets/img/bshares.png';
@@ -25,7 +26,7 @@ import { tomb as tombProd, tShare as tShareProd } from '../../tomb-finance/deplo
 
 import MetamaskFox from '../../assets/img/metamask-fox.svg';
 
-import { Box, Button, Card, CardContent, Grid, Paper, Typography } from '@material-ui/core';
+import { Box, Button, Card, CardContent, CardHeader, Container, Grid, IconButton, Paper, Typography } from '@material-ui/core';
 import ZapModal from '../Bank/components/ZapModal';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -62,10 +63,24 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
   },
   tokenContainer: {
-    padding: '10px 5px 10px 5px',
     color: '#fff',
     padding: '0px',
     fontSize: '16px',
+  },
+  cardContainer: {
+    borderRadius: '1rem',
+    border: '3px solid #EC2A2A',
+    paddingBottom: '16px'
+  },
+  cardHeader: {
+    backgroundColor: '#810E0E',
+    padding: '16px 16px',
+    borderBottom: '3px solid #EC2A2A'
+  },
+  cardTitle: {
+    fontWeight: 'bold',
+    fontSize: '24px',
+    color: '#fff',
   }
 }));
 
@@ -98,18 +113,10 @@ const Home = () => {
   const buyTombAddress = 'https://spookyswap.finance/swap?outputCurrency=' + tomb.address;
   const buyTShareAddress = 'https://spookyswap.finance/swap?outputCurrency=' + tShare.address;
 
+  // DIGITAL-BASED LP STATS
   const digitalBasedLP = useMemo(() => (digitalBasedStats ? digitalBasedStats : null), [digitalBasedStats]);
+  // DIGSHARE-FTM LP STATS
   const digShareFtmLP = useMemo(() => (digShareFtmStats ? digShareFtmStats : null), [digShareFtmStats]);
-
-  const tombLPStats = useMemo(() => (tombFtmLpStats ? tombFtmLpStats : null), [tombFtmLpStats]);
-  const tshareLPStats = useMemo(() => (tShareFtmLpStats ? tShareFtmLpStats : null), [tShareFtmLpStats]);
-  // const tombPriceInDollars = useMemo(
-  //   () => (tombStats ? Number(tombStats.priceInDollars).toFixed(2) : null),
-  //   [tombStats],
-  // );
-  // const tombPriceInFTM = useMemo(() => (tombStats ? Number(tombStats.tokenInFtm).toFixed(4) : null), [tombStats]);
-  // const tombCirculatingSupply = useMemo(() => (tombStats ? String(tombStats.circulatingSupply) : null), [tombStats]);
-  // const tombTotalSupply = useMemo(() => (tombStats ? String(tombStats.totalSupply) : null), [tombStats]);
 
   // DIGITAL
   const digitalPriceInDollars = useMemo(() => (digitalStats ? Number(digitalStats.priceInDollars).toFixed(2) : null),[digitalStats]);
@@ -128,31 +135,6 @@ const Home = () => {
   const digbondPriceInFTM = useMemo(() => (digbondStats ? Number(digbondStats.tokenInFtm).toFixed(4) : null), [digbondStats]);
   const digbondCirculatingSupply = useMemo(() => (digbondStats ? String(digbondStats.circulatingSupply) : null), [digbondStats]);
   const digbondTotalSupply = useMemo(() => (digbondStats ? String(digbondStats.totalSupply) : null), [digbondStats]);
-
-  // const tSharePriceInDollars = useMemo(
-  //   () => (tShareStats ? Number(tShareStats.priceInDollars).toFixed(2) : null),
-  //   [tShareStats],
-  // );
-  // const tSharePriceInFTM = useMemo(
-  //   () => (tShareStats ? Number(tShareStats.tokenInFtm).toFixed(4) : null),
-  //   [tShareStats],
-  // );
-  // const tShareCirculatingSupply = useMemo(
-  //   () => (tShareStats ? String(tShareStats.circulatingSupply) : null),
-  //   [tShareStats],
-  // );
-  // const tShareTotalSupply = useMemo(() => (tShareStats ? String(tShareStats.totalSupply) : null), [tShareStats]);
-
-  // const tBondPriceInDollars = useMemo(
-  //   () => (tBondStats ? Number(tBondStats.priceInDollars).toFixed(2) : null),
-  //   [tBondStats],
-  // );
-  // const tBondPriceInFTM = useMemo(() => (tBondStats ? Number(tBondStats.tokenInFtm).toFixed(4) : null), [tBondStats]);
-  // const tBondCirculatingSupply = useMemo(
-  //   () => (tBondStats ? String(tBondStats.circulatingSupply) : null),
-  //   [tBondStats],
-  // );
-  // const tBondTotalSupply = useMemo(() => (tBondStats ? String(tBondStats.totalSupply) : null), [tBondStats]);
 
   const tombLpZap = useZap({ depositTokenName: 'TOMB-FTM-LP' });
   const tshareLpZap = useZap({ depositTokenName: 'TSHARE-FTM-LP' });
@@ -187,7 +169,8 @@ const Home = () => {
   );
 
   return (
-    <Page>
+    <Page noContainer>
+      <Container maxWidth="lg" style={{ paddingBottom: '5rem' }}>
       <BackgroundImage />
       <Grid container spacing={3} justify='center'>
         {/* Tokens */}
@@ -231,156 +214,357 @@ const Home = () => {
           </Grid>
         </Grid>
 
-        {/* DIGITAL TVL */}
-        {/* <Grid item xs={12} sm={4}>
-          <Card>
-            <CardContent align="center">
-              <h2>Total Value Locked</h2>
-              <CountUp style={{ fontSize: '25px' }} end={digitalTVL} separator="," prefix="$" />
-            </CardContent>
-          </Card>
-        </Grid> */}
-
-        {/* Wallet */}
-        {/* <Grid item xs={12} sm={8}>
-          <Card style={{ height: '100%' }}>
-            <CardContent align="center" style={{ marginTop: '2.5%' }}>
-              <Button color="primary" href="/masonry" variant="contained" style={{ marginRight: '10px' }}>
-                Stake Now
-              </Button>
-              <Button href="/cemetery" variant="contained" style={{ marginRight: '10px' }}>
-                Farm Now
-              </Button>
-              <Button
-                color="primary"
-                target="_blank"
-                href={buyTombAddress}
-                variant="contained"
-                style={{ marginRight: '10px' }}
-                className={classes.button}
-              >
-                Buy TOMB
-              </Button>
-              <Button variant="contained" target="_blank" href={buyTShareAddress} className={classes.button}>
-                Buy TSHARE
-              </Button>
-            </CardContent>
-          </Card>
-        </Grid> */}
-
         {/* DIGITAL */}
         <Grid item xs={12} sm={4}>
-          <Card>
-            <CardContent align="center" style={{ position: 'relative' }}>
-              <h2>DIGITAL</h2>
+          <Card className={classes.cardContainer}>
+            <CardContent align="center" style={{ padding: '0px', }}>
+              <Grid className={classes.cardHeader} container justify='center' alignItems='center' spacing={2}>
+                <Grid item>
+                  <Box component='img' alt='Bones' height='42px' src={Bones} />
+                </Grid>
+                <Grid item>
+                  <Typography className={classes.cardTitle} variant='p' >BONES</Typography>
+                </Grid>
+                <Grid item style={{ padding: '0px' }}>
+                  <Button
+                    onClick={() => {
+                      // tombFinance.watchAssetInMetamask('TOMB');
+                    }}
+                    color="secondary"
+                    variant="outlined"
+                    style={{ border: '2px solid', fontSize: '24px', padding: '0px 15px' }}
+                  >
+                    +&nbsp;
+                    <img alt="metamask fox" style={{ width: '20px' }} src={MetamaskFox} />
+                  </Button>
+                </Grid>
+              </Grid>
+
+              <Box mt={2}>
+                <Grid container justify='center'>
+                  <Grid item xs={7}>
+                  <Typography variant='h6' style={{ fontWeight: 'bold', color: '#2425BA' }}>
+                    Current Price
+                  </Typography>
+                  </Grid>
+                  <Grid item xs={7}>
+                    <Typography variant='p' style={{ fontWeight: 'bold', color: '#2425BA' }} display='block'>
+                      FTM
+                      <span style={{ color: '#121212', fontSize: '2rem', marginLeft: '10px' }}>
+                        {digitalPriceInFTM ? digitalPriceInFTM : '-.----'}
+                      </span>
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={7}  style={{ borderBottom: '2px dashed black', paddingBottom: '15px' }}>
+                    <Typography variant='p' style={{ fontWeight: 'bold', color: '#2425BA' }}>
+                      USD
+                      <span style={{ color: '#121212', marginLeft: '10px' }}>
+                        ${digitalPriceInDollars ? digitalPriceInDollars : '-.--'}
+                      </span>
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Box>
+              <Box>
+                <Grid container justify='center'>
+                  <Grid item xs={7}>
+                  <Typography variant='h6' style={{ fontWeight: 'bold', color: '#2425BA' }}>
+                    Marketing Capital
+                  </Typography>
+                  </Grid>
+                  <Grid item xs={7}  style={{ borderBottom: '2px dashed black', paddingBottom: '15px' }}>
+                    <Typography variant='p' style={{ fontWeight: 'bold', fontSize: '2rem', color: '#121212' }}>
+                      ${(digitalCirculatingSupply * digitalPriceInDollars).toFixed(2)}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Box>
+              <Box>
+                <Grid container justify='center'>
+                  <Grid item xs={7}>
+                  <Typography variant='h6' style={{ fontWeight: 'bold', color: '#2425BA' }}>
+                    Circulating Supply
+                  </Typography>
+                  </Grid>
+                  <Grid item xs={7}  style={{ borderBottom: '2px dashed black', paddingBottom: '15px' }}>
+                    <Typography variant='p' style={{ fontWeight: 'bold', fontSize: '2rem', color: '#121212' }}>
+                      {digitalCirculatingSupply ? digitalCirculatingSupply : '0'}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Box>
+              <Box mb={2}>
+                <Grid container justify='center'>
+                  <Grid item xs={7}>
+                  <Typography variant='h6' style={{ fontWeight: 'bold', color: '#2425BA' }}>
+                    Total Supply
+                  </Typography>
+                  </Grid>
+                  <Grid item xs={7}>
+                    <Typography variant='p' style={{ fontWeight: 'bold', fontSize: '2rem', color: '#121212' }}>
+                      {digitalTotalSupply ? digitalTotalSupply : '0'}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Box>
               <Button
                 onClick={() => {
                   // tombFinance.watchAssetInMetamask('TOMB');
                 }}
-                color="primary"
-                variant="outlined"
-                style={{ position: 'absolute', top: '10px', right: '10px' }}
+                color="secondary"
+                variant="contained"
+                style={{ color: '#fff', fontWeight: 'bold', fontSize: '24px', padding: '0px 15px' }}
               >
-                +&nbsp;
-                <img alt="metamask fox" style={{ width: '20px' }} src={MetamaskFox} />
+                Buy Bones
               </Button>
-              <Box mt={2}>
-                <CardIcon>
-                  <TokenSymbol symbol="TOMB" />
-                </CardIcon>
-              </Box>
-              Current Price
-              <Box>
-                <span style={{ fontSize: '30px' }}>{digitalPriceInFTM ? digitalPriceInFTM : '-.----'} FTM</span>
-              </Box>
-              <Box>
-                <span style={{ fontSize: '16px', alignContent: 'flex-start' }}>
-                  ${digitalPriceInDollars ? digitalPriceInDollars : '-.--'}
-                </span>
-              </Box>
-              <span style={{ fontSize: '12px' }}>
-                Market Cap: ${(digitalCirculatingSupply * digitalPriceInDollars).toFixed(2)} <br />
-                Circulating Supply: {digitalCirculatingSupply} <br />
-                Total Supply: {digitalTotalSupply}
-              </span>
             </CardContent>
           </Card>
         </Grid>
 
         {/* DIGSHARE */}
         <Grid item xs={12} sm={4}>
-          <Card>
-            <CardContent align="center" style={{ position: 'relative' }}>
-              <h2>DIGSHARE</h2>
+          <Card className={classes.cardContainer}>
+              <CardContent align="center" style={{ padding: '0px', }}>
+                <Grid className={classes.cardHeader} container justify='center' alignItems='center' spacing={2}>
+                  <Grid item>
+                    <Box component='img' alt='Bones' height='42px' src={Bshares} />
+                  </Grid>
+                  <Grid item>
+                    <Typography className={classes.cardTitle} variant='p' >BSHARES</Typography>
+                  </Grid>
+                  <Grid item style={{ padding: '0px' }}>
+                    <Button
+                      onClick={() => {
+                        // tombFinance.watchAssetInMetamask('TOMB');
+                      }}
+                      color="secondary"
+                      variant="outlined"
+                      style={{ border: '2px solid', fontSize: '24px', padding: '0px 15px' }}
+                    >
+                      +&nbsp;
+                      <img alt="metamask fox" style={{ width: '20px' }} src={MetamaskFox} />
+                    </Button>
+                  </Grid>
+                </Grid>
+                <Box mt={2}>
+                <Grid container justify='center'>
+                  <Grid item xs={7}>
+                  <Typography variant='h6' style={{ fontWeight: 'bold', color: '#2425BA' }}>
+                    Current Price
+                  </Typography>
+                  </Grid>
+                  <Grid item xs={7}>
+                    <Typography variant='p' style={{ fontWeight: 'bold', color: '#2425BA' }} display='block'>
+                      FTM
+                      <span style={{ color: '#121212', fontSize: '2rem', marginLeft: '10px' }}>
+                        {digsharePriceInFTM ? digsharePriceInFTM : '-.----'}
+                      </span>
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={7}  style={{ borderBottom: '2px dashed black', paddingBottom: '15px' }}>
+                    <Typography variant='p' style={{ fontWeight: 'bold', color: '#2425BA' }}>
+                      USD
+                      <span style={{ color: '#121212', marginLeft: '10px' }}>
+                        ${digsharePriceInDollars ? digsharePriceInDollars : '-.--'}
+                      </span>
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Box>
+              <Box>
+                <Grid container justify='center'>
+                  <Grid item xs={7}>
+                  <Typography variant='h6' style={{ fontWeight: 'bold', color: '#2425BA' }}>
+                    Marketing Capital
+                  </Typography>
+                  </Grid>
+                  <Grid item xs={7}  style={{ borderBottom: '2px dashed black', paddingBottom: '15px' }}>
+                    <Typography variant='p' style={{ fontWeight: 'bold', fontSize: '2rem', color: '#121212' }}>
+                      ${(digshareCirculatingSupply * digsharePriceInDollars).toFixed(2)}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Box>
+              <Box>
+                <Grid container justify='center'>
+                  <Grid item xs={7}>
+                  <Typography variant='h6' style={{ fontWeight: 'bold', color: '#2425BA' }}>
+                    Circulating Supply
+                  </Typography>
+                  </Grid>
+                  <Grid item xs={7}  style={{ borderBottom: '2px dashed black', paddingBottom: '15px' }}>
+                    <Typography variant='p' style={{ fontWeight: 'bold', fontSize: '2rem', color: '#121212' }}>
+                      {digshareCirculatingSupply ? digshareCirculatingSupply : '0'}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Box>
+              <Box mb={2}>
+                <Grid container justify='center'>
+                  <Grid item xs={7}>
+                  <Typography variant='h6' style={{ fontWeight: 'bold', color: '#2425BA' }}>
+                    Total Supply
+                  </Typography>
+                  </Grid>
+                  <Grid item xs={7}>
+                    <Typography variant='p' style={{ fontWeight: 'bold', fontSize: '2rem', color: '#121212' }}>
+                      {digshareTotalSupply ? digshareTotalSupply : '0'}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Box>
               <Button
                 onClick={() => {
-                  // tombFinance.watchAssetInMetamask('TSHARE');
+                  // tombFinance.watchAssetInMetamask('TOMB');
                 }}
-                color="primary"
-                variant="outlined"
-                style={{ position: 'absolute', top: '10px', right: '10px' }}
+                color="secondary"
+                variant="contained"
+                style={{ color: '#fff', fontWeight: 'bold', fontSize: '24px', padding: '0px 15px' }}
               >
-                +&nbsp;
-                <img alt="metamask fox" style={{ width: '20px' }} src={MetamaskFox} />
+                Buy BSHARES
               </Button>
-              <Box mt={2}>
-                <CardIcon>
-                  <TokenSymbol symbol="TSHARE" />
-                </CardIcon>
-              </Box>
-              Current Price
-              <Box>
-                <span style={{ fontSize: '30px' }}>{digsharePriceInFTM ? digsharePriceInFTM : '-.----'} FTM</span>
-              </Box>
-              <Box>
-                <span style={{ fontSize: '16px' }}>${digsharePriceInDollars ? digsharePriceInDollars : '-.--'}</span>
-              </Box>
-              <span style={{ fontSize: '12px' }}>
-                Market Cap: ${(digshareCirculatingSupply * digsharePriceInDollars).toFixed(2)} <br />
-                Circulating Supply: {digshareCirculatingSupply} <br />
-                Total Supply: {digshareTotalSupply}
-              </span>
             </CardContent>
           </Card>
         </Grid>
 
         {/* DIGBOND */}
         <Grid item xs={12} sm={4}>
-          <Card>
-            <CardContent align="center" style={{ position: 'relative' }}>
-              <h2>DIGBOND</h2>
+          <Card className={classes.cardContainer}>
+              <CardContent align="center" style={{ padding: '0px', }}>
+                <Grid className={classes.cardHeader} container justify='center' alignItems='center' spacing={2}>
+                  <Grid item>
+                    <Box component='img' alt='Bones' height='42px' src={Boneds} />
+                  </Grid>
+                  <Grid item>
+                    <Typography className={classes.cardTitle} variant='p' >BONeDS</Typography>
+                  </Grid>
+                  <Grid item style={{ padding: '0px' }}>
+                    <Button
+                      onClick={() => {
+                        // tombFinance.watchAssetInMetamask('TOMB');
+                      }}
+                      color="secondary"
+                      variant="outlined"
+                      style={{ border: '2px solid', fontSize: '24px', padding: '0px 15px' }}
+                    >
+                      +&nbsp;
+                      <img alt="metamask fox" style={{ width: '20px' }} src={MetamaskFox} />
+                    </Button>
+                  </Grid>
+                </Grid>
+                <Box mt={2}>
+                <Grid container justify='center'>
+                  <Grid item xs={7}>
+                  <Typography variant='h6' style={{ fontWeight: 'bold', color: '#2425BA' }}>
+                    Current Price
+                  </Typography>
+                  </Grid>
+                  <Grid item xs={7}>
+                    <Typography variant='p' style={{ fontWeight: 'bold', color: '#2425BA' }} display='block'>
+                      FTM
+                      <span style={{ color: '#121212', fontSize: '2rem', marginLeft: '10px' }}>
+                        {digbondPriceInFTM ? digbondPriceInFTM : '-.----'}
+                      </span>
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={7}  style={{ borderBottom: '2px dashed black', paddingBottom: '15px' }}>
+                    <Typography variant='p' style={{ fontWeight: 'bold', color: '#2425BA' }}>
+                      USD
+                      <span style={{ color: '#121212', marginLeft: '10px' }}>
+                        ${digbondPriceInDollars ? digbondPriceInDollars : '-.--'}
+                      </span>
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Box>
+              <Box>
+                <Grid container justify='center'>
+                  <Grid item xs={7}>
+                  <Typography variant='h6' style={{ fontWeight: 'bold', color: '#2425BA' }}>
+                    Marketing Capital
+                  </Typography>
+                  </Grid>
+                  <Grid item xs={7}  style={{ borderBottom: '2px dashed black', paddingBottom: '15px' }}>
+                    <Typography variant='p' style={{ fontWeight: 'bold', fontSize: '2rem', color: '#121212' }}>
+                      ${(digbondCirculatingSupply * digbondPriceInDollars).toFixed(2)}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Box>
+              <Box>
+                <Grid container justify='center'>
+                  <Grid item xs={7}>
+                  <Typography variant='h6' style={{ fontWeight: 'bold', color: '#2425BA' }}>
+                    Circulating Supply
+                  </Typography>
+                  </Grid>
+                  <Grid item xs={7}  style={{ borderBottom: '2px dashed black', paddingBottom: '15px' }}>
+                    <Typography variant='p' style={{ fontWeight: 'bold', fontSize: '2rem', color: '#121212' }}>
+                      {digbondCirculatingSupply ? digbondCirculatingSupply : '0'}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Box>
+              <Box mb={2}>
+                <Grid container justify='center'>
+                  <Grid item xs={7}>
+                  <Typography variant='h6' style={{ fontWeight: 'bold', color: '#2425BA' }}>
+                    Total Supply
+                  </Typography>
+                  </Grid>
+                  <Grid item xs={7}>
+                    <Typography variant='p' style={{ fontWeight: 'bold', fontSize: '2rem', color: '#121212' }}>
+                      {digbondTotalSupply ? digbondTotalSupply : '0'}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Box>
               <Button
                 onClick={() => {
-                  // tombFinance.watchAssetInMetamask('TBOND');
+                  // tombFinance.watchAssetInMetamask('TOMB');
                 }}
-                color="primary"
-                variant="outlined"
-                style={{ position: 'absolute', top: '10px', right: '10px' }}
+                color="secondary"
+                variant="contained"
+                style={{ color: '#fff', fontWeight: 'bold', fontSize: '24px', padding: '0px 15px' }}
               >
-                +&nbsp;
-                <img alt="metamask fox" style={{ width: '20px' }} src={MetamaskFox} />
+                Buy BONeDS
               </Button>
-              <Box mt={2}>
-                <CardIcon>
-                  <TokenSymbol symbol="TBOND" />
-                </CardIcon>
-              </Box>
-              Current Price
-              <Box>
-                <span style={{ fontSize: '30px' }}>{digbondPriceInFTM ? digbondPriceInFTM : '-.----'} FTM</span>
-              </Box>
-              <Box>
-                <span style={{ fontSize: '16px' }}>${digbondPriceInDollars ? digbondPriceInDollars : '-.--'}</span>
-              </Box>
-              <span style={{ fontSize: '12px' }}>
-                Market Cap: ${(digbondCirculatingSupply * digbondPriceInDollars).toFixed(2)} <br />
-                Circulating Supply: {digbondCirculatingSupply} <br />
-                Total Supply: {digbondTotalSupply}
-              </span>
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={6}>
+      </Grid>
+      </Container>
+      <Box mt={12} textAlign='center'>
+        <Box component='img' alt='bones mascot' src={MascotBones} style={{ marginBottom: '-20px' }}  height="50%" maxHeight='250px' /><br/>
+        <Box component='img' alt='bones logo' src={LogoBones} width="80%" maxWidth='400px' minWidth='270px' />
+      </Box>
+      <Box pt={8} pb={10} style={{ backgroundColor: '#1B1C92', marginTop: '-5px' }}>
+        <Container maxWidth="sm">
+          <Box>
+            <Typography variant="h6" align='center' style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#fff' }}>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
+            </Typography>
+          </Box>
+          <Box mt={3}>
+            <Typography variant="h6" align='center' style={{ fontSize: '1.2rem', color: '#fff' }}>
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </Typography>
+          </Box>
+          <Box mt={3} textAlign='center'>
+            <Button 
+              onClick={() => {
+                // tombFinance.watchAssetInMetamask('TOMB');
+              }}
+              color="secondary"
+              variant="contained"
+              style={{ color: '#fff', fontWeight: 'bold', fontSize: '24px', padding: '0px 15px' }}
+            >
+              LET'S GET STARTED
+            </Button>
+          </Box>
+        </Container>
+      </Box>
+        {/* <Grid item xs={12} sm={6}>
           <Card>
             <CardContent align="center">
               <h2>DIGITAL-BASED LP</h2>
@@ -436,8 +620,7 @@ const Home = () => {
               </span>
             </CardContent>
           </Card>
-        </Grid>
-      </Grid>
+        </Grid> */}
     </Page>
   );
 };

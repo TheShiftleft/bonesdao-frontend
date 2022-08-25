@@ -13,6 +13,7 @@ import {
   ListItem,
   ListItemText,
   Divider,
+  Container,
 } from '@material-ui/core';
 
 import ListItemLink from '../ListItemLink';
@@ -51,6 +52,7 @@ const useStyles = makeStyles((theme) => ({
   },
   toolbar: {
     flexWrap: 'wrap',
+    padding: '0px'
   },
   toolbarTitle: {
     flexGrow: 1,
@@ -93,53 +95,54 @@ const Nav = () => {
 
   return (
     <AppBar position="sticky" elevation={0} className={classes.appBar}>
-      <Toolbar className={classes.toolbar}>
         {matches ? (
-          <>
-            <Box className={classes.toolbarTitle}>
-              <Link to="/" color="inherit" className={classes.brandLink}>
-                <img src={BonesLogo} height='50px' alt='Bones logo' />
-              </Link>
-            </Box>
-            <Box mr={5}>
-              <Link color="textPrimary" to="/" className={classes.link}>
-                Home
-              </Link>
-              <Link color="textPrimary" to="/" className={classes.link}>
-                Tokens
-              </Link>
-              <Link color="textPrimary" to="/" className={classes.link}>
-                Swap
-              </Link>
-              <Link color="textPrimary" to="/" className={classes.link}>
-                More
-              </Link>
-              {/* <Link color="textPrimary" to="/cemetery" className={classes.link}>
-                Cemetery
-              </Link>
-              <Link color="textPrimary" to="/masonry" className={classes.link}>
-                Masonry
-              </Link>
-              <Link color="textPrimary" to="/pit" className={classes.link}>
-                Pit
-              </Link>
-              <Link color="textPrimary" to="/sbs" className={classes.link}>
-                SBS
-              </Link>
-              <Link color="textPrimary" to="/liquidity" className={classes.link}>
-                Liquidity
-              </Link>
-              <Link color="textPrimary" to="/regulations" className={classes.link}>
-                Regulations
-              </Link>
-              <a href="https://docs.tomb.finance" className={classes.link}>
-                Docs
-              </a> */}
-            </Box>
-            <AccountButton text="Connect Wallet" />
-          </>
+          <Container maxWidth='lg'>
+            <Toolbar className={classes.toolbar}>
+              <Box className={classes.toolbarTitle}>
+                <Link to="/" color="inherit" className={classes.brandLink}>
+                  <img src={BonesLogo} height='50px' alt='Bones logo' />
+                </Link>
+              </Box>
+              <Box mr={5}>
+                <Link color="textPrimary" to="/" className={classes.link}>
+                  Home
+                </Link>
+                <Link color="textPrimary" to="/" className={classes.link}>
+                  Tokens
+                </Link>
+                <Link color="textPrimary" to="/" className={classes.link}>
+                  Swap
+                </Link>
+                <Link color="textPrimary" to="/" className={classes.link}>
+                  More
+                </Link>
+                {/* <Link color="textPrimary" to="/cemetery" className={classes.link}>
+                  Cemetery
+                </Link>
+                <Link color="textPrimary" to="/masonry" className={classes.link}>
+                  Masonry
+                </Link>
+                <Link color="textPrimary" to="/pit" className={classes.link}>
+                  Pit
+                </Link>
+                <Link color="textPrimary" to="/sbs" className={classes.link}>
+                  SBS
+                </Link>
+                <Link color="textPrimary" to="/liquidity" className={classes.link}>
+                  Liquidity
+                </Link>
+                <Link color="textPrimary" to="/regulations" className={classes.link}>
+                  Regulations
+                </Link>
+                <a href="https://docs.tomb.finance" className={classes.link}>
+                  Docs
+                </a> */}
+              </Box>
+              <AccountButton text="Connect Wallet" />
+            </Toolbar>
+          </Container>
         ) : (
-          <>
+          <Toolbar className={classes.toolbar}>
             <IconButton
               aria-label="open drawer"
               onClick={handleDrawerOpen}
@@ -190,9 +193,8 @@ const Nav = () => {
                 </ListItem>
               </List>
             </Drawer>
-          </>
+          </Toolbar>
         )}
-      </Toolbar>
     </AppBar>
   );
 };
