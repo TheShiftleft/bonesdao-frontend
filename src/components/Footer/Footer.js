@@ -1,12 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid, Typography, Link, Box } from '@material-ui/core';
-import MascotHead from '../../assets/img/mascot-bones_head.png';
-import TwitterImage from '../../assets/img/twitter.svg';
-import GithubImage from '../../assets/img/github.svg';
-import TelegramImage from '../../assets/img/telegram.svg';
-import DiscordImage from '../../assets/img/discord.svg';
-import YoutubeImage from '../../assets/img/youtube.svg';
+import MascotHead from '../../assets/img/bones_head.png';
 import FacebookIcon from '../icons/FacebookIcon';
 import TwitterIcon from '../icons/TwitterIcon';
 import InstagramIcon from '../icons/InstagramIcon';
@@ -87,7 +82,7 @@ const Footer = () => {
             </Typography>
           </Grid>
           <Grid container item xs={12} alignItems='center' justify='center'>
-            <Box component='img' alt='bones mascot' src={MascotHead} height='70px' />
+            <Box mr={1} component='img' alt='bones mascot' src={MascotHead} height='70px' />
             <Typography variant='p' className={classes.bonesText}>
               BONES
             </Typography>
