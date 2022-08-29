@@ -49,23 +49,14 @@ const App: React.FC = () => {
             <Route exact path="/">
               <Home />
             </Route>
-            <Route path="/cemetery">
+            <Route path="/farms">
               <Cemetery />
             </Route>
-            <Route path="/masonry">
+            <Route path="/boardroom">
               <Masonry />
             </Route>
-            <Route path="/pit">
+            <Route path="/bond">
               <Pit />
-            </Route>
-            <Route path="/sbs">
-              <SBS />
-            </Route>
-            <Route path="/regulations">
-              <Regulations />
-            </Route>
-            <Route path="/liquidity">
-              <Liquidity />
             </Route>
             <Route path="*">
               <NoMatch />

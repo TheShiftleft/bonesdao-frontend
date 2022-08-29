@@ -107,36 +107,18 @@ const Nav = () => {
                 <Link color="textPrimary" to="/" className={classes.link}>
                   Home
                 </Link>
-                <Link color="textPrimary" to="/" className={classes.link}>
-                  Tokens
+                <Link color="textPrimary" to="/farms" className={classes.link}>
+                  Farms
                 </Link>
-                <Link color="textPrimary" to="/" className={classes.link}>
-                  Swap
+                <Link color="textPrimary" to="/boardroom" className={classes.link}>
+                  Boardroom
+                </Link>
+                <Link color="textPrimary" to="/bond" className={classes.link}>
+                  Bond
                 </Link>
                 <Link color="textPrimary" to="/" className={classes.link}>
                   More
                 </Link>
-                {/* <Link color="textPrimary" to="/cemetery" className={classes.link}>
-                  Cemetery
-                </Link>
-                <Link color="textPrimary" to="/masonry" className={classes.link}>
-                  Masonry
-                </Link>
-                <Link color="textPrimary" to="/pit" className={classes.link}>
-                  Pit
-                </Link>
-                <Link color="textPrimary" to="/sbs" className={classes.link}>
-                  SBS
-                </Link>
-                <Link color="textPrimary" to="/liquidity" className={classes.link}>
-                  Liquidity
-                </Link>
-                <Link color="textPrimary" to="/regulations" className={classes.link}>
-                  Regulations
-                </Link>
-                <a href="https://docs.tomb.finance" className={classes.link}>
-                  Docs
-                </a> */}
               </Box>
               <AccountButton text="Connect Wallet" />
             </Toolbar>
@@ -176,8 +158,9 @@ const Nav = () => {
               <Divider />
               <List>
                 <ListItemLink primary="Home" to="/" />
-                <ListItemLink primary="Tokens" to="/" />
-                <ListItemLink primary="Swap" to="/" />
+                <ListItemLink primary="Farms" to="/farms" />
+                <ListItemLink primary="Boardroom" to="/boardroom" />
+                <ListItemLink primary="Bond" to="/bond" />
                 <ListItemLink primary="More" to="/" />
                 {/* <ListItemLink primary="Cemetery" to="/cemetery" />
                 <ListItemLink primary="Masonry" to="/masonry" />

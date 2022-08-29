@@ -274,15 +274,11 @@ export class TombFinance {
         // TO-DO: UPDATE THE POOL TOKENS AND DISTRIBUTION
 
         const rewardPerSecond = await poolContract.bonesPerSecond();
-        if (depositTokenName === 'WFTM') {
-          return rewardPerSecond.mul(6000).div(11000).div(24);
-        } else if (depositTokenName === 'BOO') {
-          return rewardPerSecond.mul(2500).div(11000).div(24);
-        } else if (depositTokenName === 'ZOO') {
-          return rewardPerSecond.mul(1000).div(11000).div(24);
-        } else if (depositTokenName === 'SHIBA') {
-          return rewardPerSecond.mul(1500).div(11000).div(24);
-        }
+        if (depositTokenName === 'WDOGE') {
+          return rewardPerSecond.mul(10000).div(17000).div(48);
+        } else if (depositTokenName === 'USDC') {
+          return rewardPerSecond.mul(7000).div(17000).div(48);
+        } 
         return rewardPerSecond.div(24);
       }
       const poolStartTime = await poolContract.poolStartTime();
@@ -297,9 +293,9 @@ export class TombFinance {
     // TO-DO: UPDATE THE POOL TOKENS AND DISTRIBUTION
     const rewardPerSecond = await poolContract.bSharePerSecond();
     if (depositTokenName.startsWith('BONES')) {
-      return rewardPerSecond.mul(35500).div(59500);
+      return rewardPerSecond.mul(30000).div(60000);
     } else {
-      return rewardPerSecond.mul(24000).div(59500);
+      return rewardPerSecond.mul(30000).div(60000);
     }
   }
 
@@ -541,7 +537,7 @@ export class TombFinance {
     if (!ready) return;
     const { WFTM, FUSDT } = this.externalTokens;
     try {
-      // TO-DO: GET THE USDC-DOGE LP Address
+      // TO-DO: GET THE USDC-DOGE LP Address in config
       const fusdt_wftm_lp_pair = this.externalTokens['USDT-FTM-LP'];
       let ftm_amount_BN = await WFTM.balanceOf(fusdt_wftm_lp_pair.address);
       let ftm_amount = Number(getFullDisplayBalance(ftm_amount_BN, WFTM.decimal));
