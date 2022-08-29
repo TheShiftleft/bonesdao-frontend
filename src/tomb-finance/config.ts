@@ -1,5 +1,7 @@
 import { Deployments } from './deployments';
-import { ChainId } from '@spookyswap/sdk';
+//import { ChainId } from '@spookyswap/sdk';
+
+import { ChainId } from '../tomb-finance/constants';
 
 export type Configuration = {
   chainId: ChainId;

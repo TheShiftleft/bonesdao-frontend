@@ -58,14 +58,13 @@ const Masonry = () => {
   const canWithdraw = useWithdrawCheck();
   const scalingFactor = useMemo(() => (cashStat ? Number(cashStat.priceInDollars).toFixed(4) : null), [cashStat]);
   const { to } = useTreasuryAllocationTimes();
-
   return (
     <Page>
       <BackgroundImage />
       {!!account ? (
         <>
           <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
-            Masonry
+            Boardroom
           </Typography>
           <Box mt={5}>
             <Grid container justify="center" spacing={3}>
@@ -89,7 +88,7 @@ const Masonry = () => {
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
                     <Typography>
-                      TOMB Price<small>(TWAP)</small>
+                      BONES Price<small>(TWAP)</small>
                     </Typography>
                     <Typography>{scalingFactor}</Typography>
                   </CardContent>
@@ -106,7 +105,7 @@ const Masonry = () => {
               <Grid item xs={12} md={2} lg={2}>
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
-                    <Typography>TSHARES Staked</Typography>
+                    <Typography>BSHARES Staked</Typography>
                     <Typography>{getDisplayBalance(totalStaked)}</Typography>
                   </CardContent>
                 </Card>
@@ -116,7 +115,7 @@ const Masonry = () => {
             <Grid container justify="center">
               <Box mt={3} style={{ width: '600px' }}>
                 <Alert variant="filled" severity="warning">
-                  Staked TSHAREs can only be withdrawn after 6 epochs since deposit.
+                  Staked BSHAREs can only be withdrawn after 6 epochs since deposit.
                 </Alert>
               </Box>
             </Grid>

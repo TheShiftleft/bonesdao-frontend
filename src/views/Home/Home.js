@@ -15,15 +15,15 @@ import { createGlobalStyle } from 'styled-components';
 import CountUp from 'react-countup';
 import CardIcon from '../../components/CardIcon';
 import TokenSymbol from '../../components/TokenSymbol';
-// import useTombStats from '../../hooks/useTombStats';
+import useTombStats from '../../hooks/useTombStats';
 import useLpStats from '../../hooks/useLpStats';
 import useModal from '../../hooks/useModal';
 import useZap from '../../hooks/useZap';
-// import useBondStats from '../../hooks/useBondStats';
-// import usetShareStats from '../../hooks/usetShareStats';
-// import useTotalValueLocked from '../../hooks/useTotalValueLocked';
-import { tomb as tombTesting, tShare as tShareTesting } from '../../tomb-finance/deployments/deployments.testing.json';
-import { tomb as tombProd, tShare as tShareProd } from '../../tomb-finance/deployments/deployments.mainnet.json';
+import useBondStats from '../../hooks/useBondStats';
+import usetShareStats from '../../hooks/usetShareStats';
+import useTotalValueLocked from '../../hooks/useTotalValueLocked';
+import { bones as tombTesting, bShare as tShareTesting } from '../../tomb-finance/deployments/deployments.testing.json';
+import { bones as tombProd, bShare as tShareProd } from '../../tomb-finance/deployments/deployments.mainnet.json';
 
 import MetamaskFox from '../../assets/img/metamask-fox.svg';
 
@@ -31,12 +31,7 @@ import { Box, Button, Card, CardContent, CardHeader, Container, Grid, IconButton
 import ZapModal from '../Bank/components/ZapModal';
 
 import { makeStyles } from '@material-ui/core/styles';
-// import useTombFinance from '../../hooks/useTombFinance';
-import useDigitalStats from '../../hooks/useDigitalStats';
-import useDigshareStats from '../../hooks/useDigshareStats';
-import useDigbondStats from '../../hooks/useDigbondStats';
-import useDigitalTotalValueLocked from '../../hooks/useDigitalTotalValueLocked';
-import useDigitalLpStats from '../../hooks/useDigitalLpStats';
+import useTombFinance from '../../hooks/useTombFinance';
 
 const BackgroundImage = createGlobalStyle`
   body {
@@ -94,19 +89,13 @@ const useStyles = makeStyles((theme) => ({
 
 const Home = () => {
   const classes = useStyles();
-  // const TVL = useTotalValueLocked();
-  const digitalTVL = useDigitalTotalValueLocked();
-  const digitalBasedStats = useDigitalLpStats('DIGITAL-BASED-LP')
-  const digShareFtmStats = useDigitalLpStats('DIGSHARES-FTM-LP')
-  const tombFtmLpStats = useLpStats('TOMB-FTM-LP');
-  const tShareFtmLpStats = useLpStats('TSHARE-FTM-LP');
-  // const tombStats = useTombStats();
-  // const tShareStats = usetShareStats();
-  const digitalStats = useDigitalStats();
-  const digshareStats = useDigshareStats();
-  const digbondStats = useDigbondStats();
-  // const tBondStats = useBondStats();
-  // const tombFinance = useTombFinance();
+  const TVL = useTotalValueLocked();
+  const tombFtmLpStats = useLpStats('BONES-DOGE-LP');
+  const tShareFtmLpStats = useLpStats('BSHARE-DOGE-LP');
+  const tombStats = useTombStats();
+  const tShareStats = usetShareStats();
+  const tBondStats = useBondStats();
+  const tombFinance = useTombFinance();
 
   let tomb;
   let tShare;
@@ -118,34 +107,46 @@ const Home = () => {
     tShare = tShareProd;
   }
 
-  // const buyTombAddress = 'https://spookyswap.finance/swap?outputCurrency=' + tomb.address;
-  // const buyTShareAddress = 'https://spookyswap.finance/swap?outputCurrency=' + tShare.address;
+  const buyTombAddress = 'https://dogeswap.org/#/swap?outputCurrency=' + tomb.address;
+  const buyTShareAddress = 'https://dogeswap.org/#/swap?outputCurrency=' + tShare.address;
 
-  // DIGITAL-BASED LP STATS
-  const digitalBasedLP = useMemo(() => (digitalBasedStats ? digitalBasedStats : null), [digitalBasedStats]);
-  // DIGSHARE-FTM LP STATS
-  const digShareFtmLP = useMemo(() => (digShareFtmStats ? digShareFtmStats : null), [digShareFtmStats]);
+  const tombLPStats = useMemo(() => (tombFtmLpStats ? tombFtmLpStats : null), [tombFtmLpStats]);
+  const tshareLPStats = useMemo(() => (tShareFtmLpStats ? tShareFtmLpStats : null), [tShareFtmLpStats]);
+  const tombPriceInDollars = useMemo(
+    () => (tombStats ? Number(tombStats.priceInDollars).toFixed(2) : null),
+    [tombStats],
+  );
+  const tombPriceInFTM = useMemo(() => (tombStats ? Number(tombStats.tokenInFtm).toFixed(4) : null), [tombStats]);
+  const tombCirculatingSupply = useMemo(() => (tombStats ? String(tombStats.circulatingSupply) : null), [tombStats]);
+  const tombTotalSupply = useMemo(() => (tombStats ? String(tombStats.totalSupply) : null), [tombStats]);
 
-  // DIGITAL
-  const digitalPriceInDollars = useMemo(() => (digitalStats ? Number(digitalStats.priceInDollars).toFixed(2) : null),[digitalStats]);
-  const digitalPriceInFTM = useMemo(() => (digitalStats ? Number(digitalStats.tokenInFtm).toFixed(4): null), [digitalStats]);
-  const digitalCirculatingSupply = useMemo(() => (digitalStats ? String(digitalStats.circulatingSupply) : null), [digitalStats]);
-  const digitalTotalSupply = useMemo(() => (digitalStats ? String(digitalStats.totalSupply) : null), [digitalStats]);
+  const tSharePriceInDollars = useMemo(
+    () => (tShareStats ? Number(tShareStats.priceInDollars).toFixed(2) : null),
+    [tShareStats],
+  );
+  const tSharePriceInFTM = useMemo(
+    () => (tShareStats ? Number(tShareStats.tokenInFtm).toFixed(4) : null),
+    [tShareStats],
+  );
+  const tShareCirculatingSupply = useMemo(
+    () => (tShareStats ? String(tShareStats.circulatingSupply) : null),
+    [tShareStats],
+  );
+  const tShareTotalSupply = useMemo(() => (tShareStats ? String(tShareStats.totalSupply) : null), [tShareStats]);
 
-  // DIGSHARE
-  const digsharePriceInDollars = useMemo(() => (digshareStats ? Number(digshareStats.priceInDollars).toFixed(2) : null), [digshareStats]);
-  const digsharePriceInFTM = useMemo(() => (digshareStats ? Number(digshareStats.tokenInFtm).toFixed(4) : null), [digshareStats]);
-  const digshareCirculatingSupply = useMemo(() => (digshareStats ? String(digshareStats.circulatingSupply) : null), [digshareStats]);
-  const digshareTotalSupply = useMemo(() => (digshareStats ? String(digshareStats.totalSupply) : null), [digshareStats]);
+  const tBondPriceInDollars = useMemo(
+    () => (tBondStats ? Number(tBondStats.priceInDollars).toFixed(2) : null),
+    [tBondStats],
+  );
+  const tBondPriceInFTM = useMemo(() => (tBondStats ? Number(tBondStats.tokenInFtm).toFixed(4) : null), [tBondStats]);
+  const tBondCirculatingSupply = useMemo(
+    () => (tBondStats ? String(tBondStats.circulatingSupply) : null),
+    [tBondStats],
+  );
+  const tBondTotalSupply = useMemo(() => (tBondStats ? String(tBondStats.totalSupply) : null), [tBondStats]);
 
-  // DIGBOND
-  const digbondPriceInDollars = useMemo(() => (digbondStats ? Number(digbondStats.priceInDollars).toFixed(2) : null), [digbondStats]);
-  const digbondPriceInFTM = useMemo(() => (digbondStats ? Number(digbondStats.tokenInFtm).toFixed(4) : null), [digbondStats]);
-  const digbondCirculatingSupply = useMemo(() => (digbondStats ? String(digbondStats.circulatingSupply) : null), [digbondStats]);
-  const digbondTotalSupply = useMemo(() => (digbondStats ? String(digbondStats.totalSupply) : null), [digbondStats]);
-
-  const tombLpZap = useZap({ depositTokenName: 'TOMB-FTM-LP' });
-  const tshareLpZap = useZap({ depositTokenName: 'TSHARE-FTM-LP' });
+  const tombLpZap = useZap({ depositTokenName: 'BONES-DOGE-LP' });
+  const tshareLpZap = useZap({ depositTokenName: 'BSHARE-DOGE-LP' });
 
   const StyledLink = styled.a`
     font-weight: 700;
@@ -160,7 +161,7 @@ const Home = () => {
         tombLpZap.onZap(zappingToken, tokenName, amount);
         onDissmissTombZap();
       }}
-      tokenName={'TOMB-FTM-LP'}
+      tokenName={'BONES-DOGE-LP'}
     />,
   );
 
@@ -172,7 +173,7 @@ const Home = () => {
         tshareLpZap.onZap(zappingToken, tokenName, amount);
         onDissmissTshareZap();
       }}
-      tokenName={'TSHARE-FTM-LP'}
+      tokenName={'BSHARE-DOGE-LP'}
     />,
   );
 
@@ -187,19 +188,19 @@ const Home = () => {
               <Grid className={classes.tokenContainer} container item xs={4} sm={3} md={4} justify='center' alignItems='center'>
                 <Box mr={2} component='img' alt='Bones' height='32px' src={Bones} />
                 <Typography variant='p'>
-                  <span>{digitalPriceInFTM ? digitalPriceInFTM : '-.----'} FTM</span>
+                  <span>{tombPriceInFTM ? tombPriceInFTM : '-.----'} DOGE</span>
                 </Typography>
               </Grid>
               <Grid className={classes.tokenContainer} container item xs={4} sm={3} md={4} justify='center' alignItems='center'>
                 <Box mr={2} component='img' alt='Bones' height='32px' src={Bshares} />
                 <Typography variant='p'>
-                  <span>{digsharePriceInFTM ? digsharePriceInFTM : '-.----'} FTM</span>
+                  <span>{tSharePriceInFTM ? tSharePriceInFTM : '-.----'} DOGE</span>
                 </Typography>
               </Grid>
               <Grid className={classes.tokenContainer} container item xs={4} sm={3} md={4} justify='center' alignItems='center'>
                 <Box mr={2} component='img' alt='Bones' height='32px' src={Boneds} />
                 <Typography variant='p'>
-                  <span>{digbondPriceInFTM ? digbondPriceInFTM : '-.----'} FTM</span>
+                  <span>{tBondPriceInFTM ? tBondPriceInFTM : '-.----'} DOGE</span>
                 </Typography>
               </Grid>
             </Grid>
@@ -217,13 +218,13 @@ const Home = () => {
                 </Grid>
                 <Grid className={classes.tvlText} container item xs={9} sm={8} md={9} >
                   <Typography variant='p'>
-                    <CountUp end={digitalTVL} separator="," prefix="$" />
+                    <CountUp end={TVL} separator="," prefix="$" />
                   </Typography>
                 </Grid>
               </Grid>
             </Grid>
 
-            {/* DIGITAL */}
+            {/* BONES */}
             <Grid item xs={12} sm={4}>
               <Card className={classes.cardContainer}>
                 <CardContent align="center" style={{ padding: '0px', }}>
@@ -258,9 +259,9 @@ const Home = () => {
                       </Grid>
                       <Grid item xs={7}>
                         <Typography variant='p' style={{ fontWeight: 'bold', color: '#2425BA' }} display='block'>
-                          FTM
+                          DOGE
                           <span style={{ color: '#121212', fontSize: '2rem', marginLeft: '10px' }}>
-                            {digitalPriceInFTM ? digitalPriceInFTM : '-.----'}
+                            {tombPriceInFTM ? tombPriceInFTM : '-.----'}
                           </span>
                         </Typography>
                       </Grid>
@@ -268,7 +269,7 @@ const Home = () => {
                         <Typography variant='p' style={{ fontWeight: 'bold', color: '#2425BA' }}>
                           USD
                           <span style={{ color: '#121212', marginLeft: '10px' }}>
-                            ${digitalPriceInDollars ? digitalPriceInDollars : '-.--'}
+                            ${tombPriceInDollars ? tombPriceInDollars : '-.--'}
                           </span>
                         </Typography>
                       </Grid>
@@ -283,7 +284,7 @@ const Home = () => {
                       </Grid>
                       <Grid item xs={7}  style={{ borderBottom: '2px dashed black', paddingBottom: '15px' }}>
                         <Typography variant='p' style={{ fontWeight: 'bold', fontSize: '2rem', color: '#121212' }}>
-                          ${(digitalCirculatingSupply * digitalPriceInDollars).toFixed(2)}
+                          ${(tombCirculatingSupply * tombPriceInDollars).toFixed(2)}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -297,7 +298,7 @@ const Home = () => {
                       </Grid>
                       <Grid item xs={7}  style={{ borderBottom: '2px dashed black', paddingBottom: '15px' }}>
                         <Typography variant='p' style={{ fontWeight: 'bold', fontSize: '2rem', color: '#121212' }}>
-                          {digitalCirculatingSupply ? digitalCirculatingSupply : '0'}
+                          {tombCirculatingSupply ? tombCirculatingSupply : '0'}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -311,15 +312,14 @@ const Home = () => {
                       </Grid>
                       <Grid item xs={7}>
                         <Typography variant='p' style={{ fontWeight: 'bold', fontSize: '2rem', color: '#121212' }}>
-                          {digitalTotalSupply ? digitalTotalSupply : '0'}
+                          {tombTotalSupply ? tombTotalSupply : '0'}
                         </Typography>
                       </Grid>
                     </Grid>
                   </Box>
                   <Button
-                    onClick={() => {
-                      // tombFinance.watchAssetInMetamask('TOMB');
-                    }}
+                    target="_blank"
+                    href={buyTombAddress}
                     color="secondary"
                     variant="contained"
                     style={{ color: '#fff', fontWeight: 'bold', fontSize: '24px', padding: '0px 15px' }}
@@ -330,7 +330,7 @@ const Home = () => {
               </Card>
             </Grid>
 
-            {/* DIGSHARE */}
+            {/* BSHARE */}
             <Grid item xs={12} sm={4}>
               <Card className={classes.cardContainer}>
                   <CardContent align="center" style={{ padding: '0px', }}>
@@ -364,9 +364,9 @@ const Home = () => {
                       </Grid>
                       <Grid item xs={7}>
                         <Typography variant='p' style={{ fontWeight: 'bold', color: '#2425BA' }} display='block'>
-                          FTM
+                          DOGE
                           <span style={{ color: '#121212', fontSize: '2rem', marginLeft: '10px' }}>
-                            {digsharePriceInFTM ? digsharePriceInFTM : '-.----'}
+                            {tSharePriceInFTM ? tSharePriceInFTM : '-.----'}
                           </span>
                         </Typography>
                       </Grid>
@@ -374,7 +374,7 @@ const Home = () => {
                         <Typography variant='p' style={{ fontWeight: 'bold', color: '#2425BA' }}>
                           USD
                           <span style={{ color: '#121212', marginLeft: '10px' }}>
-                            ${digsharePriceInDollars ? digsharePriceInDollars : '-.--'}
+                            ${tSharePriceInDollars ? tSharePriceInDollars : '-.--'}
                           </span>
                         </Typography>
                       </Grid>
@@ -389,7 +389,7 @@ const Home = () => {
                       </Grid>
                       <Grid item xs={7}  style={{ borderBottom: '2px dashed black', paddingBottom: '15px' }}>
                         <Typography variant='p' style={{ fontWeight: 'bold', fontSize: '2rem', color: '#121212' }}>
-                          ${(digshareCirculatingSupply * digsharePriceInDollars).toFixed(2)}
+                          ${(tShareCirculatingSupply * tSharePriceInDollars).toFixed(2)}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -403,7 +403,7 @@ const Home = () => {
                       </Grid>
                       <Grid item xs={7}  style={{ borderBottom: '2px dashed black', paddingBottom: '15px' }}>
                         <Typography variant='p' style={{ fontWeight: 'bold', fontSize: '2rem', color: '#121212' }}>
-                          {digshareCirculatingSupply ? digshareCirculatingSupply : '0'}
+                          {tShareCirculatingSupply ? tShareCirculatingSupply : '0'}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -417,15 +417,14 @@ const Home = () => {
                       </Grid>
                       <Grid item xs={7}>
                         <Typography variant='p' style={{ fontWeight: 'bold', fontSize: '2rem', color: '#121212' }}>
-                          {digshareTotalSupply ? digshareTotalSupply : '0'}
+                          {tShareTotalSupply ? tShareTotalSupply : '0'}
                         </Typography>
                       </Grid>
                     </Grid>
                   </Box>
                   <Button
-                    onClick={() => {
-                      // tombFinance.watchAssetInMetamask('TOMB');
-                    }}
+                    target="_blank"
+                    href={buyTShareAddress}
                     color="secondary"
                     variant="contained"
                     style={{ color: '#fff', fontWeight: 'bold', fontSize: '24px', padding: '0px 15px' }}
@@ -436,7 +435,7 @@ const Home = () => {
               </Card>
             </Grid>
 
-            {/* DIGBOND */}
+            {/* BBOND */}
             <Grid item xs={12} sm={4}>
               <Card className={classes.cardContainer}>
                   <CardContent align="center" style={{ padding: '0px', }}>
@@ -470,9 +469,9 @@ const Home = () => {
                       </Grid>
                       <Grid item xs={7}>
                         <Typography variant='p' style={{ fontWeight: 'bold', color: '#2425BA' }} display='block'>
-                          FTM
+                          DOGE
                           <span style={{ color: '#121212', fontSize: '2rem', marginLeft: '10px' }}>
-                            {digbondPriceInFTM ? digbondPriceInFTM : '-.----'}
+                            {tBondPriceInFTM ? tBondPriceInFTM : '-.----'}
                           </span>
                         </Typography>
                       </Grid>
@@ -480,7 +479,7 @@ const Home = () => {
                         <Typography variant='p' style={{ fontWeight: 'bold', color: '#2425BA' }}>
                           USD
                           <span style={{ color: '#121212', marginLeft: '10px' }}>
-                            ${digbondPriceInDollars ? digbondPriceInDollars : '-.--'}
+                            ${tBondPriceInDollars ? tBondPriceInDollars : '-.--'}
                           </span>
                         </Typography>
                       </Grid>
@@ -495,7 +494,7 @@ const Home = () => {
                       </Grid>
                       <Grid item xs={7}  style={{ borderBottom: '2px dashed black', paddingBottom: '15px' }}>
                         <Typography variant='p' style={{ fontWeight: 'bold', fontSize: '2rem', color: '#121212' }}>
-                          ${(digbondCirculatingSupply * digbondPriceInDollars).toFixed(2)}
+                          ${(tBondCirculatingSupply * tBondPriceInDollars).toFixed(2)}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -509,7 +508,7 @@ const Home = () => {
                       </Grid>
                       <Grid item xs={7}  style={{ borderBottom: '2px dashed black', paddingBottom: '15px' }}>
                         <Typography variant='p' style={{ fontWeight: 'bold', fontSize: '2rem', color: '#121212' }}>
-                          {digbondCirculatingSupply ? digbondCirculatingSupply : '0'}
+                          {tBondCirculatingSupply ? tBondCirculatingSupply : '0'}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -523,26 +522,24 @@ const Home = () => {
                       </Grid>
                       <Grid item xs={7}>
                         <Typography variant='p' style={{ fontWeight: 'bold', fontSize: '2rem', color: '#121212' }}>
-                          {digbondTotalSupply ? digbondTotalSupply : '0'}
+                          {tBondTotalSupply ? tBondTotalSupply : '0'}
                         </Typography>
                       </Grid>
                     </Grid>
                   </Box>
                   <Button
-                    onClick={() => {
-                      // tombFinance.watchAssetInMetamask('TOMB');
-                    }}
+                    href="/pit"
                     color="secondary"
                     variant="contained"
                     style={{ color: '#fff', fontWeight: 'bold', fontSize: '24px', padding: '0px 15px' }}
                   >
-                    Buy BONeDS
+                    Buy BBONDS
                   </Button>
                 </CardContent>
               </Card>
             </Grid>
 
-            {/* DIGITAL-BASED LP */}
+            {/* BONES-DOGE LP */}
             <Grid item xs={12} sm={4}>
               <Card className={classes.cardContainer}>
                   <CardContent align="center" style={{ padding: '0px', }}>
@@ -551,20 +548,7 @@ const Home = () => {
                         <Box component='img' alt='Bones' height='42px' src={Bones} />
                       </Grid>
                       <Grid item>
-                        <Typography className={classes.cardTitle} variant='p' >DIGITAL-BASED LP</Typography>
-                      </Grid>
-                      <Grid item style={{ padding: '0px' }}>
-                        <Button
-                          onClick={() => {
-                            // tombFinance.watchAssetInMetamask('TOMB');
-                          }}
-                          color="secondary"
-                          variant="outlined"
-                          style={{ border: '2px solid', fontSize: '24px', padding: '0px 15px' }}
-                        >
-                          +&nbsp;
-                          <img alt="metamask fox" style={{ width: '20px' }} src={MetamaskFox} />
-                        </Button>
+                        <Typography className={classes.cardTitle} variant='p' >BONES-DOGE LP</Typography>
                       </Grid>
                     </Grid>
                     <Box mt={2}>
@@ -577,20 +561,20 @@ const Home = () => {
                       <Grid item xs={7}>
                         <Typography variant='p' style={{ fontWeight: 'bold', color: '#2425BA' }} display='block'>
                           <span style={{ color: '#121212', fontSize: '2rem', marginLeft: '10px' }}>
-                            {digitalBasedLP?.tokenAmount ? digitalBasedLP?.tokenAmount : '-.--'}
+                            {tombLPStats?.tokenAmount ? tombLPStats?.tokenAmount : '-.--'}
                           </span>
-                          FTM / 
+                           BONES / 
                           <span style={{ color: '#121212', fontSize: '2rem', marginLeft: '10px' }}>
-                            {digitalBasedLP?.ftmAmount ? digitalBasedLP?.ftmAmount : '-.--'}
+                            {tombLPStats?.ftmAmount ? tombLPStats?.ftmAmount : '-.--'}
                           </span>
-                           BASED
+                           DOGE
                         </Typography>
                       </Grid>
                       <Grid item xs={7}  style={{ borderBottom: '2px dashed black', paddingBottom: '15px' }}>
                         <Typography variant='p' style={{ fontWeight: 'bold', color: '#2425BA' }}>
                           USD
                           <span style={{ color: '#121212', marginLeft: '10px' }}>
-                            ${digitalBasedLP?.priceOfOne ? digitalBasedLP.priceOfOne : '-.--'}
+                            ${tombLPStats?.priceOfOne ? tombLPStats.priceOfOne : '-.--'}
                           </span>
                         </Typography>
                       </Grid>
@@ -605,7 +589,7 @@ const Home = () => {
                       </Grid>
                       <Grid item xs={7}  style={{ borderBottom: '2px dashed black', paddingBottom: '15px' }}>
                         <Typography variant='p' style={{ fontWeight: 'bold', fontSize: '2rem', color: '#121212' }}>
-                          ${digitalBasedLP?.totalLiquidity ? digitalBasedLP.totalLiquidity : '-.--'}
+                          ${tombLPStats?.totalLiquidity ? tombLPStats.totalLiquidity : '-.--'}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -619,12 +603,12 @@ const Home = () => {
                       </Grid>
                       <Grid item xs={7}>
                         <Typography variant='p' style={{ fontWeight: 'bold', fontSize: '2rem', color: '#121212' }}>
-                          {digitalBasedLP?.totalSupply ? digitalBasedLP.totalSupply : '-.--'}
+                          {tombLPStats?.totalSupply ? tombLPStats.totalSupply : '-.--'}
                         </Typography>
                       </Grid>
                     </Grid>
                   </Box>
-                  <Button
+                  {/* <Button
                     onClick={() => {
                       // tombFinance.watchAssetInMetamask('TOMB');
                     }}
@@ -633,12 +617,12 @@ const Home = () => {
                     style={{ color: '#fff', fontWeight: 'bold', fontSize: '24px', padding: '0px 15px' }}
                   >
                     ZAP IN
-                  </Button>
+                  </Button> */}
                 </CardContent>
               </Card>
             </Grid>
 
-            {/* DIGSHARE-FTM LP */}
+            {/* BSHARES-DOGE LP */}
             <Grid item xs={12} sm={4}>
               <Card className={classes.cardContainer}>
                   <CardContent align="center" style={{ padding: '0px', }}>
@@ -647,20 +631,7 @@ const Home = () => {
                         <Box component='img' alt='Bones' height='42px' src={Bones} />
                       </Grid>
                       <Grid item>
-                        <Typography className={classes.cardTitle} variant='p' >DIGSHARE-FTM LP</Typography>
-                      </Grid>
-                      <Grid item style={{ padding: '0px' }}>
-                        <Button
-                          onClick={() => {
-                            // tombFinance.watchAssetInMetamask('TOMB');
-                          }}
-                          color="secondary"
-                          variant="outlined"
-                          style={{ border: '2px solid', fontSize: '24px', padding: '0px 15px' }}
-                        >
-                          +&nbsp;
-                          <img alt="metamask fox" style={{ width: '20px' }} src={MetamaskFox} />
-                        </Button>
+                        <Typography className={classes.cardTitle} variant='p' >BSHARES-DOGE LP</Typography>
                       </Grid>
                     </Grid>
                     <Box mt={2}>
@@ -673,20 +644,20 @@ const Home = () => {
                       <Grid item xs={8}>
                         <Typography variant='p' style={{ fontWeight: 'bold', color: '#2425BA' }} display='block'>
                           <span style={{ color: '#121212', fontSize: '2rem', marginLeft: '10px' }}>
-                            {digShareFtmLP?.tokenAmount ? digShareFtmLP?.tokenAmount : '-.--'}
+                            {tshareLPStats?.tokenAmount ? tshareLPStats?.tokenAmount : '-.--'}
                           </span>
-                          DIGSHARE / 
+                          TSHARE / 
                           <span style={{ color: '#121212', fontSize: '2rem', marginLeft: '10px' }}>
-                            {digShareFtmLP?.ftmAmount ? digShareFtmLP?.ftmAmount : '-.--'}
+                            {tshareLPStats?.ftmAmount ? tshareLPStats?.ftmAmount : '-.--'}
                           </span>
-                          FTM
+                          DOGE
                         </Typography>
                       </Grid>
                       <Grid item xs={7}  style={{ borderBottom: '2px dashed black', paddingBottom: '15px' }}>
                         <Typography variant='p' style={{ fontWeight: 'bold', color: '#2425BA' }}>
                           USD
                           <span style={{ color: '#121212', marginLeft: '10px' }}>
-                            ${digShareFtmLP?.priceOfOne ? digShareFtmLP.priceOfOne : '-.--'}
+                            ${tshareLPStats?.priceOfOne ? tshareLPStats.priceOfOne : '-.--'}
                           </span>
                         </Typography>
                       </Grid>
@@ -701,7 +672,7 @@ const Home = () => {
                       </Grid>
                       <Grid item xs={7}  style={{ borderBottom: '2px dashed black', paddingBottom: '15px' }}>
                         <Typography variant='p' style={{ fontWeight: 'bold', fontSize: '2rem', color: '#121212' }}>
-                          ${digShareFtmLP?.totalLiquidity ? digShareFtmLP.totalLiquidity : '-.--'}
+                          ${tshareLPStats?.totalLiquidity ? tshareLPStats.totalLiquidity : '-.--'}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -715,12 +686,12 @@ const Home = () => {
                       </Grid>
                       <Grid item xs={7}>
                         <Typography variant='p' style={{ fontWeight: 'bold', fontSize: '2rem', color: '#121212' }}>
-                          {digShareFtmLP?.totalSupply ? digShareFtmLP.totalSupply : '-.--'}
+                          {tshareLPStats?.totalSupply ? tshareLPStats.totalSupply : '-.--'}
                         </Typography>
                       </Grid>
                     </Grid>
                   </Box>
-                  <Button
+                  {/* <Button
                     onClick={() => {
                       // tombFinance.watchAssetInMetamask('TOMB');
                     }}
@@ -729,7 +700,7 @@ const Home = () => {
                     style={{ color: '#fff', fontWeight: 'bold', fontSize: '24px', padding: '0px 15px' }}
                   >
                     ZAP IN
-                  </Button>
+                  </Button> */}
                 </CardContent>
               </Card>
             </Grid>
@@ -773,7 +744,7 @@ const Home = () => {
               <h2>DIGITAL-BASED LP</h2>
               <Box mt={2}>
                 <CardIcon>
-                  <TokenSymbol symbol="TOMB-FTM-LP" />
+                  <TokenSymbol symbol="BONES-DOGE-LP" />
                 </CardIcon>
               </Box>
               <Box mt={2}>
@@ -798,10 +769,10 @@ const Home = () => {
         <Grid item xs={12} sm={6}>
           <Card>
             <CardContent align="center">
-              <h2>DIGSHARE-FTM LP</h2>
+              <h2>DIGSHARE-DOGE LP</h2>
               <Box mt={2}>
                 <CardIcon>
-                  <TokenSymbol symbol="TSHARE-FTM-LP" />
+                  <TokenSymbol symbol="BSHARE-DOGE-LP" />
                 </CardIcon>
               </Box>
               <Box mt={2}>
@@ -812,7 +783,7 @@ const Home = () => {
               <Box mt={2}>
                 <span style={{ fontSize: '26px' }}>
                   {digShareFtmLP?.tokenAmount ? digShareFtmLP?.tokenAmount : '-.--'} DIGSHARE /{' '}
-                  {digShareFtmLP?.ftmAmount ? digShareFtmLP?.ftmAmount : '-.--'} FTM
+                  {digShareFtmLP?.ftmAmount ? digShareFtmLP?.ftmAmount : '-.--'} DOGE
                 </span>
               </Box>
               <Box>${digShareFtmLP?.priceOfOne ? digShareFtmLP.priceOfOne : '-.--'}</Box>

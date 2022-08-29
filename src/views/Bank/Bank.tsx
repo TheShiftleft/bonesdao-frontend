@@ -106,18 +106,18 @@ const LPTokenHelpText: React.FC<{ bank: BankEntity }> = ({ bank }) => {
 
   let pairName: string;
   let uniswapUrl: string;
-  if (bank.depositTokenName.includes('TOMB')) {
-    pairName = 'TOMB-FTM pair';
+  if (bank.depositTokenName.includes('BONES')) {
+    pairName = 'BONES-DOGE pair';
     uniswapUrl = 'https://spookyswap.finance/add/FTM/' + tombAddr;
   } else {
-    pairName = 'TSHARE-FTM pair';
+    pairName = 'BSHARE-DOGE pair';
     uniswapUrl = 'https://spookyswap.finance/add/FTM/' + tshareAddr;
   }
   return (
     <Card>
       <CardContent>
         <StyledLink href={uniswapUrl} target="_blank">
-          {`👻 Provide liquidity for ${pairName} now on SpookySwap 👻`}
+          {`👻 Provide liquidity for ${pairName} now on DogeChain 👻`}
         </StyledLink>
       </CardContent>
     </Card>
