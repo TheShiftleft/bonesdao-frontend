@@ -540,7 +540,7 @@ const Home = () => {
             </Grid>
 
             {/* BONES-DOGE LP */}
-            <Grid item xs={12} sm={4}>
+            {/* <Grid item xs={12} sm={4}>
               <Card className={classes.cardContainer}>
                   <CardContent align="center" style={{ padding: '0px', }}>
                     <Grid className={classes.cardHeader} container justify='center' alignItems='center' spacing={2}>
@@ -608,7 +608,7 @@ const Home = () => {
                       </Grid>
                     </Grid>
                   </Box>
-                  {/* <Button
+                  <Button
                     onClick={() => {
                       // tombFinance.watchAssetInMetamask('TOMB');
                     }}
@@ -617,13 +617,13 @@ const Home = () => {
                     style={{ color: '#fff', fontWeight: 'bold', fontSize: '24px', padding: '0px 15px' }}
                   >
                     ZAP IN
-                  </Button> */}
+                  </Button>
                 </CardContent>
               </Card>
-            </Grid>
+            </Grid> */}
 
             {/* BSHARES-DOGE LP */}
-            <Grid item xs={12} sm={4}>
+            {/* <Grid item xs={12} sm={4}>
               <Card className={classes.cardContainer}>
                   <CardContent align="center" style={{ padding: '0px', }}>
                     <Grid className={classes.cardHeader} container justify='center' alignItems='center' spacing={2}>
@@ -691,7 +691,7 @@ const Home = () => {
                       </Grid>
                     </Grid>
                   </Box>
-                  {/* <Button
+                  <Button
                     onClick={() => {
                       // tombFinance.watchAssetInMetamask('TOMB');
                     }}
@@ -700,10 +700,10 @@ const Home = () => {
                     style={{ color: '#fff', fontWeight: 'bold', fontSize: '24px', padding: '0px 15px' }}
                   >
                     ZAP IN
-                  </Button> */}
+                  </Button>
                 </CardContent>
               </Card>
-            </Grid>
+            </Grid> */}
 
           </Grid>
         </Container>
