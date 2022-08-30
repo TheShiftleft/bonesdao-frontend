@@ -6,6 +6,6 @@ export const BOND_REDEEM_PRICE = 1.01;
 export const BOND_REDEEM_PRICE_BN = DECIMALS_18.mul(101).div(100);
 
 export enum ChainId {
-    MAINNET = 2000,
+    MAINNET = 568,
     FTMTESTNET = 568
 }

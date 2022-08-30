@@ -2823,7 +2823,7 @@
 
 "@spookyswap/sdk@https://github.com/TheShiftleft/spookyswap-sdk":
   version "1.2.0"
-  resolved "https://github.com/TheShiftleft/spookyswap-sdk#4234172141852f373f5f488ff05df7a4397f37e0"
+  resolved "https://github.com/TheShiftleft/spookyswap-sdk#d323e20530ad1c507a8fb2f21b3e817b92226e1b"
   dependencies:
     "@uniswap/v2-core" "1.0.0"
     big.js "^5.2.2"
