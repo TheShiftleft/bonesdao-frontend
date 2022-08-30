@@ -5,11 +5,11 @@ import useEagerConnect from '../../hooks/useEagerConnect';
 import Footer from '../Footer';
 import Nav from '../Nav';
 
-const Page = ({ children, noContainer } : { children: React.ReactNode, noContainer?: boolean }) => {
+const Page = ({ children, noContainer, noNav } : { children: React.ReactNode, noContainer?: boolean, noNav?: boolean }) => {
   useEagerConnect();
   return (
     <div style={{ position: 'relative', minHeight: '100vh' }}>
-      <Nav />
+      {!noNav && <Nav />}
       { !noContainer ? 
         (<Container maxWidth="lg" style={{ paddingBottom: '270px', minHeight: '100vh' }}>
           {children}
