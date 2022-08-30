@@ -25,12 +25,15 @@ const Masonry = lazy(() => import('./views/Masonry'));
 const Pit = lazy(() => import('./views/Pit'));
 const SBS = lazy(() => import('./views/Sbs'));
 const Liquidity = lazy(() => import('./views/Liquidity'));
+const ComingSoon = lazy(() => import('./views/ComingSoon'));
 
 const NoMatch = () => (
   <h3 style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
     URL Not Found. <a href="/">Go back home.</a>
   </h3>
 );
+
+const READY = false;
 
 const App: React.FC = () => {
   // Clear localStorage for mobile users
@@ -47,21 +50,31 @@ const App: React.FC = () => {
       <Router>
         <Suspense fallback={<Loader />}>
           <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route path="/farms">
-              <Cemetery />
-            </Route>
-            <Route path="/boardroom">
-              <Masonry />
-            </Route>
-            <Route path="/bond">
-              <Pit />
-            </Route>
+            {
+              READY ? 
+              <>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route path="/farms">
+                <Cemetery />
+              </Route>
+              <Route path="/boardroom">
+                <Masonry />
+              </Route>
+              <Route path="/bond">
+                <Pit />
+              </Route>
+              
+              </>
+              :
+              <Route exact path="/">
+                <ComingSoon/>
+              </Route>
+            }
             <Route path="*">
-              <NoMatch />
-            </Route>
+                <NoMatch />
+              </Route>
           </Switch>
         </Suspense>
       </Router>
