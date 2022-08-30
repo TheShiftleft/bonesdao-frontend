@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Container } from '@material-ui/core';
+import { Box, Container } from '@material-ui/core';
 import useEagerConnect from '../../hooks/useEagerConnect';
 
 import Footer from '../Footer';
@@ -11,11 +11,13 @@ const Page = ({ children, noContainer } : { children: React.ReactNode, noContain
     <div style={{ position: 'relative', minHeight: '100vh' }}>
       <Nav />
       { !noContainer ? 
-        (<Container maxWidth="lg" style={{ paddingBottom: '5rem' }}>
+        (<Container maxWidth="lg" style={{ paddingBottom: '270px', minHeight: '100vh' }}>
           {children}
         </Container>)
         :
-        children
+        <Box style={{ paddingBottom: '270px' }}>
+          {children}
+        </Box>
       }
       <Footer />
     </div>
