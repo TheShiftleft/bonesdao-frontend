@@ -4942,7 +4942,7 @@
     ]
   },
   "Treasury": {
-    "address": "0x47Fbd9E277aEf377604eB2f2C60370D4DF7b3F6C",
+    "address": "0x0c0A7563640ef644776554803d46E525aB6180Ca",
     "abi": [
       {
         "anonymous": false,
@@ -6166,7 +6166,7 @@
     ]
   },
   "Masonry": {
-    "address": "0x7F81FDD42c672C7C1f38381297c44393146B0d5d",
+    "address": "0x4ec05EAdEDF94405b709Aa6604981bFcE9d6eb90",
     "abi": [
       {
         "anonymous": false,

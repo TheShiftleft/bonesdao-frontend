@@ -31,23 +31,27 @@ const configurations: { [env: string]: Configuration } = {
     refreshInterval: 10000,
   },
   production: {
-    chainId: ChainId.MAINNET,
+    chainId: ChainId.FTMTESTNET,
     networkName: 'DogeChain Mainnet',
     ftmscanUrl: 'https://explorer.dogechain.dog/',
     defaultProvider: 'https://rpc01-sg.dogechain.dog/',
     deployments: require('./tomb-finance/deployments/deployments.mainnet.json'),
     externalTokens: {
-      WFTM: ['0xB7ddC6414bf4F5515b52D8BdD69973Ae205ff101', 18], //wDOGE
-      FUSDT: ['0x765277EebeCA2e31912C9946eAe1021199B39C61', 6], // This is actually usdc on mainnet not fusdt
+      WFTM: ['0x2465086E721F68761e3275A54802C985FFd0D727', 18], //wDOGE
+      WDOGE: ['0x2465086E721F68761e3275A54802C985FFd0D727', 18], //wDOGE
+      FUSDT: ['0x1111776366fbAA4c87F7D58db63601456dd73e10', 6], // This is actually usdc on mainnet not fusdt
+      USDC: ['0x1111776366fbAA4c87F7D58db63601456dd73e10', 6],
+      'DIGITAL-BASED-LP': ['0x4Ba668d95c16aFcbBdCeb88f1FA52D66D7016355', 18],
+      'DIGSHARES-FTM-LP': ['0xa0619868afCCc62f6CB6DcB51E59135a9355c7A3', 18],
       'USDT-FTM-LP': ['0x2b4C76d0dc16BE1C31D4C1DC53bF9B45987Fc75c', 18],
       'TOMB-FTM-LP': ['0x2A651563C9d3Af67aE0388a5c8F89b867038089e', 18],
       'TSHARE-FTM-LP': ['0x4733bc45eF91cF7CcEcaeeDb794727075fB209F2', 18],
       'BONES-DOGE-LP': ['0x32b9eaf6e0e3e299cb0635215688bba5fe9f31d6', 18],
       'BSHARE-DOGE-LP': ['0x690Fb1cf7B4198bAF1383C0D8a95dd5C54362f74', 18],
     },
-    baseLaunchDate: new Date('2021-06-02 13:00:00Z'),
-    bondLaunchesAt: new Date('2020-12-03T15:00:00Z'),
-    masonryLaunchesAt: new Date('2020-12-11T00:00:00Z'),
+    baseLaunchDate: new Date('2022-08-30 00:00:00Z'),
+    bondLaunchesAt: new Date('2022-09-01T00:00:00Z'),
+    masonryLaunchesAt: new Date('2022-09-01T06:00:00Z'),
     refreshInterval: 10000,
   },
 };
@@ -76,7 +80,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     earnTokenName: 'BONES',
     finished: false,
     sort: 1,
-    closedForStaking: true,
+    closedForStaking: false,
   },
   BonesUSDCRewardPool: {
     name: 'Earn BONES by USDC',
@@ -87,7 +91,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     earnTokenName: 'BONES',
     finished: false,
     sort: 2,
-    closedForStaking: true,
+    closedForStaking: false,
   },
   BonesDogeLPBShareRewardPool: {
     name: 'Earn BSHARE by BONES-DOGE LP',

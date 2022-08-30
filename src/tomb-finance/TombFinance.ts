@@ -310,12 +310,12 @@ export class TombFinance {
   async getDepositTokenPriceInDollars(tokenName: string, token: ERC20) {
     let tokenPrice;
     const priceOfOneFtmInDollars = await this.getWFTMPriceFromPancakeswap();
-    if (tokenName === 'WFTM') {
+    if (tokenName === 'WFTM' || tokenName === 'WDOGE') {
       tokenPrice = priceOfOneFtmInDollars;
     } else {
       if (tokenName === 'BONES-DOGE-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.TOMB, true);
-      } else if (tokenName === 'DSHARE-DOGE-LP') {
+      } else if (tokenName === 'BSHARE-DOGE-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.TSHARE, false);
       } else {
         tokenPrice = await this.getTokenPriceFromPancakeswap(token);
@@ -501,10 +501,10 @@ export class TombFinance {
     try {
       const wftmToToken = await Fetcher.fetchPairData(wftm, token, this.provider);
       const priceInBUSD = new Route([wftmToToken], token);
-
+      console.error(`Failed to fetch token price111 of ${tokenContract.symbol} ${tokenContract.address}:`);
       return priceInBUSD.midPrice.toFixed(4);
     } catch (err) {
-      console.error(`Failed to fetch token price of ${tokenContract.symbol}: ${err}`);
+      console.error(`Failed to fetch token price123 of ${tokenContract.symbol} ${tokenContract.address}: ${err}`);
     }
   }
 

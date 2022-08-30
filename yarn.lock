@@ -2821,9 +2821,9 @@
     tiny-warning "^1.0.3"
     toformat "^2.0.0"
 
-"@spookyswap/sdk@https://github.com/SpookySwap/spookyswap-sdk":
-  version "1.0.0"
-  resolved "https://github.com/SpookySwap/spookyswap-sdk#c5c85de6a324f190b44ce1d9aa26f87e1a54e9c5"
+"@spookyswap/sdk@https://github.com/TheShiftleft/spookyswap-sdk":
+  version "1.2.0"
+  resolved "https://github.com/TheShiftleft/spookyswap-sdk#4234172141852f373f5f488ff05df7a4397f37e0"
   dependencies:
     "@uniswap/v2-core" "1.0.0"
     big.js "^5.2.2"
