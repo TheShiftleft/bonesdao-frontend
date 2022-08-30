@@ -238,7 +238,7 @@ const Home = () => {
                     <Grid item style={{ padding: '0px' }}>
                       <Button
                         onClick={() => {
-                          // tombFinance.watchAssetInMetamask('TOMB');
+                          bonesDao.watchAssetInMetamask('BONES');
                         }}
                         color="secondary"
                         variant="outlined"
@@ -344,7 +344,7 @@ const Home = () => {
                       <Grid item style={{ padding: '0px' }}>
                         <Button
                           onClick={() => {
-                            bonesDao.watchAssetInMetamask('BONES');
+                            bonesDao.watchAssetInMetamask('BSHARE');
                           }}
                           color="secondary"
                           variant="outlined"
@@ -449,7 +449,7 @@ const Home = () => {
                       <Grid item style={{ padding: '0px' }}>
                         <Button
                           onClick={() => {
-                            // tombFinance.watchAssetInMetamask('TOMB');
+                            bonesDao.watchAssetInMetamask('BBOND');
                           }}
                           color="secondary"
                           variant="outlined"

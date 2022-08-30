@@ -729,13 +729,13 @@ export class BonesDao {
       let assetUrl;
       if (assetName === 'BONES') {
         asset = this.BONES;
-        assetUrl = 'https://tomb.finance/presskit/tomb_icon_noBG.png';
+        assetUrl = 'http://bonesdao.com/token_logo/bones64.png';
       } else if (assetName === 'BSHARE') {
         asset = this.BSHARE;
-        assetUrl = 'https://tomb.finance/presskit/tshare_icon_noBG.png';
+        assetUrl = 'http://bonesdao.com/token_logo/bshares64.png';
       } else if (assetName === 'BBOND') {
         asset = this.BBOND;
-        assetUrl = 'https://tomb.finance/presskit/tbond_icon_noBG.png';
+        assetUrl = 'http://bonesdao.com/token_logo/boneds64.png';
       }
 
       // TO-DO: Add BONES, DSHARE, DBOND image asset
