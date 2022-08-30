@@ -1,19 +1,19 @@
 import { useCallback } from 'react';
-import useTombFinance from './useTombFinance';
+import useBonesDao from './useBonesDao';
 import useHandleTransactionReceipt from './useHandleTransactionReceipt';
 
 const useWithdrawFromMasonry = () => {
-  const tombFinance = useTombFinance();
+  const bonesDao = useBonesDao();
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleWithdraw = useCallback(
     (amount: string) => {
       handleTransactionReceipt(
-        tombFinance.withdrawShareFromMasonry(amount),
+        bonesDao.withdrawShareFromMasonry(amount),
         `Withdraw ${amount} TSHARE from the masonry`,
       );
     },
-    [tombFinance, handleTransactionReceipt],
+    [bonesDao, handleTransactionReceipt],
   );
   return { onWithdraw: handleWithdraw };
 };

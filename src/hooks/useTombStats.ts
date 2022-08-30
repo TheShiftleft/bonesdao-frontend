@@ -1,24 +1,24 @@
 import { useEffect, useState } from 'react';
-import useTombFinance from './useTombFinance';
+import useBonesDao from './useBonesDao';
 import { TokenStat } from '../tomb-finance/types';
 import useRefresh from './useRefresh';
 
 const useTombStats = () => {
   const [stat, setStat] = useState<TokenStat>();
   const { fastRefresh } = useRefresh();
-  const tombFinance = useTombFinance();
+  const bonesDao = useBonesDao();
 
   useEffect(() => {
     async function fetchTombPrice(){
       try {
-        setStat(await tombFinance.getTombStat());
+        setStat(await bonesDao.getTombStat());
       }
       catch(err){
         console.error(err)
       }
     }
     fetchTombPrice();
-  }, [setStat, tombFinance, fastRefresh]);
+  }, [setStat, bonesDao, fastRefresh]);
 
   return stat;
 };

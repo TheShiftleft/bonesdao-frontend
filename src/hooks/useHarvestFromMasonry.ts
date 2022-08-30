@@ -1,14 +1,14 @@
 import { useCallback } from 'react';
-import useTombFinance from './useTombFinance';
+import useBonesDao from './useBonesDao';
 import useHandleTransactionReceipt from './useHandleTransactionReceipt';
 
 const useHarvestFromMasonry = () => {
-  const tombFinance = useTombFinance();
+  const bonesDao = useBonesDao();
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleReward = useCallback(() => {
-    handleTransactionReceipt(tombFinance.harvestCashFromMasonry(), 'Claim TOMB from Masonry');
-  }, [tombFinance, handleTransactionReceipt]);
+    handleTransactionReceipt(bonesDao.harvestCashFromMasonry(), 'Claim TOMB from Masonry');
+  }, [bonesDao, handleTransactionReceipt]);
 
   return { onReward: handleReward };
 };

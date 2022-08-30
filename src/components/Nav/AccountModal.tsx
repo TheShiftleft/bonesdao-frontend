@@ -6,20 +6,20 @@ import { getDisplayBalance } from '../../utils/formatBalance';
 import Label from '../Label';
 import Modal, { ModalProps } from '../Modal';
 import ModalTitle from '../ModalTitle';
-import useTombFinance from '../../hooks/useTombFinance';
+import useBonesDao from '../../hooks/useBonesDao';
 import TokenSymbol from '../TokenSymbol';
 
 const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
-  const tombFinance = useTombFinance();
+  const bonesDao = useBonesDao();
 
-  const tombBalance = useTokenBalance(tombFinance.TOMB);
-  const displayTombBalance = useMemo(() => getDisplayBalance(tombBalance), [tombBalance]);
+  const bonesBalance = useTokenBalance(bonesDao.BONES);
+  const displayBonesBalance = useMemo(() => getDisplayBalance(bonesBalance), [bonesBalance]);
 
-  const tshareBalance = useTokenBalance(tombFinance.TSHARE);
-  const displayTshareBalance = useMemo(() => getDisplayBalance(tshareBalance), [tshareBalance]);
+  const bshareBalance = useTokenBalance(bonesDao.BSHARE);
+  const displayBshareBalance = useMemo(() => getDisplayBalance(bshareBalance), [bshareBalance]);
 
-  const tbondBalance = useTokenBalance(tombFinance.TBOND);
-  const displayTbondBalance = useMemo(() => getDisplayBalance(tbondBalance), [tbondBalance]);
+  const bbondBalance = useTokenBalance(bonesDao.BBOND);
+  const displayBbondBalance = useMemo(() => getDisplayBalance(bbondBalance), [bbondBalance]);
 
   return (
     <Modal>
@@ -29,7 +29,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
         <StyledBalanceWrapper>
           <TokenSymbol symbol="BONES" />
           <StyledBalance>
-            <StyledValue>{displayTombBalance}</StyledValue>
+            <StyledValue>{displayBonesBalance}</StyledValue>
             <Label text="BONES Available" />
           </StyledBalance>
         </StyledBalanceWrapper>
@@ -37,7 +37,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
         <StyledBalanceWrapper>
           <TokenSymbol symbol="BSHARE" />
           <StyledBalance>
-            <StyledValue>{displayTshareBalance}</StyledValue>
+            <StyledValue>{displayBshareBalance}</StyledValue>
             <Label text="BSHARE Available" />
           </StyledBalance>
         </StyledBalanceWrapper>
@@ -45,7 +45,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
         <StyledBalanceWrapper>
           <TokenSymbol symbol="BBOND" />
           <StyledBalance>
-            <StyledValue>{displayTbondBalance}</StyledValue>
+            <StyledValue>{displayBbondBalance}</StyledValue>
             <Label text="BBOND Available" />
           </StyledBalance>
         </StyledBalanceWrapper>

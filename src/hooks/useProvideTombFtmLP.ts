@@ -1,22 +1,22 @@
 import { useCallback } from 'react';
-import useTombFinance from './useTombFinance';
+import useBonesDao from './useBonesDao';
 import useHandleTransactionReceipt from './useHandleTransactionReceipt';
 import { parseUnits } from 'ethers/lib/utils';
 import { TAX_OFFICE_ADDR } from './../utils/constants'
 
 const useProvideTombFtmLP = () => {
-  const tombFinance = useTombFinance();
+  const bonesDao = useBonesDao();
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleProvideTombFtmLP = useCallback(
     (ftmAmount: string, tombAmount: string) => {
       const tombAmountBn = parseUnits(tombAmount);
       handleTransactionReceipt(
-        tombFinance.provideTombFtmLP(ftmAmount, tombAmountBn),
+        bonesDao.provideTombFtmLP(ftmAmount, tombAmountBn),
         `Provide Tomb-FTM LP ${tombAmount} ${ftmAmount} using ${TAX_OFFICE_ADDR}`,
       );
     },
-    [tombFinance, handleTransactionReceipt],
+    [bonesDao, handleTransactionReceipt],
   );
   return { onProvideTombFtmLP: handleProvideTombFtmLP };
 };
