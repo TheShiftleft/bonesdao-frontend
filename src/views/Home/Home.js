@@ -528,7 +528,7 @@ const Home = () => {
                     </Grid>
                   </Box>
                   <Button
-                    href="/pit"
+                    href="/bond"
                     color="secondary"
                     variant="contained"
                     style={{ color: '#fff', fontWeight: 'bold', fontSize: '24px', padding: '0px 15px' }}
@@ -726,9 +726,7 @@ const Home = () => {
           </Box>
           <Box mt={3} textAlign='center'>
             <Button 
-              onClick={() => {
-                // tombFinance.watchAssetInMetamask('TOMB');
-              }}
+              href="/boardroom"
               color="secondary"
               variant="contained"
               style={{ color: '#fff', fontWeight: 'bold', fontSize: '24px', padding: '0px 15px' }}
