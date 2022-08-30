@@ -21,7 +21,6 @@ import { getDisplayBalance } from '../../../utils/formatBalance';
 
 import DepositModal from './DepositModal';
 import WithdrawModal from './WithdrawModal';
-import useTombFinance from '../../../hooks/useTombFinance';
 import ProgressCountdown from './../components/ProgressCountdown';
 import useStakedBalanceOnMasonry from '../../../hooks/useStakedBalanceOnMasonry';
 import useStakedTokenPriceInDollars from '../../../hooks/useStakedTokenPriceInDollars';
@@ -29,16 +28,17 @@ import useUnstakeTimerMasonry from '../../../hooks/masonry/useUnstakeTimerMasonr
 import TokenSymbol from '../../../components/TokenSymbol';
 import useStakeToMasonry from '../../../hooks/useStakeToMasonry';
 import useWithdrawFromMasonry from '../../../hooks/useWithdrawFromMasonry';
+import useBonesDao from '../../../hooks/useBonesDao';
 
 const Stake: React.FC = () => {
-  const tombFinance = useTombFinance();
-  const [approveStatus, approve] = useApprove(tombFinance.TSHARE, tombFinance.contracts.Masonry.address);
+  const bonesDao = useBonesDao();
+  const [approveStatus, approve] = useApprove(bonesDao.BSHARE, bonesDao.contracts.Masonry.address);
 
-  const tokenBalance = useTokenBalance(tombFinance.TSHARE);
+  const tokenBalance = useTokenBalance(bonesDao.BSHARE);
   const stakedBalance = useStakedBalanceOnMasonry();
   const { from, to } = useUnstakeTimerMasonry();
 
-  const stakedTokenPriceInDollars = useStakedTokenPriceInDollars('BSHARE', tombFinance.TSHARE);
+  const stakedTokenPriceInDollars = useStakedTokenPriceInDollars('BSHARE', bonesDao.BSHARE);
   const tokenPriceInDollars = useMemo(
     () =>
       stakedTokenPriceInDollars

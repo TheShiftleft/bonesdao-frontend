@@ -22,8 +22,8 @@ import useZap from '../../hooks/useZap';
 import useBondStats from '../../hooks/useBondStats';
 import usetShareStats from '../../hooks/usetShareStats';
 import useTotalValueLocked from '../../hooks/useTotalValueLocked';
-import { bones as tombTesting, bShare as tShareTesting } from '../../tomb-finance/deployments/deployments.testing.json';
-import { bones as tombProd, bShare as tShareProd } from '../../tomb-finance/deployments/deployments.mainnet.json';
+import { Bones as tombTesting, Bshare as tShareTesting } from '../../tomb-finance/deployments/deployments.testing.json';
+import { Bones as tombProd, Bshare as tShareProd } from '../../tomb-finance/deployments/deployments.mainnet.json';
 
 import MetamaskFox from '../../assets/img/metamask-fox.svg';
 
@@ -31,7 +31,7 @@ import { Box, Button, Card, CardContent, CardHeader, Container, Grid, IconButton
 import ZapModal from '../Bank/components/ZapModal';
 
 import { makeStyles } from '@material-ui/core/styles';
-import useTombFinance from '../../hooks/useTombFinance';
+import useBonesDao from '../../hooks/useBonesDao';
 
 const BackgroundImage = createGlobalStyle`
   body {
@@ -95,7 +95,7 @@ const Home = () => {
   const tombStats = useTombStats();
   const tShareStats = usetShareStats();
   const tBondStats = useBondStats();
-  const tombFinance = useTombFinance();
+  const bonesDao = useBonesDao();
 
   let tomb;
   let tShare;
@@ -344,7 +344,7 @@ const Home = () => {
                       <Grid item style={{ padding: '0px' }}>
                         <Button
                           onClick={() => {
-                            // tombFinance.watchAssetInMetamask('TOMB');
+                            bonesDao.watchAssetInMetamask('BONES');
                           }}
                           color="secondary"
                           variant="outlined"
@@ -738,63 +738,6 @@ const Home = () => {
           </Box>
         </Container>
       </Box>
-        {/* <Grid item xs={12} sm={6}>
-          <Card>
-            <CardContent align="center">
-              <h2>DIGITAL-BASED LP</h2>
-              <Box mt={2}>
-                <CardIcon>
-                  <TokenSymbol symbol="BONES-DOGE-LP" />
-                </CardIcon>
-              </Box>
-              <Box mt={2}>
-                <Button color="primary" disabled={true} onClick={onPresentTombZap} variant="contained">
-                  Zap In
-                </Button>
-              </Box>
-              <Box mt={2}>
-                <span style={{ fontSize: '26px' }}>
-                  {digitalBasedLP?.tokenAmount ? digitalBasedLP?.tokenAmount : '-.--'} DIGITAL /{' '}
-                  {digitalBasedLP?.ftmAmount ? digitalBasedLP?.ftmAmount : '-.--'} BASED
-                </span>
-              </Box>
-              <Box>${digitalBasedLP?.priceOfOne ? digitalBasedLP.priceOfOne : '-.--'}</Box>
-              <span style={{ fontSize: '12px' }}>
-                Liquidity: ${digitalBasedLP?.totalLiquidity ? digitalBasedLP.totalLiquidity : '-.--'} <br />
-                Total supply: {digitalBasedLP?.totalSupply ? digitalBasedLP.totalSupply : '-.--'}
-              </span>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <Card>
-            <CardContent align="center">
-              <h2>DIGSHARE-DOGE LP</h2>
-              <Box mt={2}>
-                <CardIcon>
-                  <TokenSymbol symbol="BSHARE-DOGE-LP" />
-                </CardIcon>
-              </Box>
-              <Box mt={2}>
-                <Button color="primary" onClick={onPresentTshareZap} variant="contained">
-                  Zap In
-                </Button>
-              </Box>
-              <Box mt={2}>
-                <span style={{ fontSize: '26px' }}>
-                  {digShareFtmLP?.tokenAmount ? digShareFtmLP?.tokenAmount : '-.--'} DIGSHARE /{' '}
-                  {digShareFtmLP?.ftmAmount ? digShareFtmLP?.ftmAmount : '-.--'} DOGE
-                </span>
-              </Box>
-              <Box>${digShareFtmLP?.priceOfOne ? digShareFtmLP.priceOfOne : '-.--'}</Box>
-              <span style={{ fontSize: '12px' }}>
-                Liquidity: ${digShareFtmLP?.totalLiquidity ? digShareFtmLP.totalLiquidity : '-.--'}
-                <br />
-                Total supply: {digShareFtmLP?.totalSupply ? digShareFtmLP.totalSupply : '-.--'}
-              </span>
-            </CardContent>
-          </Card>
-        </Grid> */}
     </Page>
   );
 };

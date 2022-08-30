@@ -16,7 +16,7 @@ import useBank from '../../hooks/useBank';
 import useStatsForPool from '../../hooks/useStatsForPool';
 import useRedeem from '../../hooks/useRedeem';
 import { Bank as BankEntity } from '../../tomb-finance';
-import useTombFinance from '../../hooks/useTombFinance';
+import useBonesDao from '../../hooks/useBonesDao';
 
 const useStyles = makeStyles((theme) => ({
   gridItem: {
@@ -100,9 +100,9 @@ const Bank: React.FC = () => {
 };
 
 const LPTokenHelpText: React.FC<{ bank: BankEntity }> = ({ bank }) => {
-  const tombFinance = useTombFinance();
-  const tombAddr = tombFinance.TOMB.address;
-  const tshareAddr = tombFinance.TSHARE.address;
+  const bonesDao = useBonesDao();
+  const tombAddr = bonesDao.BONES.address;
+  const tshareAddr = bonesDao.BSHARE.address;
 
   let pairName: string;
   let uniswapUrl: string;

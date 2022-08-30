@@ -1,26 +1,26 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Context from './context';
-import useTombFinance from '../../hooks/useTombFinance';
+import useBonesDao from '../../hooks/useBonesDao';
 import { Bank } from '../../tomb-finance';
 import config, { bankDefinitions } from '../../config';
 
 const Banks: React.FC = ({ children }) => {
   const [banks, setBanks] = useState<Bank[]>([]);
-  const tombFinance = useTombFinance();
-  const isUnlocked = tombFinance?.isUnlocked;
+  const bonesDao = useBonesDao();
+  const isUnlocked = bonesDao?.isUnlocked;
 
   const fetchPools = useCallback(async () => {
     const banks: Bank[] = [];
 
     for (const bankInfo of Object.values(bankDefinitions)) {
       if (bankInfo.finished) {
-        if (!tombFinance.isUnlocked) continue;
+        if (!bonesDao.isUnlocked) continue;
 
         // only show pools staked by user
-        const balance = await tombFinance.stakedBalanceOnBank(
+        const balance = await bonesDao.stakedBalanceOnBank(
           bankInfo.contract,
           bankInfo.poolId,
-          tombFinance.myAccount,
+          bonesDao.myAccount,
         );
         if (balance.lte(0)) {
           continue;
@@ -29,19 +29,19 @@ const Banks: React.FC = ({ children }) => {
       banks.push({
         ...bankInfo,
         address: config.deployments[bankInfo.contract].address,
-        depositToken: tombFinance.externalTokens[bankInfo.depositTokenName],
-        earnToken: bankInfo.earnTokenName === 'BONES' ? tombFinance.TOMB : tombFinance.TSHARE,
+        depositToken: bonesDao.externalTokens[bankInfo.depositTokenName],
+        earnToken: bankInfo.earnTokenName === 'BONES' ? bonesDao.BONES : bonesDao.BSHARE,
       });
     }
     banks.sort((a, b) => (a.sort > b.sort ? 1 : -1));
     setBanks(banks);
-  }, [tombFinance, setBanks]);
+  }, [bonesDao, setBanks]);
 
   useEffect(() => {
-    if (tombFinance) {
+    if (bonesDao) {
       fetchPools().catch((err) => console.error(`Failed to fetch pools: ${err.stack}`));
     }
-  }, [isUnlocked, tombFinance, fetchPools]);
+  }, [isUnlocked, bonesDao, fetchPools]);
 
   return <Context.Provider value={{ banks }}>{children}</Context.Provider>;
 };

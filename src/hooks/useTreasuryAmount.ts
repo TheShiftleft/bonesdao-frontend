@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import { BigNumber } from 'ethers';
-import useTombFinance from './useTombFinance';
+import useBonesDao from './useBonesDao';
 
 const useTreasuryAmount = () => {
   const [amount, setAmount] = useState(BigNumber.from(0));
-  const tombFinance = useTombFinance();
+  const bonesDao = useBonesDao();
 
   useEffect(() => {
-    if (tombFinance) {
-      const { Treasury } = tombFinance.contracts;
-      tombFinance.TOMB.balanceOf(Treasury.address).then(setAmount);
+    if (bonesDao) {
+      const { Treasury } = bonesDao.contracts;
+      bonesDao.BONES.balanceOf(Treasury.address).then(setAmount);
     }
-  }, [tombFinance]);
+  }, [bonesDao]);
   return amount;
 };
 

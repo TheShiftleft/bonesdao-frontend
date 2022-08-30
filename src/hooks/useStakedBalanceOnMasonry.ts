@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import { BigNumber } from 'ethers';
-import useTombFinance from './useTombFinance';
+import useBonesDao from './useBonesDao';
 import useRefresh from './useRefresh';
 
 const useStakedBalanceOnMasonry = () => {
   const { slowRefresh } = useRefresh();
   const [balance, setBalance] = useState(BigNumber.from(0));
-  const tombFinance = useTombFinance();
-  const isUnlocked = tombFinance?.isUnlocked;
+  const bonesDao = useBonesDao();
+  const isUnlocked = bonesDao?.isUnlocked;
   useEffect(() => {
     async function fetchBalance() {
       try {
-        setBalance(await tombFinance.getStakedSharesOnMasonry());
+        setBalance(await bonesDao.getStakedSharesOnMasonry());
       } catch (e) {
         console.error(e);
       }
@@ -19,7 +19,7 @@ const useStakedBalanceOnMasonry = () => {
     if (isUnlocked) {
       fetchBalance();
     }
-  }, [slowRefresh, isUnlocked, tombFinance]);
+  }, [slowRefresh, isUnlocked, bonesDao]);
   return balance;
 };
 
