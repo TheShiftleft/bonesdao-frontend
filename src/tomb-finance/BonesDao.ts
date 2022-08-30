@@ -315,7 +315,7 @@ export class BonesDao {
     } else {
       if (tokenName === 'BONES-DOGE-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.BONES, true);
-      } else if (tokenName === 'DSHARE-DOGE-LP') {
+      } else if (tokenName === 'BSHARE-DOGE-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.BSHARE, false);
       } else {
         tokenPrice = await this.getTokenPriceFromPancakeswap(token);
@@ -501,10 +501,9 @@ export class BonesDao {
     try {
       const wftmToToken = await Fetcher.fetchPairData(wftm, token, this.provider);
       const priceInBUSD = new Route([wftmToToken], token);
-      console.error(`Failed to fetch token price111 of ${tokenContract.symbol} ${tokenContract.address}:`);
       return priceInBUSD.midPrice.toFixed(4);
     } catch (err) {
-      console.error(`Failed to fetch token price123 of ${tokenContract.symbol} ${tokenContract.address}: ${err}`);
+      console.error(`Failed to fetch token price of ${tokenContract.symbol} ${tokenContract.address}: ${err}`);
     }
   }
 
