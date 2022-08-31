@@ -76,7 +76,7 @@ const Stake: React.FC = () => {
 
   return (
     <Box>
-      <Card>
+      <Card style={{ border: '3px solid #EC2A2A' }}>
         <CardContent>
           <StyledCardContentInner>
             <StyledCardHeader>
@@ -92,8 +92,8 @@ const Stake: React.FC = () => {
                 <Button
                   disabled={approveStatus !== ApprovalState.NOT_APPROVED}
                   variant="contained"
-                  color="primary"
-                  style={{ marginTop: '20px' }}
+                  color="secondary"
+                  style={{ marginTop: '20px', color: '#fff' }}
                   onClick={approve}
                 >
                   Approve BSHARE
@@ -117,7 +117,7 @@ const Stake: React.FC = () => {
         {canWithdrawFromMasonry ? (
           ''
         ) : (
-          <Card>
+          <Card style={{ border: '3px solid #EC2A2A' }}>
             <CardContent>
               <Typography style={{ textAlign: 'center' }}>Withdraw possible in</Typography>
               <ProgressCountdown hideBar={true} base={from} deadline={to} description="Withdraw available in" />
