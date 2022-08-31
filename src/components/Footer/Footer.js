@@ -10,9 +10,7 @@ import YoutubeIcon from '../icons/YoutubeIcon';
 
 const useStyles = makeStyles((theme) => ({
   footer: {
-    position: 'absolute',
     bottom: '0',
-    padding: '30px 0px',
     width: '100%',
     color: 'white',
     backgroundColor: '#db1d2f',

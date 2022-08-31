@@ -181,7 +181,6 @@ const Home = () => {
     <Page noContainer>
       <Box className={classes.backgroundPattern} >
         <Container maxWidth="lg" style={{ paddingBottom: '4rem' }}>
-          <BackgroundImage />
           <Grid container spacing={3} justify='center'>
             {/* Tokens */}
             <Grid container item xs={12} md={6} justify='center' spacing={3}>
