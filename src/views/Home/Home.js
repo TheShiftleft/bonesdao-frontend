@@ -32,6 +32,7 @@ import ZapModal from '../Bank/components/ZapModal';
 
 import { makeStyles } from '@material-ui/core/styles';
 import useBonesDao from '../../hooks/useBonesDao';
+import { Link } from 'react-router-dom';
 
 const BackgroundImage = createGlobalStyle`
   body {
@@ -84,6 +85,19 @@ const useStyles = makeStyles((theme) => ({
     background: `url(${BGPattern}) no-repeat`,
     backgroundSize: 'contain',
     backgroundPosition: 'bottom',
+  },
+  link: {
+    backgroundColor: '#845EC2',
+    borderRadius: '4px',
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: '24px',
+    padding: '10px 15px',
+    textDecoration: 'none',
+    minWidth: '64px',
+    lineHeight: '1.75',
+    boxShadow: '0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%)'
+
   }
 }));
 
@@ -724,14 +738,15 @@ const Home = () => {
             </Typography>
           </Box>
           <Box mt={3} textAlign='center'>
-            <Button 
-              href="/boardroom"
+            <Link 
+              to="/boardroom"
               color="secondary"
               variant="contained"
-              style={{ color: '#fff', fontWeight: 'bold', fontSize: '24px', padding: '0px 15px' }}
+              className={classes.link}
+              // style={{ color: '#fff', fontWeight: 'bold', fontSize: '24px', padding: '0px 15px' }}
             >
               LET'S GET STARTED
-            </Button>
+            </Link>
           </Box>
         </Container>
       </Box>
