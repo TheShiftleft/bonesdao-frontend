@@ -25,6 +25,13 @@ const useStyles = makeStyles((theme) => ({
       height: '90px',
     },
   },
+  gridItemCard: {
+    height: '100%',
+    border: '3px solid #EC2A2A',
+    [theme.breakpoints.up('md')]: {
+      height: '90px',
+    },
+  }
 }));
 
 const Bank: React.FC = () => {
@@ -46,7 +53,7 @@ const Bank: React.FC = () => {
       <Box>
         <Grid container justify="center" spacing={3} style={{ marginBottom: '50px' }}>
           <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
-            <Card className={classes.gridItem}>
+            <Card className={classes.gridItemCard}>
               <CardContent style={{ textAlign: 'center' }}>
                 <Typography>APR</Typography>
                 <Typography>{bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}%</Typography>
@@ -54,7 +61,7 @@ const Bank: React.FC = () => {
             </Card>
           </Grid>
           <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
-            <Card className={classes.gridItem}>
+            <Card className={classes.gridItemCard}>
               <CardContent style={{ textAlign: 'center' }}>
                 <Typography>Daily APR</Typography>
                 <Typography>{bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%</Typography>
@@ -62,7 +69,7 @@ const Bank: React.FC = () => {
             </Card>
           </Grid>
           <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
-            <Card className={classes.gridItem}>
+            <Card className={classes.gridItemCard}>
               <CardContent style={{ textAlign: 'center' }}>
                 <Typography>TVL</Typography>
                 <Typography>${statsOnPool?.TVL}</Typography>
@@ -84,7 +91,7 @@ const Bank: React.FC = () => {
           {bank.depositTokenName.includes('LP') && <LPTokenHelpText bank={bank} />}
           <Spacer size="lg" />
           <div>
-            <Button onClick={onRedeem} color="primary" variant="contained">
+            <Button onClick={onRedeem} color="secondary" style={{ color: '#fff' }} variant="contained">
               Claim & Withdraw
             </Button>
           </div>

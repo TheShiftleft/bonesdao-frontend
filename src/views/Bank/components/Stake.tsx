@@ -90,7 +90,7 @@ const Stake: React.FC<StakeProps> = ({ bank }) => {
   );
 
   return (
-    <Card>
+    <Card style={{ border: '3px solid #EC2A2A' }}>
       <CardContent>
         <StyledCardContentInner>
           <StyledCardHeader>
@@ -110,9 +110,9 @@ const Stake: React.FC<StakeProps> = ({ bank }) => {
                   approveStatus === ApprovalState.UNKNOWN
                 }
                 onClick={approve}
-                color="primary"
+                color="secondary"
                 variant="contained"
-                style={{ marginTop: '20px' }}
+                style={{ marginTop: '20px', color: '#fff' }}
               >
                 {`Approve ${bank.depositTokenName}`}
               </Button>

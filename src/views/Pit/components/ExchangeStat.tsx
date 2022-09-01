@@ -11,7 +11,7 @@ interface ExchangeStatProps {
 
 const ExchangeStat: React.FC<ExchangeStatProps> = ({ tokenName, description, price }) => {
   return (
-    <Card>
+    <Card style={{ border: '3px solid #EC2A2A' }}>
       <StyledCardContentInner>
         <StyledCardTitle>{`💰 ${tokenName} = ${price} DOGE`}</StyledCardTitle>
         <StyledDesc>{description}</StyledDesc>

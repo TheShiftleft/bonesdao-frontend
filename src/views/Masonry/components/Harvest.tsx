@@ -32,7 +32,7 @@ const Harvest: React.FC = () => {
 
   return (
     <Box>
-      <Card>
+      <Card style={{ border: '3px solid #EC2A2A' }}>
         <CardContent>
           <StyledCardContentInner>
             <StyledCardHeader>
@@ -46,8 +46,9 @@ const Harvest: React.FC = () => {
             <StyledCardActions>
               <Button
                 onClick={onReward}
-                color="primary"
+                color="secondary"
                 variant="contained"
+                style={{ color: '#fff' }}
                 disabled={earnings.eq(0) || !canClaimReward}
               >
                 Claim Reward
@@ -60,7 +61,7 @@ const Harvest: React.FC = () => {
         {canClaimReward ? (
           ''
         ) : (
-          <Card>
+          <Card style={{ border: '3px solid #EC2A2A' }}>
             <CardContent>
               <Typography style={{ textAlign: 'center' }}>Claim possible in</Typography>
               <ProgressCountdown hideBar={true} base={from} deadline={to} description="Claim available in" />

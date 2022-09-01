@@ -36,7 +36,7 @@ const Harvest: React.FC<HarvestProps> = ({ bank }) => {
   );
   const earnedInDollars = (Number(tokenPriceInDollars) * Number(getDisplayBalance(earnings))).toFixed(2);
   return (
-    <Card>
+    <Card style={{ border: '3px solid #EC2A2A' }}>
       <CardContent>
         <StyledCardContentInner>
           <StyledCardHeader>
@@ -48,7 +48,7 @@ const Harvest: React.FC<HarvestProps> = ({ bank }) => {
             <Label text={`${tokenName} Earned`} />
           </StyledCardHeader>
           <StyledCardActions>
-            <Button onClick={onReward} disabled={earnings.eq(0)} color="primary" variant="contained">
+            <Button onClick={onReward} disabled={earnings.eq(0)} color="secondary" style={{ color: '#fff' }} variant="contained">
               Claim
             </Button>
           </StyledCardActions>

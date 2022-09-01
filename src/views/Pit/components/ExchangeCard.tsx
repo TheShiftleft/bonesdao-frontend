@@ -62,7 +62,7 @@ const ExchangeCard: React.FC<ExchangeCardProps> = ({
     />,
   );
   return (
-    <Card>
+    <Card style={{ border: '3px solid #EC2A2A' }}>
       <CardContent>
         <StyledCardContentInner>
           <StyledCardTitle>{`${action} ${toTokenName}`}</StyledCardTitle>
@@ -87,15 +87,16 @@ const ExchangeCard: React.FC<ExchangeCardProps> = ({
           <StyledCardActions>
             {approveStatus !== ApprovalState.APPROVED && !disabled ? (
               <Button
-                color="primary"
+                color="secondary"
                 variant="contained"
+                style={{ color: '#fff' }}
                 disabled={approveStatus === ApprovalState.PENDING || approveStatus === ApprovalState.UNKNOWN}
                 onClick={() => catchError(approve(), `Unable to approve ${fromTokenName}`)}
               >
                 {`Approve ${fromTokenName}`}
               </Button>
             ) : (
-              <Button color="primary" variant="contained" onClick={onPresent} disabled={disabled}>
+              <Button color="secondary" style={{ color: '#fff' }} variant="contained" onClick={onPresent} disabled={disabled}>
                 {disabledDescription || action}
               </Button>
             )}
