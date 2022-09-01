@@ -540,14 +540,15 @@ const Home = () => {
                       </Grid>
                     </Grid>
                   </Box>
-                  <Button
-                    href="/bond"
+                  <Link 
+                    to="/bond"
                     color="secondary"
                     variant="contained"
-                    style={{ color: '#fff', fontWeight: 'bold', fontSize: '24px', padding: '0px 15px' }}
+                    className={classes.link}
+                    style={{ color: '#fff', fontWeight: 'bold', fontSize: '24px', padding: '9px 15px' }}
                   >
-                    Buy BBONDS
-                  </Button>
+                    BUY BONeDS
+                  </Link>
                 </CardContent>
               </Card>
             </Grid>
