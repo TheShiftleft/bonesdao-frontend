@@ -728,14 +728,14 @@ const Home = () => {
       </Box>
       <Box pt={8} pb={10} style={{ marginTop: '-5px' }}>
         <Container maxWidth="sm">
-          <Box>
+          {/* <Box>
             <Typography variant="h6" align='center' style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#fff' }}>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
             </Typography>
-          </Box>
+          </Box> */}
           <Box mt={3}>
             <Typography variant="h6" align='center' style={{ fontSize: '1.2rem', color: '#fff' }}>
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            We are <strong>Bones DAO</strong>, a cross-chain algorithmic peg token pegged to native chain we are deployed on. An Algorithmic Peg Token (APT) is a non-collateralized token tailored for improving price stability. The beauty of algorithmic peg tokens is that they are much more capital efficient than their collateralized cousins. <strong>Bones DAO</strong> will, with its experienced team, work towards expanding this idea of capital-efficient algorithmic peg token and build on previous iterations to expand the basis of the ecosystem.
             </Typography>
           </Box>
           <Box mt={3} textAlign='center'>

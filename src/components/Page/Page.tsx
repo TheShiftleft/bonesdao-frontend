@@ -4,8 +4,8 @@ import useEagerConnect from '../../hooks/useEagerConnect';
 import { createGlobalStyle } from 'styled-components';
 import BGPattern from '../../assets/img/bg_pattern.png';
 
-import Footer from '../Footer';
 import Nav from '../Nav';
+import Footer from '../Footer';
 
 const BackgroundColor = createGlobalStyle`
   body {
@@ -14,7 +14,7 @@ const BackgroundColor = createGlobalStyle`
 `;
 
 
-const Page = ({ children, noContainer, noNav } : { children: React.ReactNode, noContainer?: boolean, noNav?: boolean }) => {
+const Page = ({ children, noContainer, noNav, noFooterMenu } : { children: React.ReactNode, noContainer?: boolean, noNav?: boolean, noFooterMenu?: boolean }) => {
   useEagerConnect();
   return (
     <div style={{ position: 'relative', minHeight: '100vh' }}>
@@ -29,7 +29,8 @@ const Page = ({ children, noContainer, noNav } : { children: React.ReactNode, no
           {children}
         </Box>
       }
-      <Footer />
+      <Footer/>
+      
     </div>
   );
 };
