@@ -1,26 +1,36 @@
 import React from 'react';
 import Page from '../../components/Page';
-import BGPattern from '../../assets/img/bg_pattern.png';
+import BGPattern from '../../assets/img/bgpattern2.png';
 import MascotBones from '../../assets/img/mascot-bones.png';
 import { createGlobalStyle } from 'styled-components';
 
-import { Box, Container, Typography } from '@material-ui/core';
+import { Box, Container, makeStyles, Typography } from '@material-ui/core';
 
 const BackgroundImage = createGlobalStyle`
   body {
-    // background: url(${BGPattern}) no-repeat !important;
-    // background-position: center;
-    // background-size: cover !important;
-    background-color: #1b459b;
+    background: url(${BGPattern}) no-repeat !important;
+    background-position: center;
+    background-size: cover !important;
   }
 `;
 
+const useStyles = makeStyles((theme) => ({
+  pattern: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '0px',
+    height: '100vh',
+  }
+}))
+
 const ComingSoon = () => {
+  const classes = useStyles()
 
   return (
     <Page noContainer noNav noFooterMenu>
       <BackgroundImage />
-      <Box pt={8} pb={10} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '-5px', backgroundImage: `url(${BGPattern})`, height: '60vh' }}>
+      <Box pt={8} pb={10} className={classes.pattern}>
         <Container maxWidth="sm">
           <Box style={{ textAlign: 'center' }}>
             <img alt='Mascot Bones' src={MascotBones} />

@@ -25,11 +25,18 @@ const Page = ({ children, noContainer, noNav, noFooterMenu } : { children: React
           {children}
         </Container>)
         :
-        <Box style={{ paddingBottom: '100px' }}>
-          {children}
-        </Box>
+        !noFooterMenu ?
+          <Box style={{ paddingBottom: '100px' }}>
+            {children}
+          </Box>
+        :
+          <Box>
+            {children}
+          </Box>
       }
-      <Footer/>
+      {!noFooterMenu && 
+        <Footer/>
+      }
       
     </div>
   );
