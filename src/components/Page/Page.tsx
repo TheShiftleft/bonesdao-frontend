@@ -34,9 +34,7 @@ const Page = ({ children, noContainer, noNav, noFooterMenu } : { children: React
             {children}
           </Box>
       }
-      {!noFooterMenu && 
-        <Footer/>
-      }
+        <Footer noFooterMenu={noFooterMenu} />
       
     </div>
   );

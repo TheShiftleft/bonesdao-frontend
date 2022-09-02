@@ -41,44 +41,46 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Footer = () => {
+const Footer = ({noFooterMenu}) => {
   const classes = useStyles();
   return (
     <footer className={classes.footer}>
       <Container maxWidth="lg">
         <Grid container justify='center' spacing={3}>
-          <Grid item xs={12}>
-            <Typography variant="body2" color="textSecondary" align="center" display='inline'>
-              <Link className={classes.link}  color="inherit" href="/">
-                SITEMAP
-              </Link>
-            </Typography>
-            <Typography variant="body2" color="textSecondary" align="center" display='inline'>
-              <Link className={classes.link}  color="inherit" href="/">
-                TOKENS
-              </Link>
-            </Typography>
-            <Typography variant="body2" color="textSecondary" align="center" display='inline'>
-              <Link className={classes.link}  color="inherit" href="/">
-                SWAP
-              </Link>
-            </Typography>
-            <Typography variant="body2" color="textSecondary" align="center" display='inline'>
-              <Link className={classes.link}  color="inherit" href="/">
-                NEWS
-              </Link>
-            </Typography>
-            <Typography variant="body2" color="textSecondary" align="center" display='inline'>
-              <Link className={classes.link}  color="inherit" href="/">
-                SUPPORT
-              </Link>
-            </Typography>
-            <Typography variant="body2" color="textSecondary" align="center" display='inline'>
-              <Link className={classes.link}  color="inherit" href="/">
-                CONTACT
-              </Link>
-            </Typography>
-          </Grid>
+          {!noFooterMenu && 
+            <Grid item xs={12}>
+              <Typography variant="body2" color="textSecondary" align="center" display='inline'>
+                <Link className={classes.link}  color="inherit" href="/">
+                  SITEMAP
+                </Link>
+              </Typography>
+              <Typography variant="body2" color="textSecondary" align="center" display='inline'>
+                <Link className={classes.link}  color="inherit" href="/">
+                  TOKENS
+                </Link>
+              </Typography>
+              <Typography variant="body2" color="textSecondary" align="center" display='inline'>
+                <Link className={classes.link}  color="inherit" href="/">
+                  SWAP
+                </Link>
+              </Typography>
+              <Typography variant="body2" color="textSecondary" align="center" display='inline'>
+                <Link className={classes.link}  color="inherit" href="/">
+                  NEWS
+                </Link>
+              </Typography>
+              <Typography variant="body2" color="textSecondary" align="center" display='inline'>
+                <Link className={classes.link}  color="inherit" href="/">
+                  SUPPORT
+                </Link>
+              </Typography>
+              <Typography variant="body2" color="textSecondary" align="center" display='inline'>
+                <Link className={classes.link}  color="inherit" href="/">
+                  CONTACT
+                </Link>
+              </Typography>
+            </Grid>
+          }
           <Grid container item xs={12} alignItems='center' justify='center'>
             <Box mr={1} component='img' alt='bones mascot' src={MascotHead} height='70px' />
             <Typography variant='p' className={classes.bonesText}>
