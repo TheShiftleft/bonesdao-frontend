@@ -15,8 +15,9 @@ const useStyles = makeStyles((theme) => ({
     color: 'white',
     backgroundColor: '#db1d2f',
     textAlign: 'center',
+    
     [theme.breakpoints.down('xs')]: {
-      display: 'none',
+      //display: 'none',
     },
   },
   link: {
@@ -46,9 +47,9 @@ const Footer = ({noFooterMenu}) => {
   return (
     <footer className={classes.footer}>
       <Container maxWidth="lg">
-        <Grid container justify='center' spacing={3}>
+        <Grid container justify='center' spacing={3} style={{paddingTop:20}}>
           {!noFooterMenu && 
-            <Grid item xs={12}>
+            <Grid item xs={12} style={{display:'contents'}}>
               <Typography variant="body2" color="textSecondary" align="center" display='inline'>
                 <Link className={classes.link}  color="inherit" href="/">
                   SITEMAP
