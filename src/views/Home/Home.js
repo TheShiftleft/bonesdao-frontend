@@ -735,7 +735,7 @@ const Home = () => {
           </Box> */}
           <Box mt={3}>
             <Typography variant="h6" align='center' style={{ fontSize: '1.2rem', color: '#fff' }}>
-            We are <strong>Bones DAO</strong>, a cross-chain algorithmic peg token pegged to native chain we are deployed on. An Algorithmic Peg Token (APT) is a non-collateralized token tailored for improving price stability. The beauty of algorithmic peg tokens is that they are much more capital efficient than their collateralized cousins. <strong>Bones DAO</strong> will, with its experienced team, work towards expanding this idea of capital-efficient algorithmic peg token and build on previous iterations to expand the basis of the ecosystem.
+              We are <strong>Bones DAO</strong>, a cross-chain algorithmic peg token pegged to DogeChain. An Algorithmic Peg Token (APT) is a non-collateralized token tailored to improve price stability. The beauty of algorithmic peg tokens is that they are much more capital efficient than their collateralized cousins. Bones DAO will, with its experienced team, work towards expanding this idea of capital-efficient algorithmic peg token and build on previous iterations to expand the basis of the ecosystem.
             </Typography>
           </Box>
           <Box mt={3} textAlign='center'>
@@ -749,6 +749,15 @@ const Home = () => {
               LET'S GET STARTED
             </Link>
           </Box>
+          
+        </Container>
+
+        <Container maxWidth="md">
+          <Box mt={3}>
+              <Typography variant="h5"  style={{ fontSize: '1.2rem', color: '#fff' }}>
+                <strong>Bones DAO</strong> is a DAO which means it’s a Decentralized Autonomous Organization. This means that the owners of $BONES are also the owners of Bones DAO and can make and vote on proposals on changes to Bones DAO. This also means that users of Bones DAO need to be aware that there is always risk in using any Crypto service like Bones DAO. Bones DAO HIGHLY recommends that any user of Bones DAO read through ALL documentation in order to understand the risk that using Bones DAO brings with it. Nothing in this documentation nor on Bones DAO or its social media channels is intended to be Financial Advice of any kind but should be seen as a Decentralized Autonomous experiment in user-generated content and creation. Use Bones DAO at your own discretion, and base this usage on your local laws. Bones DAO is not allowed to be used in territories where protocols such as Bones DAO are forbidden by law. “All values stated in this documentation are initial values at the start of the protocol. These values are subject to changes either from the team or by DAO vote”.
+              </Typography>
+            </Box>
         </Container>
       </Box>
     </Page>
