@@ -33,8 +33,8 @@ const configurations: { [env: string]: Configuration } = {
   production: {
     chainId: ChainId.FTMTESTNET,
     networkName: 'DogeChain Mainnet',
-    ftmscanUrl: 'https://explorer.dogechain.dog/',
-    defaultProvider: 'https://rpc01-sg.dogechain.dog/',
+    ftmscanUrl: 'https://explorer-testnet.dogechain.dog/',
+    defaultProvider: 'https://rpc-testnet.dogechain.dog/',
     deployments: require('./tomb-finance/deployments/deployments.mainnet.json'),
     externalTokens: {
       WFTM: ['0x2465086E721F68761e3275A54802C985FFd0D727', 18], //wDOGE
