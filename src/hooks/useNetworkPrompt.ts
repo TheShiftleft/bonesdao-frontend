@@ -5,6 +5,8 @@ const usePromptNetwork = () => {
   const [networkPrompt, setNetworkPrompt] = useState(false);
   const { ethereum } = window as any;
 
+  console.log('config.chainId', config.chainId.toString())
+  console.log('ethereum.networkversion', ethereum.networkVersion)
   /**
    * For more read https://github.com/NoahZinsmeister/web3-react/blob/6737868693adb7e1e28ae80499e19901e9aae45a/example/hooks.ts#L33
    * And https://docs.metamask.io/guide/ethereum-provider.html
@@ -19,8 +21,8 @@ const usePromptNetwork = () => {
           chainId: `0x${config.chainId.toString(16)}`,
           chainName: config.networkName,
           nativeCurrency: {
-            name: 'FTM',
-            symbol: 'ftm',
+            name: 'DOGE',
+            symbol: 'DOGE',
             decimals: 18,
           },
           rpcUrls: [config.defaultProvider],
