@@ -115,10 +115,10 @@ const LPTokenHelpText: React.FC<{ bank: BankEntity }> = ({ bank }) => {
   let uniswapUrl: string;
   if (bank.depositTokenName.includes('BONES')) {
     pairName = 'BONES-DOGE pair';
-    uniswapUrl = 'https://app.dogeswap.org/#/swap?outputCurrency=' + bonesAddr;
+    uniswapUrl = 'https://app.dogeswap.org/#/add/WDOGE/' + bonesAddr;
   } else {
     pairName = 'BSHARE-DOGE pair';
-    uniswapUrl = 'https://app.dogeswap.org/#/swap?outputCurrency=' + tbonesAddr;
+    uniswapUrl = 'https://app.dogeswap.org/#/add/WDOGE/' + tbonesAddr;
   }
   return (
     <Card>
