@@ -124,7 +124,7 @@ const LPTokenHelpText: React.FC<{ bank: BankEntity }> = ({ bank }) => {
     <Card>
       <CardContent>
         <StyledLink href={uniswapUrl} target="_blank">
-          {`👻 Provide liquidity for ${pairName} now on DogeChain 👻`}
+          {`Provide liquidity for ${pairName} now on DogeChain`}
         </StyledLink>
       </CardContent>
     </Card>

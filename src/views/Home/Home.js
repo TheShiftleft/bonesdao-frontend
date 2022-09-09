@@ -121,8 +121,8 @@ const Home = () => {
     tShare = tShareProd;
   }
 
-  const buyTombAddress = 'https://dogeswap.org/#/swap?outputCurrency=' + tomb.address;
-  const buyTShareAddress = 'https://dogeswap.org/#/swap?outputCurrency=' + tShare.address;
+  const buyTombAddress = 'https://app.dogeswap.org/#/swap?outputCurrency=' + tomb.address;
+  const buyTShareAddress = 'https://app.dogeswap.org/#/swap?outputCurrency=' + tShare.address;
 
   const tombLPStats = useMemo(() => (tombFtmLpStats ? tombFtmLpStats : null), [tombFtmLpStats]);
   const tshareLPStats = useMemo(() => (tShareFtmLpStats ? tShareFtmLpStats : null), [tShareFtmLpStats]);
