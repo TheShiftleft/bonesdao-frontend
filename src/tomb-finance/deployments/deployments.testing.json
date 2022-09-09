@@ -1,6 +1,6 @@
 {
   "SeigniorageOracle": {
-    "address": "0x8Cedb25E01c2d874db2493EcDDf27b5bA667ade8",
+    "address": "0xe82d17f51b4fCb2E86aBcA10c65F9f0BDa0BcF6d",
     "abi": [
       {
         "inputs": [
@@ -405,7 +405,7 @@
     ]
   },
   "Bones": {
-    "address": "0xadff3a5b9C4CA38A0f398dA8F7E554121BC550D2",
+    "address": "0xcef69C718C4C9e025d8ee37AbF7104Cdbc24810d",
     "abi": [
       {
         "inputs": [
@@ -1324,7 +1324,7 @@
     ]
   },
   "Bshare": {
-    "address": "0xD0cfdcBEb137B28251c77BCffe9F3E77d538c89A",
+    "address": "0x892AE0Eb5AAb998a1f38eA4CCC7D6cd3a64154d4",
     "abi": [
       {
         "inputs": [
@@ -2025,7 +2025,7 @@
     ]
   },
   "Bbond": {
-    "address": "0x1538338d74E7Bd69eABA99464556ea71875d9126",
+    "address": "0xd839ed5c781faCeE3E30569966E2cACAfaD32795",
     "abi": [
       {
         "inputs": [],
@@ -2470,7 +2470,7 @@
     ]
   },
   "Treasury": {
-    "address": "0x0c0A7563640ef644776554803d46E525aB6180Ca",
+    "address": "0x4A234E5D0D596F57caA2606759cbD24033F31ec9",
     "abi": [
       {
         "anonymous": false,
@@ -3694,7 +3694,7 @@
     ]
   },
   "Masonry": {
-    "address": "0x4ec05EAdEDF94405b709Aa6604981bFcE9d6eb90",
+    "address": "0x6e016CBee68C72Ac2FBaed7EB690540C3AF8b583",
     "abi": [
       {
         "anonymous": false,
@@ -4246,7 +4246,7 @@
     ]
   },
   "BonesDogeRewardPool": {
-    "address": "0x612F35C9bE43f008C5b7701E2B08deB4c74aB3D2",
+    "address": "0x7F4E97D709811B690Fb4C22f244a0539b56808B0",
     "abi": [
       {
         "inputs": [
@@ -4750,7 +4750,7 @@
     ]
   },
   "BonesUSDCRewardPool": {
-    "address": "0x612F35C9bE43f008C5b7701E2B08deB4c74aB3D2",
+    "address": "0x7F4E97D709811B690Fb4C22f244a0539b56808B0",
     "abi": [
       {
         "inputs": [
@@ -5758,7 +5758,7 @@
     ]
   },
   "BonesDogeLPBShareRewardPool": {
-    "address": "0x3d9AC187119e096ADaC023003aCE742fcD2737d5",
+    "address": "0x0Ab420d7D9752cd3Cd2e08dE2e266a66469B2C91",
     "abi": [
       {
         "inputs": [
@@ -6244,7 +6244,7 @@
     ]
   },
   "BShareDogeLPBShareRewardPool": {
-    "address": "0x3d9AC187119e096ADaC023003aCE742fcD2737d5",
+    "address": "0x0Ab420d7D9752cd3Cd2e08dE2e266a66469B2C91",
     "abi": [
       {
         "inputs": [
