@@ -108,17 +108,17 @@ const Bank: React.FC = () => {
 
 const LPTokenHelpText: React.FC<{ bank: BankEntity }> = ({ bank }) => {
   const bonesDao = useBonesDao();
-  const tombAddr = bonesDao.BONES.address;
-  const tshareAddr = bonesDao.BSHARE.address;
+  const bonesAddr = bonesDao.BONES.address;
+  const tbonesAddr = bonesDao.BSHARE.address;
 
   let pairName: string;
   let uniswapUrl: string;
   if (bank.depositTokenName.includes('BONES')) {
     pairName = 'BONES-DOGE pair';
-    uniswapUrl = 'https://spookyswap.finance/add/FTM/' + tombAddr;
+    uniswapUrl = 'https://app.dogeswap.org/#/swap?outputCurrency=' + bonesAddr;
   } else {
     pairName = 'BSHARE-DOGE pair';
-    uniswapUrl = 'https://spookyswap.finance/add/FTM/' + tshareAddr;
+    uniswapUrl = 'https://app.dogeswap.org/#/swap?outputCurrency=' + tbonesAddr;
   }
   return (
     <Card>
