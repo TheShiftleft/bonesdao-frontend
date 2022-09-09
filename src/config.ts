@@ -14,7 +14,7 @@ const configurations: { [env: string]: Configuration } = {
     deployments: require('./tomb-finance/deployments/deployments.testing.json'),
     externalTokens: {
       WFTM: ['0x2465086E721F68761e3275A54802C985FFd0D727', 18], //wDOGE
-      WDOGE: ['0x2465086E721F68761e3275A54802C985FFd0D727', 18], //wDOGE
+      WWDOGE: ['0x2465086E721F68761e3275A54802C985FFd0D727', 18], //wDOGE
       FUSDT: ['0x1111776366fbAA4c87F7D58db63601456dd73e10', 6], // This is actually usdc on mainnet not fusdt
       USDC: ['0x1111776366fbAA4c87F7D58db63601456dd73e10', 6],
       'DIGITAL-BASED-LP': ['0x4Ba668d95c16aFcbBdCeb88f1FA52D66D7016355', 18],
@@ -38,7 +38,7 @@ const configurations: { [env: string]: Configuration } = {
     deployments: require('./tomb-finance/deployments/deployments.mainnet.json'),
     externalTokens: {
       WFTM: ['0x2465086E721F68761e3275A54802C985FFd0D727', 18], //wDOGE
-      WDOGE: ['0x2465086E721F68761e3275A54802C985FFd0D727', 18], //wDOGE
+      WWDOGE: ['0x2465086E721F68761e3275A54802C985FFd0D727', 18], //wDOGE
       FUSDT: ['0x1111776366fbAA4c87F7D58db63601456dd73e10', 6], // This is actually usdc on mainnet not fusdt
       USDC: ['0x1111776366fbAA4c87F7D58db63601456dd73e10', 6],
       'DIGITAL-BASED-LP': ['0x4Ba668d95c16aFcbBdCeb88f1FA52D66D7016355', 18],
@@ -76,7 +76,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     poolId: 0,
     sectionInUI: 0,
     contract: 'BonesDogeRewardPool',
-    depositTokenName: 'WDOGE',
+    depositTokenName: 'WWDOGE',
     earnTokenName: 'BONES',
     finished: false,
     sort: 1,

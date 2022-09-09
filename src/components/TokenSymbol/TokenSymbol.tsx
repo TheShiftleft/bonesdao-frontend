@@ -38,6 +38,7 @@ const logosBySymbol: { [title: string]: string } = {
   SHIBA: shibaLogo,
   ZOO: zooLogo,
   WDOGE: dogeLogo,
+  WWDOGE: dogeLogo,
   USDC: usdcLogo,
   'TOMB-FTM-LP': tombFtmLpLogo,
   'TSHARE-FTM-LP': tshareFtmLpLogo,
