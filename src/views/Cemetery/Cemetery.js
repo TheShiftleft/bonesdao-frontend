@@ -2,17 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useWallet } from 'use-wallet';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import Bank from '../Bank';
-import { makeStyles } from '@material-ui/core/styles';
-import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 
-import { Box, Container, Typography, Grid, Card, CardContent } from '@material-ui/core';
+import { Box, Container, Typography, Grid } from '@material-ui/core';
 
 import { Alert } from '@material-ui/lab';
 
 import UnlockWallet from '../../components/UnlockWallet';
 import Page from '../../components/Page';
 import CemeteryCard from './CemeteryCard';
-import CemeteryImage from '../../assets/img/cemetery.png';
 import BGPattern from '../../assets/img/bgpattern2.png';
 import { createGlobalStyle } from 'styled-components';
 
@@ -28,17 +25,11 @@ const BackgroundImage = createGlobalStyle`
   }
 `;
 
-const useStyles = makeStyles(() => ({
-  alertBox: {
-    backgroundColor: '#757ce8',
-    padding: '10px 5px !important',
-  }
-}));
-
 const Cemetery = () => {
-  const classes = useStyles();
+  const currentEpoch = Math.floor(new Date() / 1000)
   const [genesisStartTime, setGenesisStartTime] = useState(new Date(0).toUTCString())
   const [poolStartTime, setPoolStartTime] = useState(new Date(0).toUTCString())
+  const [ genesisEnded, setGenesisEnded] = useState(false)
   const [banks] = useBanks();
   const { path } = useRouteMatch();
   const { account } = useWallet();
@@ -51,19 +42,14 @@ const Cemetery = () => {
       const d = new Date(0)
       d.setUTCSeconds(genesisRewardPoolStat.startTime)
       setGenesisStartTime(d.toUTCString())
+      setGenesisEnded(genesisRewardPoolStat.endTime.toNumber() < currentEpoch)
     }
     if(shareRewardPoolStat) {
       const sd = new Date(0)
       sd.setUTCSeconds(shareRewardPoolStat.startTime)
       setPoolStartTime(sd.toUTCString())
     }
-
-    // setInterval(() => {
-    //   const count = new Date(new Date(poolStartTime) - new Date().getTime());
-    //   setCountDown(`${count.getUTCHours()}:${count.getUTCMinutes()}:${count.getUTCSeconds()}`)
-    // }, 1000)
-
-  },[genesisRewardPoolStat, shareRewardPoolStat])
+  },[genesisRewardPoolStat, shareRewardPoolStat, currentEpoch])
   return (
     <Switch>
       <Page>
@@ -82,13 +68,12 @@ const Cemetery = () => {
                     </Typography>
                     <Grid container>
                       <Grid item>
-                        <Card style={{ marginBottom: '5px' }}>
-                          <CardContent className={classes.alertBox} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            <InfoOutlinedIcon style={{ marginRight: '5px' }} />
-                              Pools starting at {poolStartTime}, <br />
-                              BSHARE reward pools start in: {hours <= 0 ? '00' : `${hours}`}: {minutes <= 0 ? '00': `${minutes}`}: {seconds <=0 ? '00' : `${seconds}`}
-                          </CardContent>
-                        </Card>
+                        {shareRewardPoolStat && (
+                          <Alert variant="filled" severity="info" style={{ marginBottom: '5px', backgroundColor: '#757CE8', fontSize: '1rem'  }}>
+                            Pools starting at {poolStartTime}, <br />
+                            BSHARE reward pools start in: {hours <= 0 ? '00' : `${hours}`}: {minutes <= 0 ? '00': `${minutes}`}: {seconds <=0 ? '00' : `${seconds}`}
+                          </Alert>
+                        )}
                       </Grid>
                     </Grid>
                     <Grid container spacing={3}>
@@ -126,12 +111,25 @@ const Cemetery = () => {
                     </Typography>
                     <Grid container >
                       <Grid item>
-                        <Card style={{ marginBottom: '5px' }}>
-                          <CardContent className={classes.alertBox} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            <InfoOutlinedIcon style={{ marginRight: '5px' }} />
-                              Genesis Pools will start on {genesisStartTime}
-                          </CardContent>
-                        </Card>
+                        {genesisRewardPoolStat && (
+                          <Alert variant="filled" severity="info" style={{ marginBottom: '5px', backgroundColor: '#757CE8', fontSize: '1rem'  }}>
+                            {genesisEnded ? (
+                              <>
+                                All below pools have ended. Please unstake and collect your rewards.
+                              </>
+                              ) :
+                              genesisRewardPoolStat && genesisRewardPoolStat.endTime.toNumber() >= currentEpoch && genesisRewardPoolStat.startTime.toNumber() <= currentEpoch ? (
+                              <>
+                                Genesis pools are live now.
+                              </>
+                              ) : (
+                              <>
+                                Genesis Pools will start on {genesisStartTime}
+                              </>
+                              )
+                              }
+                          </Alert>
+                        )}
                       </Grid>
                     </Grid>
                     <Grid container spacing={3}>
