@@ -13,7 +13,12 @@ import IUniswapV2PairABI from './IUniswapV2Pair.abi.json';
 import config, { bankDefinitions } from '../config';
 import moment from 'moment';
 import { parseUnits } from 'ethers/lib/utils';
+<<<<<<< HEAD
 import { WDOGE_TICKER, SPOOKY_ROUTER_ADDR, BONES_TICKER } from '../utils/constants';
+=======
+import { FTM_TICKER, SPOOKY_ROUTER_ADDR, TOMB_TICKER } from '../utils/constants';
+import { RewardPoolStat } from '../hooks/useRewardPoolStats';
+>>>>>>> 3f85c18775c0412fe76056cb57f78a3d161f210c
 /**
  * An API module of Tomb Finance contracts.
  * All contract-interacting domain logic should be defined in here.
@@ -141,6 +146,24 @@ export class BonesDao {
       priceOfOne: lpTokenPriceFixed,
       totalLiquidity: liquidity,
       totalSupply: Number(lpTokenSupply).toFixed(2).toString(),
+    };
+  }
+
+  /**
+   * Calculates various stats for the requested LP
+   * @param name of the LP token to load stats for
+   * @returns
+   */
+  async getRewardsPoolStat(name: string): Promise<RewardPoolStat> {
+
+    const contract = this.contracts[name]
+    const startTime = await contract.poolStartTime();
+    const endTime = await contract.poolEndTime();
+    return {
+      contract: name,
+      address: contract.address,
+      startTime,
+      endTime
     };
   }
 
