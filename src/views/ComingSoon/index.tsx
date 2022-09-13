@@ -42,7 +42,7 @@ const ComingSoon = () => {
           </Box>
           <Box mt={3}>
             <Typography variant="h6" align='center' style={{ fontSize: '1.2rem', color: '#fff' }}>
-            We are <strong>Bones DAO</strong>, a cross-chain algorithmic peg token pegged to native chain we are deployed on. An Algorithmic Peg Token (APT) is a non-collateralized token tailored for improving price stability. The beauty of algorithmic peg tokens is that they are much more capital efficient than their collateralized cousins. <strong>Bones DAO</strong> will, with its experienced team, work towards expanding this idea of capital-efficient algorithmic peg token and build on previous iterations to expand the basis of the ecosystem.
+              We are <strong>Bones DAO</strong>, a cross-chain algorithmic peg token pegged to DogeChain. An Algorithmic Peg Token (APT) is a non-collateralized token tailored to improve price stability. The beauty of algorithmic peg tokens is that they are much more capital efficient than their collateralized cousins. Bones DAO will, with its experienced team, work towards expanding this idea of capital-efficient algorithmic peg token and build on previous iterations to expand the basis of the ecosystem.
             </Typography>
           </Box>
         </Container>

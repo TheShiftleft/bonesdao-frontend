@@ -33,7 +33,7 @@ const NoMatch = () => (
   </h3>
 );
 
-const READY = true;
+const READY = false;
 
 const App: React.FC = () => {
   // Clear localStorage for mobile users
