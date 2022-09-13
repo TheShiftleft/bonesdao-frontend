@@ -13,15 +13,10 @@ const configurations: { [env: string]: Configuration } = {
     defaultProvider: 'https://rpc-testnet.dogechain.dog/',
     deployments: require('./tomb-finance/deployments/deployments.testing.json'),
     externalTokens: {
-      WFTM: ['0x2465086E721F68761e3275A54802C985FFd0D727', 18], //wDOGE
       WWDOGE: ['0x2465086E721F68761e3275A54802C985FFd0D727', 18], //wDOGE
-      FUSDT: ['0x1111776366fbAA4c87F7D58db63601456dd73e10', 6], // This is actually usdc on mainnet not fusdt
-      USDC: ['0x1111776366fbAA4c87F7D58db63601456dd73e10', 6],
-      'DIGITAL-BASED-LP': ['0x4Ba668d95c16aFcbBdCeb88f1FA52D66D7016355', 18],
-      'DIGSHARES-FTM-LP': ['0xa0619868afCCc62f6CB6DcB51E59135a9355c7A3', 18],
-      'USDT-FTM-LP': ['0x2b4C76d0dc16BE1C31D4C1DC53bF9B45987Fc75c', 18],
-      'TOMB-FTM-LP': ['0x2A651563C9d3Af67aE0388a5c8F89b867038089e', 18],
-      'TSHARE-FTM-LP': ['0x4733bc45eF91cF7CcEcaeeDb794727075fB209F2', 18],
+      FUSDT: ['0x393610183D40B4cb23f09E1E7EAE704A4709B6e6', 6], // This is actually usdc on mainnet not fusdt
+      USDC: ['0x393610183D40B4cb23f09E1E7EAE704A4709B6e6', 6],
+      'USDT-FTM-LP': ['0x917A454571bC19248F03b4fF15C8c8380ed5e6DD', 18],
       'BONES-DOGE-LP': ['0x26DB801D497222C0478CF302f867d36e0bCF2110', 18],
       'BSHARE-DOGE-LP': ['0x82D7bed6Ceb0075Ad7E83b060b7aBC3f2e86FF76', 18],
     },
@@ -37,15 +32,10 @@ const configurations: { [env: string]: Configuration } = {
     defaultProvider: 'https://rpc-testnet.dogechain.dog/',
     deployments: require('./tomb-finance/deployments/deployments.mainnet.json'),
     externalTokens: {
-      WFTM: ['0x2465086E721F68761e3275A54802C985FFd0D727', 18], //wDOGE
-      WWDOGE: ['0x2465086E721F68761e3275A54802C985FFd0D727', 18], //wDOGE
-      FUSDT: ['0x1111776366fbAA4c87F7D58db63601456dd73e10', 6], // This is actually usdc on mainnet not fusdt
-      USDC: ['0x1111776366fbAA4c87F7D58db63601456dd73e10', 6],
-      'DIGITAL-BASED-LP': ['0x4Ba668d95c16aFcbBdCeb88f1FA52D66D7016355', 18],
-      'DIGSHARES-FTM-LP': ['0xa0619868afCCc62f6CB6DcB51E59135a9355c7A3', 18],
-      'USDT-FTM-LP': ['0x2b4C76d0dc16BE1C31D4C1DC53bF9B45987Fc75c', 18],
-      'TOMB-FTM-LP': ['0x2A651563C9d3Af67aE0388a5c8F89b867038089e', 18],
-      'TSHARE-FTM-LP': ['0x4733bc45eF91cF7CcEcaeeDb794727075fB209F2', 18],
+      WWDOGE: ['0x2465086E721F68761e3275A54802C985FFd0D727', 18], //WWDOGE
+      FUSDT: ['0x393610183D40B4cb23f09E1E7EAE704A4709B6e6', 6], // This is actually usdc on mainnet not fusdt
+      USDC: ['0x393610183D40B4cb23f09E1E7EAE704A4709B6e6', 6],
+      'USDT-FTM-LP': ['0x917A454571bC19248F03b4fF15C8c8380ed5e6DD', 18],
       'BONES-DOGE-LP': ['0x26DB801D497222C0478CF302f867d36e0bCF2110', 18],
       'BSHARE-DOGE-LP': ['0x82D7bed6Ceb0075Ad7E83b060b7aBC3f2e86FF76', 18],
     },
@@ -118,95 +108,5 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
   
 };
 
-export const digitBankDefinitions: { [contractName: string]: BankInfo } = {
-  WftmDigitalLP: {
-    name: 'Earn DIGITAL by WFTM',
-    poolId: 0,
-    sectionInUI: null,
-    contract: 'genesis_pool',
-    depositTokenName: 'WFTM',
-    earnTokenName: 'DIGITAL',
-    finished: false,
-    sort: null,
-    closedForStaking: false,
-  },
-  BasedDigitalLP: {
-    name: 'Earn DIGITAL by BASED',
-    poolId: 1,
-    sectionInUI: null,
-    contract: 'genesis_pool',
-    depositTokenName: 'BASED',
-    earnTokenName: 'DIGITAL',
-    finished: false,
-    sort: null,
-    closedForStaking: false,
-  },
-  TombDigitalLP: {
-    name: 'Earn DIGITAL by TOMB',
-    poolId: 2,
-    sectionInUI: null,
-    contract: 'genesis_pool',
-    depositTokenName: 'TOMB',
-    earnTokenName: 'DIGITAL',
-    finished: false,
-    sort: null,
-    closedForStaking: false,
-  },
-  UsdcDigitalLP: {
-    name: 'Earn DIGITAL by USDC',
-    poolId: 3,
-    sectionInUI: null,
-    contract: 'genesis_pool',
-    depositTokenName: 'USDC',
-    earnTokenName: 'DIGITAL',
-    finished: false,
-    sort: null,
-    closedForStaking: false,
-  },
-  MimDigitalLP: {
-    name: 'Earn DIGITAL by MIM',
-    poolId: 4,
-    sectionInUI: null,
-    contract: 'genesis_pool',
-    depositTokenName: 'MIM',
-    earnTokenName: 'DIGITAL',
-    finished: false,
-    sort: null,
-    closedForStaking: false,
-  },
-  BShareDigitalLP: {
-    name: 'Earn DIGITAL by BSHARE',
-    poolId: 5,
-    sectionInUI: null,
-    contract: 'genesis_pool',
-    depositTokenName: 'BSHARE',
-    earnTokenName: 'DIGITAL',
-    finished: false,
-    sort: null,
-    closedForStaking: false,
-  },
-  DegenDigitalLP: {
-    name: 'Earn DIGITAL by DEGEN',
-    poolId: 6,
-    sectionInUI: null,
-    contract: 'genesis_pool',
-    depositTokenName: 'DEGEN',
-    earnTokenName: 'DIGITAL',
-    finished: false,
-    sort: null,
-    closedForStaking: false,
-  },
-  DigitBasedLPDigitalLP: {
-    name: 'Earn DIGITAL by DIGIT-BASED LP',
-    poolId: 7,
-    sectionInUI: null,
-    contract: 'genesis_pool',
-    depositTokenName: 'DIGITAL-BASED-LP',
-    earnTokenName: 'DIGITAL',
-    finished: false,
-    sort: null,
-    closedForStaking: false,
-  },
-}
 
 export default configurations[process.env.NODE_ENV || 'development'];

@@ -3,7 +3,7 @@ import { useCallback, useMemo } from 'react';
 import { useHasPendingApproval, useTransactionAdder } from '../state/transactions/hooks';
 import useAllowance from './useAllowance';
 import ERC20 from '../tomb-finance/ERC20';
-import { FTM_TICKER, TOMB_TICKER, TSHARE_TICKER, ZAPPER_ROUTER_ADDR } from '../utils/constants';
+import { WDOGE_TICKER, BONES_TICKER, BSHARE_TICKER, ZAPPER_ROUTER_ADDR } from '../utils/constants';
 import useBonesDao from './useBonesDao';
 
 const APPROVE_AMOUNT = ethers.constants.MaxUint256;
@@ -20,9 +20,9 @@ export enum ApprovalState {
 function useApproveZapper(zappingToken: string): [ApprovalState, () => Promise<void>] {
   const bonesDao = useBonesDao();
   let token: ERC20;
-  if (zappingToken === FTM_TICKER) token = bonesDao.FTM;
-  else if (zappingToken === TOMB_TICKER) token = bonesDao.BONES;
-  else if (zappingToken === TSHARE_TICKER) token = bonesDao.BSHARE;
+  if (zappingToken === WDOGE_TICKER) token = bonesDao.FTM;
+  else if (zappingToken === BONES_TICKER) token = bonesDao.BONES;
+  else if (zappingToken === BSHARE_TICKER) token = bonesDao.BSHARE;
   const pendingApproval = useHasPendingApproval(token.address, ZAPPER_ROUTER_ADDR);
   const currentAllowance = useAllowance(token, ZAPPER_ROUTER_ADDR, pendingApproval);
 

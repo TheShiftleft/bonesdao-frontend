@@ -14,7 +14,7 @@ import useLpStats from '../../../hooks/useLpStats';
 import useTokenBalance from '../../../hooks/useTokenBalance';
 import { useWallet } from 'use-wallet';
 import useApproveZapper, { ApprovalState } from '../../../hooks/useApproveZapper';
-import { TOMB_TICKER, TSHARE_TICKER, FTM_TICKER } from '../../../utils/constants';
+import { BONES_TICKER, BSHARE_TICKER, WDOGE_TICKER } from '../../../utils/constants';
 import { Alert } from '@material-ui/lab';
 import useBonesDao from '../../../hooks/useBonesDao';
 
@@ -31,7 +31,7 @@ const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', de
   const tombBalance = useTokenBalance(bonesDao.BONES);
   const tshareBalance = useTokenBalance(bonesDao.BSHARE);
   const [val, setVal] = useState('');
-  const [zappingToken, setZappingToken] = useState(FTM_TICKER);
+  const [zappingToken, setZappingToken] = useState(WDOGE_TICKER);
   const [zappingTokenBalance, setZappingTokenBalance] = useState(ftmBalance);
   const [estimate, setEstimate] = useState({ token0: '0', token1: '0' }); // token0 will always be FTM in this case
   const [approveZapperStatus, approveZapper] = useApproveZapper(zappingToken);
@@ -39,7 +39,7 @@ const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', de
   const tShareFtmLpStats = useLpStats('BSHARE-DOGE-LP');
   const tombLPStats = useMemo(() => (tombFtmLpStats ? tombFtmLpStats : null), [tombFtmLpStats]);
   const tshareLPStats = useMemo(() => (tShareFtmLpStats ? tShareFtmLpStats : null), [tShareFtmLpStats]);
-  const ftmAmountPerLP = tokenName.startsWith(TOMB_TICKER) ? tombLPStats?.ftmAmount : tshareLPStats?.ftmAmount;
+  const ftmAmountPerLP = tokenName.startsWith(BONES_TICKER) ? tombLPStats?.ftmAmount : tshareLPStats?.ftmAmount;
   /**
    * Checks if a value is a valid number or not
    * @param n is the value to be evaluated for a number
@@ -52,10 +52,10 @@ const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', de
     const value = event.target.value;
     setZappingToken(value);
     setZappingTokenBalance(ftmBalance);
-    if (event.target.value === TSHARE_TICKER) {
+    if (event.target.value === BSHARE_TICKER) {
       setZappingTokenBalance(getDisplayBalance(tshareBalance, decimals));
     }
-    if (event.target.value === TOMB_TICKER) {
+    if (event.target.value === BONES_TICKER) {
       setZappingTokenBalance(getDisplayBalance(tombBalance, decimals));
     }
   };
@@ -80,12 +80,7 @@ const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', de
   return (
     <Modal>
       <ModalTitle text={`Zap in ${tokenName}`} />
-      <Typography variant="h6" align="center">
-        Powered by{' '}
-        <a target="_blank" rel="noopener noreferrer" href="https://mlnl.finance">
-          mlnl.finance
-        </a>
-      </Typography>
+      
 
       <StyledActionSpacer />
       <InputLabel style={{ color: '#2c2560' }} id="label">
@@ -98,8 +93,8 @@ const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', de
         id="select"
         value={zappingToken}
       >
-        <StyledMenuItem value={FTM_TICKER}>FTM</StyledMenuItem>
-        <StyledMenuItem value={TSHARE_TICKER}>TSHARE</StyledMenuItem>
+        <StyledMenuItem value={WDOGE_TICKER}>WDOGE</StyledMenuItem>
+        <StyledMenuItem value={BSHARE_TICKER}>BSHARE</StyledMenuItem>
         {/* Tomb as an input for zapping will be disabled due to issues occuring with the Gatekeeper system */}
         {/* <StyledMenuItem value={TOMB_TICKER}>TOMB</StyledMenuItem> */}
       </Select>
@@ -117,8 +112,8 @@ const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', de
       </StyledDescriptionText>
       <StyledDescriptionText>
         {' '}
-        ({Number(estimate.token0)} {FTM_TICKER} / {Number(estimate.token1)}{' '}
-        {tokenName.startsWith(TOMB_TICKER) ? TOMB_TICKER : TSHARE_TICKER}){' '}
+        ({Number(estimate.token0)} {WDOGE_TICKER} / {Number(estimate.token1)}{' '}
+        {tokenName.startsWith(BONES_TICKER) ? BONES_TICKER : BSHARE_TICKER}){' '}
       </StyledDescriptionText>
       <ModalActions>
         <Button
@@ -133,9 +128,6 @@ const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', de
       </ModalActions>
 
       <StyledActionSpacer />
-      <Alert variant="filled" severity="warning">
-        Beta feature. Use at your own risk!
-      </Alert>
     </Modal>
   );
 };

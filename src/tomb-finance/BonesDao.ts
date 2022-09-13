@@ -10,10 +10,10 @@ import ERC20 from './ERC20';
 import { getFullDisplayBalance, getDisplayBalance } from '../utils/formatBalance';
 import { getDefaultProvider } from '../utils/provider';
 import IUniswapV2PairABI from './IUniswapV2Pair.abi.json';
-import config, { bankDefinitions, digitBankDefinitions } from '../config';
+import config, { bankDefinitions } from '../config';
 import moment from 'moment';
 import { parseUnits } from 'ethers/lib/utils';
-import { FTM_TICKER, SPOOKY_ROUTER_ADDR, TOMB_TICKER } from '../utils/constants';
+import { WDOGE_TICKER, SPOOKY_ROUTER_ADDR, BONES_TICKER } from '../utils/constants';
 /**
  * An API module of Tomb Finance contracts.
  * All contract-interacting domain logic should be defined in here.
@@ -50,7 +50,7 @@ export class BonesDao {
     this.BSHARE = new ERC20(deployments.Bshare.address, provider, 'BSHARE');
     this.BBOND = new ERC20(deployments.Bbond.address, provider, 'BBOND');
 
-    this.FTM = this.externalTokens['WFTM'];
+    this.FTM = this.externalTokens['WWDOGE'];
 
     // Uniswap V2 Pair
     this.BONESDOGE_LP = new Contract(externalTokens['BONES-DOGE-LP'][0], IUniswapV2PairABI, provider);
@@ -310,7 +310,7 @@ export class BonesDao {
   async getDepositTokenPriceInDollars(tokenName: string, token: ERC20) {
     let tokenPrice;
     const priceOfOneFtmInDollars = await this.getWFTMPriceFromPancakeswap();
-    if (tokenName === 'WFTM' || tokenName === 'WDOGE') {
+    if (tokenName === 'WWDOGE' || tokenName === 'WDOGE') {
       tokenPrice = priceOfOneFtmInDollars;
     } else {
       if (tokenName === 'BONES-DOGE-LP') {
@@ -495,8 +495,8 @@ export class BonesDao {
     const ready = await this.provider.ready;
     if (!ready) return;
     const { chainId } = this.config;
-    const { WFTM } = this.config.externalTokens;
-    const wftm = new Token(chainId, WFTM[0], WFTM[1]);
+    const { WWDOGE } = this.config.externalTokens;
+    const wftm = new Token(chainId, WWDOGE[0], WWDOGE[1]);
     const token = new Token(chainId, tokenContract.address, tokenContract.decimal, tokenContract.symbol);
     try {
       const wftmToToken = await Fetcher.fetchPairData(wftm, token, this.provider);
@@ -510,17 +510,17 @@ export class BonesDao {
   async getWFTMPriceFromPancakeswap(): Promise<string> {
     const ready = await this.provider.ready;
     if (!ready) return;
-    const { WFTM, FUSDT } = this.externalTokens;
+    const { WWDOGE, FUSDT } = this.externalTokens;
     try {
       // TO-DO: GET THE USDC-DOGE LP Address in config
       const fusdt_wftm_lp_pair = this.externalTokens['USDT-FTM-LP'];
-      let ftm_amount_BN = await WFTM.balanceOf(fusdt_wftm_lp_pair.address);
-      let ftm_amount = Number(getFullDisplayBalance(ftm_amount_BN, WFTM.decimal));
+      let ftm_amount_BN = await WWDOGE.balanceOf(fusdt_wftm_lp_pair.address);
+      let ftm_amount = Number(getFullDisplayBalance(ftm_amount_BN, WWDOGE.decimal));
       let fusdt_amount_BN = await FUSDT.balanceOf(fusdt_wftm_lp_pair.address);
       let fusdt_amount = Number(getFullDisplayBalance(fusdt_amount_BN, FUSDT.decimal));
       return (fusdt_amount / ftm_amount).toString();
     } catch (err) {
-      console.error(`Failed to fetch token price of WFTM: ${err}`);
+      console.error(`Failed to fetch token price of WWDOGE: ${err}`);
     }
   }
 
@@ -826,13 +826,19 @@ export class BonesDao {
   }
 
   async estimateZapIn(tokenName: string, lpName: string, amount: string): Promise<number[]> {
+    
     const { zapper } = this.contracts;
     const lpToken = this.externalTokens[lpName];
+    console.log("zapper", zapper)
+    console.log("tokenName", tokenName)
+    console.log("lpName", lpName)
+    console.log("lpToken", lpToken)
     let estimate;
-    if (tokenName === FTM_TICKER) {
+    if (tokenName === WDOGE_TICKER) {
       estimate = await zapper.estimateZapIn(lpToken.address, SPOOKY_ROUTER_ADDR, parseUnits(amount, 18));
+      
     } else {
-      const token = tokenName === TOMB_TICKER ? this.BONES : this.BSHARE;
+      const token = tokenName === BONES_TICKER ? this.BONES : this.BSHARE;
       estimate = await zapper.estimateZapInToken(
         token.address,
         lpToken.address,
@@ -845,13 +851,13 @@ export class BonesDao {
   async zapIn(tokenName: string, lpName: string, amount: string): Promise<TransactionResponse> {
     const { zapper } = this.contracts;
     const lpToken = this.externalTokens[lpName];
-    if (tokenName === FTM_TICKER) {
+    if (tokenName === WDOGE_TICKER) {
       let overrides = {
         value: parseUnits(amount, 18),
       };
       return await zapper.zapIn(lpToken.address, SPOOKY_ROUTER_ADDR, this.myAccount, overrides);
     } else {
-      const token = tokenName === TOMB_TICKER ? this.BONES : this.BSHARE;
+      const token = tokenName === BONES_TICKER ? this.BONES : this.BSHARE;
       return await zapper.zapInToken(
         token.address,
         parseUnits(amount, 18),
