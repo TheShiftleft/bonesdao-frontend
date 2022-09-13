@@ -845,13 +845,8 @@ export class BonesDao {
   }
 
   async estimateZapIn(tokenName: string, lpName: string, amount: string): Promise<number[]> {
-
     const { zapper } = this.contracts;
     const lpToken = this.externalTokens[lpName];
-    console.log("zapper", zapper)
-    console.log("tokenName", tokenName)
-    console.log("lpName", lpName)
-    console.log("lpToken", lpToken)
     let estimate;
     if (tokenName === WDOGE_TICKER) {
       estimate = await zapper.estimateZapIn(lpToken.address, SPOOKY_ROUTER_ADDR, parseUnits(amount, 18));

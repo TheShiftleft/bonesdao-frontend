@@ -90,6 +90,16 @@ const Bank: React.FC = () => {
           <Spacer size="lg" />
           {bank.depositTokenName.includes('LP') && <LPTokenHelpText bank={bank} />}
           <Spacer size="lg" />
+          {!bank.depositTokenName.includes('LP') && <div>
+            <Card>
+              <CardContent>
+                <StyledLink href={'https://kibbleswap.dog/swap?to='+bank.depositToken.address} target="_blank">
+                  {`Buy ${bank.depositTokenName} now on KibbleSwap`}
+                </StyledLink>
+              </CardContent>
+            </Card>
+            <Spacer size="lg" />
+          </div>}
           <div>
             <Button onClick={onRedeem} color="secondary" style={{ color: '#fff' }} variant="contained">
               Claim & Withdraw
@@ -115,10 +125,10 @@ const LPTokenHelpText: React.FC<{ bank: BankEntity }> = ({ bank }) => {
   let uniswapUrl: string;
   if (bank.depositTokenName.includes('BONES')) {
     pairName = 'BONES-DOGE pair';
-    uniswapUrl = 'https://app.dogeswap.org/#/add/WDOGE/' + bonesAddr;
+    uniswapUrl = 'https://kibbleswap.dog/liquidity/pool?main=wdoge&base=' + bonesAddr;
   } else {
     pairName = 'BSHARE-DOGE pair';
-    uniswapUrl = 'https://app.dogeswap.org/#/add/WDOGE/' + tbonesAddr;
+    uniswapUrl = 'https://kibbleswap.dog/liquidity/pool?main=wdoge&base=' + tbonesAddr;
   }
   return (
     <Card>

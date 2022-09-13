@@ -14,8 +14,8 @@ const configurations: { [env: string]: Configuration } = {
     deployments: require('./tomb-finance/deployments/deployments.testing.json'),
     externalTokens: {
       WWDOGE: ['0x2465086E721F68761e3275A54802C985FFd0D727', 18], //wDOGE
-      FUSDT: ['0x393610183D40B4cb23f09E1E7EAE704A4709B6e6', 6], // This is actually usdc on mainnet not fusdt
-      USDC: ['0x393610183D40B4cb23f09E1E7EAE704A4709B6e6', 6],
+      FUSDT: ['0x393610183D40B4cb23f09E1E7EAE704A4709B6e6', 18], // This is actually usdc on mainnet not fusdt
+      USDC: ['0x393610183D40B4cb23f09E1E7EAE704A4709B6e6', 18],
       'USDT-FTM-LP': ['0x917A454571bC19248F03b4fF15C8c8380ed5e6DD', 18],
       'BONES-DOGE-LP': ['0x26DB801D497222C0478CF302f867d36e0bCF2110', 18],
       'BSHARE-DOGE-LP': ['0x82D7bed6Ceb0075Ad7E83b060b7aBC3f2e86FF76', 18],
@@ -33,8 +33,8 @@ const configurations: { [env: string]: Configuration } = {
     deployments: require('./tomb-finance/deployments/deployments.mainnet.json'),
     externalTokens: {
       WWDOGE: ['0x2465086E721F68761e3275A54802C985FFd0D727', 18], //WWDOGE
-      FUSDT: ['0x393610183D40B4cb23f09E1E7EAE704A4709B6e6', 6], // This is actually usdc on mainnet not fusdt
-      USDC: ['0x393610183D40B4cb23f09E1E7EAE704A4709B6e6', 6],
+      FUSDT: ['0x393610183D40B4cb23f09E1E7EAE704A4709B6e6', 18], // This is actually usdc on mainnet not fusdt
+      USDC: ['0x393610183D40B4cb23f09E1E7EAE704A4709B6e6', 18],
       'USDT-FTM-LP': ['0x917A454571bC19248F03b4fF15C8c8380ed5e6DD', 18],
       'BONES-DOGE-LP': ['0x26DB801D497222C0478CF302f867d36e0bCF2110', 18],
       'BSHARE-DOGE-LP': ['0x82D7bed6Ceb0075Ad7E83b060b7aBC3f2e86FF76', 18],
