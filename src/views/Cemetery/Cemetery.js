@@ -29,7 +29,8 @@ const Cemetery = () => {
   const currentEpoch = Math.floor(new Date() / 1000)
   const [genesisStartTime, setGenesisStartTime] = useState(new Date(0).toUTCString())
   const [poolStartTime, setPoolStartTime] = useState(new Date(0).toUTCString())
-  const [ genesisEnded, setGenesisEnded] = useState(false)
+  const [genesisEnded, setGenesisEnded] = useState(false)
+  const [poolEnded, setPoolEnded] = useState(false)
   const [banks] = useBanks();
   const { path } = useRouteMatch();
   const { account } = useWallet();
@@ -48,6 +49,7 @@ const Cemetery = () => {
       const sd = new Date(0)
       sd.setUTCSeconds(shareRewardPoolStat.startTime)
       setPoolStartTime(sd.toUTCString())
+      setPoolEnded(shareRewardPoolStat.endTime.toNumber() < currentEpoch)
     }
   },[genesisRewardPoolStat, shareRewardPoolStat, currentEpoch])
   return (
@@ -68,12 +70,23 @@ const Cemetery = () => {
                     </Typography>
                     <Grid container>
                       <Grid item>
-                        {shareRewardPoolStat && (
-                          <Alert variant="filled" severity="info" style={{ marginBottom: '5px', backgroundColor: '#757CE8', fontSize: '1rem'  }}>
-                            Pools starting at {poolStartTime}, <br />
-                            BSHARE reward pools start in: {hours <= 0 ? '00' : `${hours}`}: {minutes <= 0 ? '00': `${minutes}`}: {seconds <=0 ? '00' : `${seconds}`}
-                          </Alert>
-                        )}
+                        {
+                          shareRewardPoolStat && 
+                            !(shareRewardPoolStat.endTime.toNumber() >= currentEpoch && shareRewardPoolStat.startTime.toNumber() <= currentEpoch) &&
+                              <Alert variant="filled" severity="info" style={{ marginBottom: '5px', backgroundColor: '#757CE8', fontSize: '1rem'  }}>
+                                {poolEnded ? (
+                                  <>
+                                    All below pools have ended. Please unstake and collect your rewards.
+                                  </>
+                                ) : (
+                                  <>
+                                    Pools starting at {poolStartTime}, <br />
+                                    BSHARE reward pools start in: {hours <= 0 ? '00' : `${hours}`}: {minutes <= 0 ? '00': `${minutes}`}: {seconds <=0 ? '00' : `${seconds}`}
+                                  </>
+                                )}
+                              </Alert>
+                        }
+                        
                       </Grid>
                     </Grid>
                     <Grid container spacing={3}>
