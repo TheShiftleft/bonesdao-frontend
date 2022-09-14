@@ -59,37 +59,43 @@ const Cemetery = () => {
           <Route exact path={path}>
             {!!account ? (            
               <Container maxWidth="lg">
-                <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
-                  Farms
+                <Typography color="textPrimary" align="center" variant="h3" gutterBottom style={{ fontWeight: 'bold' }}>
+                  FARMS
                 </Typography>
 
                 <Box mt={5}>
-                  <div hidden={activeBanks.filter((bank) => bank.sectionInUI === 2).length === 0}>
-                    <Typography color="textPrimary" variant="h4" gutterBottom>
+                  <Box
+                    mb={5}
+                    display={activeBanks.filter((bank) => bank.sectionInUI === 2).length === 0 ? 'none' : 'flex'}
+                    flexDirection='column'
+                    justifyContent='center'
+                    alignItems='center'
+                  >
+                    <Typography color="textPrimary" variant="h5" gutterBottom style={{ fontWeight: 'bold' }}>
                       Earn BSHARE by staking LP
                     </Typography>
-                    <Grid container>
-                      <Grid item>
-                        {
+                    <Box>
+                      {
+                        shareRewardPoolStat && 
                           shareRewardPoolStat && 
-                            !(shareRewardPoolStat.endTime.toNumber() >= currentEpoch && shareRewardPoolStat.startTime.toNumber() <= currentEpoch) &&
-                              <Alert variant="filled" severity="info" style={{ marginBottom: '5px', backgroundColor: '#757CE8', fontSize: '1rem'  }}>
-                                {poolEnded ? (
-                                  <>
-                                    All below pools have ended. Please unstake and collect your rewards.
-                                  </>
-                                ) : (
-                                  <>
-                                    Pools starting at {poolStartTime}, <br />
-                                    BSHARE reward pools start in: {hours <= 0 ? '00' : `${hours}`}: {minutes <= 0 ? '00': `${minutes}`}: {seconds <=0 ? '00' : `${seconds}`}
-                                  </>
-                                )}
-                              </Alert>
-                        }
-                        
-                      </Grid>
-                    </Grid>
-                    <Grid container spacing={3}>
+                        shareRewardPoolStat && 
+                          !(shareRewardPoolStat.endTime.toNumber() >= currentEpoch && shareRewardPoolStat.startTime.toNumber() <= currentEpoch) &&
+                            <Alert variant="filled" severity="info" style={{ marginBottom: '5px', backgroundColor: '#757CE8', fontSize: '1rem'  }}>
+                              {poolEnded ? (
+                                <>
+                                  All below pools have ended. Please unstake and collect your rewards.
+                                </>
+                              ) : (
+                                <>
+                                  Pools starting at {poolStartTime},
+                                  BSHARE reward pools start in: {hours <= 0 ? '00' : `${hours}`}: {minutes <= 0 ? '00': `${minutes}`}: {seconds <=0 ? '00' : `${seconds}`}
+                                </>
+                              )}
+                            </Alert>
+                      }
+                      
+                    </Box>
+                    <Grid container spacing={3} justify='center'>
                       {activeBanks
                         .filter((bank) => bank.sectionInUI === 2)
                         .map((bank) => (
@@ -98,9 +104,9 @@ const Cemetery = () => {
                           </React.Fragment>
                         ))}
                     </Grid>
-                  </div>
+                  </Box>
 
-                  <div hidden={activeBanks.filter((bank) => bank.sectionInUI === 1).length === 0}>
+                  {/* <div hidden={activeBanks.filter((bank) => bank.sectionInUI === 1).length === 0}>
                     <Typography color="textPrimary" variant="h4" gutterBottom style={{ marginTop: '20px' }}>
                       Earn TOMB by staking LP
                     </Typography>
@@ -116,36 +122,39 @@ const Cemetery = () => {
                           </React.Fragment>
                         ))}
                     </Grid>
-                  </div>
+                  </div> */}
 
-                  <div hidden={activeBanks.filter((bank) => bank.sectionInUI === 0).length === 0}>
-                    <Typography color="textPrimary" variant="h4" gutterBottom style={{ marginTop: '20px' }}>
+                  <Box
+                    display={activeBanks.filter((bank) => bank.sectionInUI === 0).length === 0 ? 'none' : 'flex'}
+                    flexDirection='column'
+                    justifyContent='center'
+                    alignItems='center'
+                  >
+                    <Typography color="textPrimary" variant="h4" gutterBottom style={{ marginTop: '20px', fontWeight: 'bold' }}>
                       Genesis Pools
                     </Typography>
-                    <Grid container >
-                      <Grid item>
-                        {genesisRewardPoolStat && (
-                          <Alert variant="filled" severity="info" style={{ marginBottom: '5px', backgroundColor: '#757CE8', fontSize: '1rem'  }}>
-                            {genesisEnded ? (
-                              <>
-                                All below pools have ended. Please unstake and collect your rewards.
-                              </>
-                              ) :
-                              genesisRewardPoolStat && genesisRewardPoolStat.endTime.toNumber() >= currentEpoch && genesisRewardPoolStat.startTime.toNumber() <= currentEpoch ? (
-                              <>
-                                Genesis pools are live now.
-                              </>
-                              ) : (
-                              <>
-                                Genesis Pools will start on {genesisStartTime}
-                              </>
-                              )
-                              }
-                          </Alert>
-                        )}
-                      </Grid>
-                    </Grid>
-                    <Grid container spacing={3}>
+                    <Box>
+                      {genesisRewardPoolStat && (
+                        <Alert variant="filled" severity="info" style={{ marginBottom: '5px', backgroundColor: '#757CE8', fontSize: '1rem'  }}>
+                          {genesisEnded ? (
+                            <>
+                              All below pools have ended. Please unstake and collect your rewards.
+                            </>
+                            ) :
+                            genesisRewardPoolStat && genesisRewardPoolStat.endTime.toNumber() >= currentEpoch && genesisRewardPoolStat.startTime.toNumber() <= currentEpoch ? (
+                            <>
+                              Genesis pools are live now.
+                            </>
+                            ) : (
+                            <>
+                              Genesis Pools will start on {genesisStartTime}
+                            </>
+                            )
+                            }
+                        </Alert>
+                      )}
+                    </Box>
+                    <Grid container spacing={3} justify='center'>
                       {activeBanks
                         .filter((bank) => bank.sectionInUI === 0)
                         .map((bank) => (
@@ -154,7 +163,7 @@ const Cemetery = () => {
                           </React.Fragment>
                         ))}
                     </Grid>
-                  </div>
+                  </Box>
                 </Box>
               </Container>
             ) : (

@@ -9,34 +9,19 @@ const CemeteryCard = ({ bank }) => {
     <Grid item xs={12} md={4} lg={4}>
       <Card variant="outlined" style={{ border: '3px solid #EC2A2A' }}>
         <CardContent>
-          <Box style={{ position: 'relative' }}>
-            <Box
-              style={{
-                position: 'absolute',
-                right: '0px',
-                top: '-5px',
-                height: '48px',
-                width: '48px',
-                borderRadius: '40px',
-                backgroundColor: 'white',
-                alignItems: 'center',
-                display: 'flex',
-                justifyContent: 'center',
-              }}
-            >
-              <TokenSymbol size={32} symbol={bank.depositTokenName} />
-            </Box>
-            <Typography variant="h5" component="h2">
+          <Box display='flex' flexDirection='column' justifyContent='center' alignItems='center'>
+            <TokenSymbol size={32} symbol={bank.depositTokenName} />
+            <Typography variant="h5" style={{ color: '#2425BA', fontWeight: 'bold' }}>
               {bank.depositTokenName}
             </Typography>
-            <Typography color="textSecondary">
+            <Typography color="textSecondary" style={{ fontWeight: 'bold' }}>
               {/* {bank.name} */}
               Deposit {bank.depositTokenName.toUpperCase()} Earn {` ${bank.earnTokenName}`}
             </Typography>
           </Box>
         </CardContent>
-        <CardActions style={{ justifyContent: 'flex-end' }}>
-          <Button color="secondary" style={{ color: '#fff' }} size="small" variant="contained" component={Link} to={`/farms/${bank.contract}`}>
+        <CardActions style={{ justifyContent: 'center', padding: '15px' }}>
+          <Button color="secondary" style={{ color: '#fff', fontWeight: 'bold' }} size="medium" variant="contained" component={Link} to={`/farms/${bank.contract}`}>
             View
           </Button>
         </CardActions>
