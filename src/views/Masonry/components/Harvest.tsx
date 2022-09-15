@@ -36,9 +36,7 @@ const Harvest: React.FC = () => {
         <CardContent>
           <StyledCardContentInner>
             <StyledCardHeader>
-              <CardIcon>
-                <TokenSymbol symbol="BONES" />
-              </CardIcon>
+              <TokenSymbol symbol="BONES" size={64} />
               <Value value={getDisplayBalance(earnings)} />
               <Label text={`≈ $${earnedInDollars}`} />
               <Label text="BONES Earned" />
@@ -63,8 +61,8 @@ const Harvest: React.FC = () => {
         ) : (
           <Card style={{ border: '3px solid #EC2A2A' }}>
             <CardContent>
-              <Typography style={{ textAlign: 'center' }}>Claim possible in</Typography>
-              <ProgressCountdown hideBar={true} base={from} deadline={to} description="Claim available in" />
+              <Typography style={{ textAlign: 'center', fontWeight: 'bold' }}>Claim possible in</Typography>
+              <ProgressCountdown hideBar={true} base={from} deadline={to} description="Claim available in" color='black' />
             </CardContent>
           </Card>
         )}

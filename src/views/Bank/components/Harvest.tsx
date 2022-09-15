@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
 
-import { Button, Card, CardContent } from '@material-ui/core';
+import { Box, Button, Card, CardContent } from '@material-ui/core';
 // import Button from '../../../components/Button';
 // import Card from '../../../components/Card';
 // import CardContent from '../../../components/CardContent';
@@ -40,12 +40,12 @@ const Harvest: React.FC<HarvestProps> = ({ bank }) => {
       <CardContent>
         <StyledCardContentInner>
           <StyledCardHeader>
-            <CardIcon>
-              <TokenSymbol symbol={bank.earnToken.symbol} />
-            </CardIcon>
+            <Box marginY={2}>
+              <TokenSymbol symbol={bank.earnToken.symbol} size={64}/>
+            </Box>
             <Value value={getDisplayBalance(earnings)} />
-            <Label text={`≈ $${earnedInDollars}`} />
-            <Label text={`${tokenName} Earned`} />
+            <Label bold text={`≈ $${earnedInDollars}`} />
+            <Label bold text={`${tokenName} Earned`} />
           </StyledCardHeader>
           <StyledCardActions>
             <Button onClick={onReward} disabled={earnings.eq(0)} color="secondary" style={{ color: '#fff' }} variant="contained">

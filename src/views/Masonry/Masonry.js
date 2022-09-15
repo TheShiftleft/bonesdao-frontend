@@ -6,6 +6,7 @@ import Spacer from '../../components/Spacer';
 import Harvest from './components/Harvest';
 import Stake from './components/Stake';
 import { makeStyles } from '@material-ui/core/styles';
+import WarningIcon from '@material-ui/icons/Warning';
 
 import { Box, Card, CardContent, Button, Typography, Grid } from '@material-ui/core';
 
@@ -45,11 +46,16 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   gridItemCard: {
-    height: '100%',
+    height: '90px',
     border: '3px solid #EC2A2A',
+    backgroundColor: '#0b255b',
+    borderRadius: '15px',
     [theme.breakpoints.up('md')]: {
       height: '90px',
     },
+  },
+  typo: {
+    color: '#fff !important'
   }
 }));
 
@@ -78,51 +84,51 @@ const Masonry = () => {
             <Grid container justify="center" spacing={3}>
               <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
                 <Card className={classes.gridItemCard}>
-                  <CardContent>
-                    <Typography style={{ textAlign: 'center' }}>Next Epoch</Typography>
-                    <ProgressCountdown base={moment().toDate()} hideBar={true} deadline={to} description="Next Epoch" />
+                  <CardContent align='center'>
+                    <Typography className={classes.typo}>Next Epoch</Typography>
+                    <ProgressCountdown base={moment().toDate()} hideBar={true} deadline={to} description="Next Epoch" color='white' />
                   </CardContent>
                 </Card>
               </Grid>
               <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
                 <Card className={classes.gridItemCard}>
                   <CardContent align="center">
-                    <Typography>Current Epoch</Typography>
-                    <Typography>{Number(currentEpoch)}</Typography>
+                    <Typography className={classes.typo}>Current Epoch</Typography>
+                    <Typography className={classes.typo}>{Number(currentEpoch)}</Typography>
                   </CardContent>
                 </Card>
               </Grid>
               <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
                 <Card className={classes.gridItemCard}>
                   <CardContent align="center">
-                    <Typography>
+                    <Typography className={classes.typo}>
                       BONES Price<small>(TWAP)</small>
                     </Typography>
-                    <Typography>{scalingFactor}</Typography>
+                    <Typography className={classes.typo}>{scalingFactor}</Typography>
                   </CardContent>
                 </Card>
               </Grid>
               <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
                 <Card className={classes.gridItemCard}>
                   <CardContent align="center">
-                    <Typography>APR</Typography>
-                    <Typography>{masonryAPR.toFixed(2)}%</Typography>
+                    <Typography className={classes.typo}>APR</Typography>
+                    <Typography className={classes.typo}>{masonryAPR.toFixed(2)}%</Typography>
                   </CardContent>
                 </Card>
               </Grid>
               <Grid item xs={12} md={2} lg={2}>
                 <Card className={classes.gridItemCard}>
                   <CardContent align="center">
-                    <Typography>BSHARES Staked</Typography>
-                    <Typography>{getDisplayBalance(totalStaked)}</Typography>
+                    <Typography className={classes.typo}>BSHARES Staked</Typography>
+                    <Typography className={classes.typo}>{getDisplayBalance(totalStaked)}</Typography>
                   </CardContent>
                 </Card>
               </Grid>
             </Grid>
 
             <Grid container justify="center">
-              <Box mt={3} style={{ width: '600px' }}>
-                <Alert variant="filled" severity="warning">
+              <Box mt={3}>
+                <Alert icon={<WarningIcon fontSize='inherit' />} variant="filled" severity="warning" style={{ fontWeight: 'bold' }}>
                   Staked BSHAREs can only be withdrawn after 6 epochs since deposit.
                 </Alert>
               </Box>
@@ -179,6 +185,7 @@ const Masonry = () => {
                 disabled={stakedBalance.eq(0) || (!canWithdraw && !canClaimReward)}
                 onClick={onRedeem}
                 color="secondary"
+                size='large'
                 style={{ color: '#fff' }}
                 variant="contained"
               >

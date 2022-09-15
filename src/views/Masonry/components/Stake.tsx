@@ -80,9 +80,7 @@ const Stake: React.FC = () => {
         <CardContent>
           <StyledCardContentInner>
             <StyledCardHeader>
-              <CardIcon>
-                <TokenSymbol symbol="BSHARE" />
-              </CardIcon>
+              <TokenSymbol symbol="BSHARE" size={64} />
               <Value value={getDisplayBalance(stakedBalance)} />
               <Label text={`≈ $${tokenPriceInDollars}`} />
               <Label text={'BSHARE Staked'} />
@@ -120,7 +118,7 @@ const Stake: React.FC = () => {
           <Card style={{ border: '3px solid #EC2A2A' }}>
             <CardContent>
               <Typography style={{ textAlign: 'center' }}>Withdraw possible in</Typography>
-              <ProgressCountdown hideBar={true} base={from} deadline={to} description="Withdraw available in" />
+              <ProgressCountdown hideBar={true} base={from} deadline={to} description="Withdraw available in" color='black' />
             </CardContent>
           </Card>
         )}

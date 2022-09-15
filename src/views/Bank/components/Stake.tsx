@@ -2,7 +2,7 @@ import React, { useMemo, useContext } from 'react';
 import styled from 'styled-components';
 
 // import Button from '../../../components/Button';
-import { Button, Card, CardContent } from '@material-ui/core';
+import { Box, Button, Card, CardContent } from '@material-ui/core';
 // import Card from '../../../components/Card';
 // import CardContent from '../../../components/CardContent';
 import CardIcon from '../../../components/CardIcon';
@@ -94,9 +94,9 @@ const Stake: React.FC<StakeProps> = ({ bank }) => {
       <CardContent>
         <StyledCardContentInner>
           <StyledCardHeader>
-            <CardIcon>
-              <TokenSymbol symbol={bank.depositToken.symbol} size={54} />
-            </CardIcon>
+            <Box marginY={2}>
+              <TokenSymbol symbol={bank.depositToken.symbol} size={64} />
+            </Box>
             <Value value={getDisplayBalance(stakedBalance, bank.depositToken.decimal)} />
             <Label text={`≈ $${earnedInDollars}`} />
             <Label text={`${bank.depositTokenName} Staked`} />

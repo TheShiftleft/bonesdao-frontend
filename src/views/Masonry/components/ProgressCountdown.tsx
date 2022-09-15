@@ -7,9 +7,10 @@ interface ProgressCountdownProps {
   deadline: Date;
   hideBar?: boolean;
   description: string;
+  color: string;
 }
 
-const ProgressCountdown: React.FC<ProgressCountdownProps> = ({ base, deadline, hideBar, description }) => {
+const ProgressCountdown: React.FC<ProgressCountdownProps> = ({ base, deadline, hideBar, description, color }) => {
   const percentage =
     Date.now() >= deadline.getTime()
       ? 100
@@ -28,7 +29,7 @@ const ProgressCountdown: React.FC<ProgressCountdownProps> = ({ base, deadline, h
   };
   return (
     // <Card>
-    <StyledCardContentInner>
+    <StyledCardContentInner style={{ color }}>
       {/* <StyledDesc>{description}</StyledDesc> */}
       <Countdown key={new Date().getTime()} date={deadline} renderer={countdownRenderer} />
       {hideBar ? (

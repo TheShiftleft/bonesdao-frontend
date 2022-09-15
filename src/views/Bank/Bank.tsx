@@ -28,9 +28,14 @@ const useStyles = makeStyles((theme) => ({
   gridItemCard: {
     height: '100%',
     border: '3px solid #EC2A2A',
+    backgroundColor: '#0b255b',
+    borderRadius: '15px',
     [theme.breakpoints.up('md')]: {
       height: '90px',
     },
+  },
+  typo: {
+    color: '#fff !important'
   }
 }));
 
@@ -55,24 +60,24 @@ const Bank: React.FC = () => {
           <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
             <Card className={classes.gridItemCard}>
               <CardContent style={{ textAlign: 'center' }}>
-                <Typography>APR</Typography>
-                <Typography>{bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}%</Typography>
+                <Typography className={classes.typo}>APR</Typography>
+                <Typography className={classes.typo}>{bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}%</Typography>
               </CardContent>
             </Card>
           </Grid>
           <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
             <Card className={classes.gridItemCard}>
               <CardContent style={{ textAlign: 'center' }}>
-                <Typography>Daily APR</Typography>
-                <Typography>{bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%</Typography>
+                <Typography className={classes.typo}>Daily APR</Typography>
+                <Typography className={classes.typo}>{bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%</Typography>
               </CardContent>
             </Card>
           </Grid>
           <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
             <Card className={classes.gridItemCard}>
               <CardContent style={{ textAlign: 'center' }}>
-                <Typography>TVL</Typography>
-                <Typography>${statsOnPool?.TVL}</Typography>
+                <Typography className={classes.typo}>TVL</Typography>
+                <Typography className={classes.typo}>${statsOnPool?.TVL}</Typography>
               </CardContent>
             </Card>
           </Grid>
@@ -101,7 +106,7 @@ const Bank: React.FC = () => {
             <Spacer size="lg" />
           </div>}
           <div>
-            <Button onClick={onRedeem} color="secondary" style={{ color: '#fff' }} variant="contained">
+            <Button onClick={onRedeem} color="secondary" style={{ color: '#fff' }} variant="contained" size='large'>
               Claim & Withdraw
             </Button>
           </div>

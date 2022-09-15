@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
   logoStyle: {
     right: '0px',
     top: '-5px',
-    borderRadius: '40px',
+    borderRadius: '100%',
     backgroundColor: '#6f0404',
     alignItems: 'center',
     display: 'flex',
