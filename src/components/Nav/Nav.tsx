@@ -14,6 +14,14 @@ import {
   ListItemText,
   Divider,
   Container,
+  Paper,
+  MenuList,
+  MenuItem,
+  Button,
+  Popper,
+  Grow,
+  ClickAwayListener,
+  ButtonBase,
 } from '@material-ui/core';
 
 import ListItemLink from '../ListItemLink';
@@ -68,7 +76,13 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: 'none',
     '&:hover': {
       textDecoration: 'none',
+      backgroundColor: '#fff',
+      color: 'black',
+      border: 'none'
     },
+    '& span': {
+      color: "#121212"
+    }
   },
   brandLink: {
     textDecoration: 'none',
@@ -77,6 +91,14 @@ const useStyles = makeStyles((theme) => ({
       textDecoration: 'none',
     },
   },
+  menuItem: {
+    '&:hover': {
+      backgroundColor: '#845EC2 !important'
+    }
+  },
+  menu: {
+    boxShadow: '7px 9px 23px -7px rgba(0,0,0,1)'
+  }
 }));
 
 const Nav = () => {
@@ -84,6 +106,20 @@ const Nav = () => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [menuOpen, setMenuOpen] = React.useState(false);
+  const anchorRef = React.useRef<HTMLButtonElement>(null);
+
+  const handleMenuToggle = () => {
+    setMenuOpen((prevOpen) => !prevOpen);
+  };
+
+  const handleMenuClose = (event: React.MouseEvent<EventTarget>) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
+      return;
+    }
+
+    setMenuOpen(false);
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -116,10 +152,34 @@ const Nav = () => {
                 <Link color="textPrimary" to="/bond" className={classes.link}>
                   Bond
                 </Link>
-                <Link color="textPrimary" to="/" className={classes.link}>
+                <Button 
+                  ref={anchorRef} 
+                  aria-controls={menuOpen ? 'menu-list-grow' : undefined} 
+                  aria-haspopup="true" 
+                  onClick={handleMenuToggle}
+                  variant='text' 
+                  color="primary" 
+                  className={classes.link}>
                   More
-                </Link>
+                </Button>
               </Box>
+              <Popper open={menuOpen} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+              {({ TransitionProps, placement }) => (
+                <Grow
+                  {...TransitionProps}
+                  style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+                >
+                  <Paper>
+                    <ClickAwayListener onClickAway={handleMenuClose}>
+                      <MenuList className={classes.menu} variant='menu' autoFocusItem={menuOpen} style={{ minWidth: '100px' }}>
+                        <MenuItem className={classes.menuItem} onClick={handleMenuClose}>Swap</MenuItem>
+                        <MenuItem className={classes.menuItem} onClick={handleMenuClose}>Docs</MenuItem>
+                      </MenuList>
+                    </ClickAwayListener>
+                  </Paper>
+                </Grow>
+              )}
+            </Popper>
               <AccountButton text="Connect Wallet" />
             </Toolbar>
           </Container>
