@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Button, Card } from '@material-ui/core';
+import { Box, Button, Card } from '@material-ui/core';
 
 // import Button from '../../../components/Button';
 // import Card from '../../../components/Card';
@@ -65,28 +65,27 @@ const ExchangeCard: React.FC<ExchangeCardProps> = ({
     <Card style={{ border: '3px solid #EC2A2A' }}>
       <CardContent>
         <StyledCardContentInner>
-          <StyledCardTitle>{`${action} ${toTokenName}`}</StyledCardTitle>
           <StyledExchanger>
             <StyledToken>
-              <StyledCardIcon>
-                <TokenSymbol symbol={fromToken.symbol} size={54} />
-              </StyledCardIcon>
-              <Label text={fromTokenName} variant="normal" />
+              <Box mb={3}>
+                <TokenSymbol symbol={fromToken.symbol} size={64} />
+              </Box>
+              <Label text={fromTokenName} variant="normal" color='#2425BA' />
             </StyledToken>
             <StyledExchangeArrow>
               <FontAwesomeIcon icon={faArrowRight} />
             </StyledExchangeArrow>
             <StyledToken>
-              <StyledCardIcon>
-                <TokenSymbol symbol={toToken.symbol} size={54} />
-              </StyledCardIcon>
-              <Label text={toTokenName} variant="normal" />
+              <Box mb={3}>
+                <TokenSymbol symbol={toToken.symbol} size={64} />
+              </Box>
+              <Label text={toTokenName} variant="normal" color='#2425BA' />
             </StyledToken>
           </StyledExchanger>
           <StyledDesc>{priceDesc}</StyledDesc>
           <StyledCardActions>
             {approveStatus !== ApprovalState.APPROVED && !disabled ? (
-              <Button
+              <Button size='medium'
                 color="secondary"
                 variant="contained"
                 style={{ color: '#fff' }}
@@ -96,7 +95,7 @@ const ExchangeCard: React.FC<ExchangeCardProps> = ({
                 {`Approve ${fromTokenName}`}
               </Button>
             ) : (
-              <Button color="secondary" style={{ color: '#fff' }} variant="contained" onClick={onPresent} disabled={disabled}>
+              <Button size='medium' color="secondary" style={{ color: '#fff' }} variant="contained" onClick={onPresent} disabled={disabled}>
                 {disabledDescription || action}
               </Button>
             )}
@@ -106,27 +105,6 @@ const ExchangeCard: React.FC<ExchangeCardProps> = ({
     </Card>
   );
 };
-
-const StyledCardTitle = styled.div`
-  align-items: center;
-  display: flex;
-  font-size: 20px;
-  font-weight: 700;
-  height: 64px;
-  justify-content: center;
-  margin-top: ${(props) => -props.theme.spacing[3]}px;
-`;
-
-const StyledCardIcon = styled.div`
-  background-color: ${(props) => props.theme.color.grey[900]};
-  width: 72px;
-  height: 72px;
-  border-radius: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: ${(props) => props.theme.spacing[2]}px;
-`;
 
 const StyledExchanger = styled.div`
   align-items: center;
@@ -155,7 +133,9 @@ const StyledCardActions = styled.div`
   width: 100%;
 `;
 
-const StyledDesc = styled.span``;
+const StyledDesc = styled.span`
+  font-weight: bold
+`;
 
 const StyledCardContentInner = styled.div`
   align-items: center;

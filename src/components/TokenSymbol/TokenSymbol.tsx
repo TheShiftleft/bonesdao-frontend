@@ -80,17 +80,17 @@ const TokenSymbol: React.FC<LogoProps> = ({ symbol, size = 54 }) => {
   }
   if(typeof logosBySymbol[symbol] === 'string'){
     return (
-      <Box className={classes.logoStyle} width={size+16} height={size+16}>
+      <Box className={classes.logoStyle} width={size} height={size} padding='12px'>
         <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={size} height={size} />
       </Box>
     )
   }
   return (
     <Box className={classes.doubleLogo}>
-      <Box className={classes.logoStyle} style={{ marginRight: '-5px' }} width={size+16} height={size+16}>
+      <Box className={classes.logoStyle} style={{ marginRight: '-5px' }} width={size} height={size} padding='12px'>
         <img src={logosBySymbol[symbol][0]} alt={`${symbol} Logo`} width={size} height={size} />
       </Box>
-      <Box className={classes.logoStyle} style={{ marginLeft: '-5px' }} width={size+16} height={size+16}>
+      <Box className={classes.logoStyle} style={{ marginLeft: '-5px' }} width={size} height={size} padding='12px'>
         <img src={logosBySymbol[symbol][1]} alt={`${symbol} Logo`} width={size} height={size} />
       </Box>
     </Box>

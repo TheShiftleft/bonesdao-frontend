@@ -2,16 +2,26 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Card } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 interface ExchangeStatProps {
   tokenName: string;
   description: string;
   price: string;
 }
-
+const useStyles = makeStyles((theme) => ({
+  gridItemCard: {
+    border: '3px solid #EC2A2A',
+    backgroundColor: '#0b255b',
+    borderRadius: '15px',
+    paddingTop: '10px',
+    paddingBottom: '10px',
+  },
+}))
 const ExchangeStat: React.FC<ExchangeStatProps> = ({ tokenName, description, price }) => {
+  const classes = useStyles()
   return (
-    <Card style={{ border: '3px solid #EC2A2A' }}>
+    <Card className={classes.gridItemCard}>
       <StyledCardContentInner>
         <StyledCardTitle>{`💰 ${tokenName} = ${price} DOGE`}</StyledCardTitle>
         <StyledDesc>{description}</StyledDesc>
@@ -21,13 +31,15 @@ const ExchangeStat: React.FC<ExchangeStatProps> = ({ tokenName, description, pri
 };
 
 const StyledCardTitle = styled.div`
+  text-align: center;
   font-size: 20px;
   font-weight: 700;
+  color: #fff;
   margin-bottom: ${(props) => props.theme.spacing[2]}px;
 `;
 
 const StyledDesc = styled.span`
-  //color: ${(props) => props.theme.color.grey[300]};
+  color: #fff;
   text-align: center;
 `;
 

@@ -90,7 +90,9 @@ const Bank: React.FC = () => {
               <Harvest bank={bank} />
             </StyledCardWrapper>
             <Spacer />
-            <StyledCardWrapper>{<Stake bank={bank} />}</StyledCardWrapper>
+            <StyledCardWrapper>
+              <Stake bank={bank} />
+            </StyledCardWrapper>
           </StyledCardsWrapper>
           <Spacer size="lg" />
           {bank.depositTokenName.includes('LP') && <LPTokenHelpText bank={bank} />}
