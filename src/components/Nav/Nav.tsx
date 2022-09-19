@@ -87,6 +87,27 @@ const useStyles = makeStyles((theme) => ({
       color: "#121212"
     }
   },
+  moreButton: {
+    textTransform: 'uppercase',
+    color: '#121212',
+    fontSize: '14px',
+    fontWeight: 'bold',
+    margin: theme.spacing(1, 2),
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'none',
+      backgroundColor: '#fff',
+      color: 'black',
+      border: 'none'
+    },
+    '& span': {
+      color: "#121212",
+      '& span': {
+        marginLeft: '0px',
+        marginBottom: '5px'
+      }
+    }
+  },
   brandLink: {
     textDecoration: 'none',
     color: '#e0e3bd',
@@ -171,7 +192,7 @@ const Nav = () => {
                   onClick={handleMenuToggle}
                   variant='text' 
                   color="primary" 
-                  className={classes.link}
+                  className={classes.moreButton}
                   endIcon={<ExpandMoreIcon style={{transform: `${menuOpen ? 'rotate(180deg)' : ''}`}} />}>
                   More
                 </Button>
@@ -243,8 +264,8 @@ const Nav = () => {
                 <ListItemLink primary="Boardroom" to="/boardroom" />
                 <ListItemLink primary="Bond" to="/bond" />
                 {/* <ListItemLink primary="More" to="/" /> */}
-                <ListItem button onClick={handleMenuToggle}>
-                  <ListItemText primary="More" />
+                <ListItem component='li' button onClick={handleMenuToggle}>
+                  <ListItemText primary="More" style={{ flex: 'none' }}  />
                   <ListItemIcon>
                     <ExpandMoreIcon style={{transform: `${menuOpen ? 'rotate(180deg)' : ''}`}} />
                   </ListItemIcon>
