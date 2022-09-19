@@ -274,12 +274,12 @@ const Nav = () => {
                 <Collapse in={menuOpen} timeout="auto" unmountOnExit>
                   <List component="div" disablePadding>
                     <ListItem button style={{ padding: '0px', paddingLeft: '20px' }}>
-                      <Link to="/bond" style={{ width: '100%', padding: '6px 16px', textDecoration: 'none'  }}>
+                      <Link to="/" style={{ width: '100%', padding: '6px 16px', textDecoration: 'none'  }}>
                         Swap
                       </Link>
                     </ListItem>
                     <ListItem button style={{ padding: '0px', paddingLeft: '20px'}}>
-                      <Link to="/farms" style={{ width: '100%', padding: '6px 16px', textDecoration: 'none'}}>
+                      <Link to="/" style={{ width: '100%', padding: '6px 16px', textDecoration: 'none'}}>
                         Docs
                       </Link>
                     </ListItem>
