@@ -22,6 +22,8 @@ import {
   Grow,
   ClickAwayListener,
   ButtonBase,
+  Collapse,
+  ListItemIcon,
 } from '@material-ui/core';
 
 import ListItemLink from '../ListItemLink';
@@ -29,6 +31,7 @@ import ListItemLink from '../ListItemLink';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AccountButton from './AccountButton';
 import BonesLogo from '../../assets/img/logo-bones_red.png';
@@ -92,8 +95,17 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   menuItem: {
+    padding: '0px',
     '&:hover': {
-      backgroundColor: '#845EC2 !important'
+      backgroundColor: '#845EC2 !important',
+      color: '#fff !important',
+      '& a': {
+        color: '#fff !important'
+      }
+    },
+    '& a': {
+      textDecoration: 'none',
+      padding: '6px 16px'
     }
   },
   menu: {
@@ -159,7 +171,8 @@ const Nav = () => {
                   onClick={handleMenuToggle}
                   variant='text' 
                   color="primary" 
-                  className={classes.link}>
+                  className={classes.link}
+                  endIcon={<ExpandMoreIcon style={{transform: `${menuOpen ? 'rotate(180deg)' : ''}`}} />}>
                   More
                 </Button>
               </Box>
@@ -172,8 +185,16 @@ const Nav = () => {
                   <Paper>
                     <ClickAwayListener onClickAway={handleMenuClose}>
                       <MenuList className={classes.menu} variant='menu' autoFocusItem={menuOpen} style={{ minWidth: '100px' }}>
-                        <MenuItem className={classes.menuItem} onClick={handleMenuClose}>Swap</MenuItem>
-                        <MenuItem className={classes.menuItem} onClick={handleMenuClose}>Docs</MenuItem>
+                        <MenuItem className={classes.menuItem} onClick={handleMenuClose}>
+                          <Link to="/" style={{ width: '100%' }}>
+                            Swap
+                          </Link>
+                        </MenuItem>
+                        <MenuItem className={classes.menuItem} onClick={handleMenuClose}>
+                          <Link to="/">
+                            Docs
+                          </Link>
+                        </MenuItem>
                       </MenuList>
                     </ClickAwayListener>
                   </Paper>
@@ -221,7 +242,28 @@ const Nav = () => {
                 <ListItemLink primary="Farms" to="/farms" />
                 <ListItemLink primary="Boardroom" to="/boardroom" />
                 <ListItemLink primary="Bond" to="/bond" />
-                <ListItemLink primary="More" to="/" />
+                {/* <ListItemLink primary="More" to="/" /> */}
+                <ListItem button onClick={handleMenuToggle}>
+                  <ListItemText primary="More" />
+                  <ListItemIcon>
+                    <ExpandMoreIcon style={{transform: `${menuOpen ? 'rotate(180deg)' : ''}`}} />
+                  </ListItemIcon>
+                  {/* {open ? <ExpandLess /> : <ExpandMore />} */}
+                </ListItem>
+                <Collapse in={menuOpen} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    <ListItem button style={{ padding: '0px', paddingLeft: '20px' }}>
+                      <Link to="/bond" style={{ width: '100%', padding: '6px 16px', textDecoration: 'none'  }}>
+                        Swap
+                      </Link>
+                    </ListItem>
+                    <ListItem button style={{ padding: '0px', paddingLeft: '20px'}}>
+                      <Link to="/farms" style={{ width: '100%', padding: '6px 16px', textDecoration: 'none'}}>
+                        Docs
+                      </Link>
+                    </ListItem>
+                  </List>
+                </Collapse>
                 {/* <ListItemLink primary="Cemetery" to="/cemetery" />
                 <ListItemLink primary="Masonry" to="/masonry" />
                 <ListItemLink primary="Pit" to="/pit" />
