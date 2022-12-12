@@ -3,22 +3,24 @@
 import { ChainId } from './tomb-finance/constants';
 import { Configuration } from './tomb-finance/config';
 import { BankInfo } from './tomb-finance';
+import { ExternalTokens, ConfigNetworks,chainId} from './tomb-finance/configNetworks';
+
 
 const configurations: { [env: string]: Configuration } = {
   // Set development config same as production to use mainnet in development
   development: {
-    chainId: ChainId.FTMTESTNET,
-    networkName: 'DogeChain Testnet',
-    ftmscanUrl: 'https://explorer-testnet.dogechain.dog/',
-    defaultProvider: 'https://rpc-testnet.dogechain.dog/',
+    chainId: chainId.DOGEMAINID,
+    networkName: ConfigNetworks.DOGENETWORKNAME,
+    ftmscanUrl: ConfigNetworks.DOGEFTMSCANURL,
+    defaultProvider: ConfigNetworks.DOGEDEFAULTPROVIDER,
     deployments: require('./tomb-finance/deployments/deployments.testing.json'),
     externalTokens: {
-      WWDOGE: ['0x2465086E721F68761e3275A54802C985FFd0D727', 18], //wDOGE
-      FUSDT: ['0x393610183D40B4cb23f09E1E7EAE704A4709B6e6', 18], // This is actually usdc on mainnet not fusdt
-      USDC: ['0x393610183D40B4cb23f09E1E7EAE704A4709B6e6', 18],
-      'USDT-FTM-LP': ['0x917A454571bC19248F03b4fF15C8c8380ed5e6DD', 18],
-      'BONES-DOGE-LP': ['0x26DB801D497222C0478CF302f867d36e0bCF2110', 18],
-      'BSHARE-DOGE-LP': ['0x82D7bed6Ceb0075Ad7E83b060b7aBC3f2e86FF76', 18],
+      WWDOGE: [ExternalTokens.DOGEWWDOGE, 18], //wDOGE
+      FUSDT: [ExternalTokens.DOGEFUSDT, 18], // This is actually usdc on mainnet not fusdt
+      USDC: [ExternalTokens.DOGEUSDC, 18],
+      'USDT-FTM-LP': [ExternalTokens.DOGEUSDTFTMLP, 18],
+      'BONES-DOGE-LP': [ExternalTokens.DOGEBONESDOGELP, 18],
+      'BSHARE-DOGE-LP': [ExternalTokens.DOGEBSHAREDOGELP, 18],
     },
     baseLaunchDate: new Date('2022-08-30 00:00:00Z'),
     bondLaunchesAt: new Date('2022-09-01T00:00:00Z'),
@@ -26,7 +28,7 @@ const configurations: { [env: string]: Configuration } = {
     refreshInterval: 10000,
   },
   production: {
-    chainId: ChainId.FTMTESTNET,
+    chainId: ChainId.OPTIMISMID,
     networkName: 'DogeChain Testnet',
     ftmscanUrl: 'https://explorer-testnet.dogechain.dog/',
     defaultProvider: 'https://rpc-testnet.dogechain.dog/',
@@ -45,7 +47,6 @@ const configurations: { [env: string]: Configuration } = {
     refreshInterval: 10000,
   },
 };
-
 export const bankDefinitions: { [contractName: string]: BankInfo } = {
   /*
   Explanation:
