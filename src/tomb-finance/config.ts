@@ -1,5 +1,5 @@
+import { chainId } from './configNetworks';
 import { Deployments } from './deployments';
-//import { ChainId } from '@spookyswap/sdk';
 
 // import { ChainId } from '../tomb-finance/constants';
 
@@ -9,7 +9,7 @@ export type Configuration = {
   ftmscanUrl: string;
   defaultProvider: string;
   deployments: Deployments;
-  externalTokens: { [contractName: string]: [string, number] };
+  externalTokens: { [contractName: string]: (any)[] };
   config?: EthereumConfig;
 
   baseLaunchDate: Date;

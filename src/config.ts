@@ -1,34 +1,27 @@
 // import { ChainId } from '@pancakeswap-libs/sdk';
 //import { ChainId } from '@spookyswap/sdk';
-import { ChainId } from './tomb-finance/constants';
+// import { ChainId } from './tomb-finance/constants';
 import { Configuration } from './tomb-finance/config';
 import { BankInfo } from './tomb-finance';
-import { ExternalTokens, ConfigNetworks,chainId} from './tomb-finance/configNetworks';
+import { ConfigNetworks} from './tomb-finance/configNetworks';
 
 
-const configurations: { [env: string]: Configuration } = {
+  const configurations: { [env: string]: Configuration } = {
   // Set development config same as production to use mainnet in development
   development: {
-    chainId: chainId.DOGEMAINID,
-    networkName: ConfigNetworks.DOGENETWORKNAME,
-    ftmscanUrl: ConfigNetworks.DOGEFTMSCANURL,
-    defaultProvider: ConfigNetworks.DOGEDEFAULTPROVIDER,
+    chainId: ConfigNetworks.DOGE_TESTNET.chainId,
+    networkName: ConfigNetworks.DOGE_TESTNET.networkName,
+    ftmscanUrl: ConfigNetworks.DOGE_TESTNET.ftmscanUrl,
+    defaultProvider: ConfigNetworks.DOGE_TESTNET.defaultProvider,
     deployments: require('./tomb-finance/deployments/deployments.testing.json'),
-    externalTokens: {
-      WWDOGE: [ExternalTokens.DOGEWWDOGE, 18], //wDOGE
-      FUSDT: [ExternalTokens.DOGEFUSDT, 18], // This is actually usdc on mainnet not fusdt
-      USDC: [ExternalTokens.DOGEUSDC, 18],
-      'USDT-FTM-LP': [ExternalTokens.DOGEUSDTFTMLP, 18],
-      'BONES-DOGE-LP': [ExternalTokens.DOGEBONESDOGELP, 18],
-      'BSHARE-DOGE-LP': [ExternalTokens.DOGEBSHAREDOGELP, 18],
-    },
+    externalTokens: ConfigNetworks.DOGE_TESTNET.externalTokens,
     baseLaunchDate: new Date('2022-08-30 00:00:00Z'),
     bondLaunchesAt: new Date('2022-09-01T00:00:00Z'),
     masonryLaunchesAt: new Date('2022-09-01T06:00:00Z'),
     refreshInterval: 10000,
   },
   production: {
-    chainId: ChainId.OPTIMISMID,
+    chainId: ConfigNetworks.DOGE_TESTNET.chainId, 
     networkName: 'DogeChain Testnet',
     ftmscanUrl: 'https://explorer-testnet.dogechain.dog/',
     defaultProvider: 'https://rpc-testnet.dogechain.dog/',
@@ -95,6 +88,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 6,
     closedForStaking: false,
   },
+
   BShareDogeLPBShareRewardPool: {
     name: 'Earn BSHARE by BSHARE-DOGE LP',
     poolId: 1,
